@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { showToast } from "./Toast";
-
-const TopBar = () => {
+import Sidebar from "./SideBar";
+const TopBar: React.FC = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  //function to handle user button click
   const handleClick = () => {
     // Show a success toast
     showToast("Button clicked!", "success");
     setDropdownVisible(!isDropdownVisible);
   };
-
+  const handleSidebarToggle = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
   return (
     <div>
       <nav className="bg-white  shadow-lg border-10 border-black md:shadow-xl">
@@ -27,12 +30,12 @@ const TopBar = () => {
             <button
               type="button"
               className="bg-transparent rounded-full bg-white relative"
-              id="user-menu-button"
+              id="user-button"
               onClick={handleClick}
             >
               <CgProfile className="h-10 w-10 bg-transparent" />
             </button>
-
+            {/* user button on click drop down */}
             {isDropdownVisible && (
               <div
                 className="absolute mt-2 top-full right-0 z-50 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-md"
@@ -48,13 +51,12 @@ const TopBar = () => {
                 </div>
               </div>
             )}
-
+            {/* hamburgur button for side bar */}
             <button
-              data-collapse-toggle="navbar-user"
+              id="sidebarbutton"
               type="button"
               className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-              aria-controls="navbar-user"
-              aria-expanded="false"
+              onClick={handleSidebarToggle}
             >
               <svg
                 className="w-5 h-5"
@@ -75,6 +77,7 @@ const TopBar = () => {
           </div>
         </div>
       </nav>
+      <Sidebar isOpen={isSidebarOpen} />
     </div>
   );
 };
