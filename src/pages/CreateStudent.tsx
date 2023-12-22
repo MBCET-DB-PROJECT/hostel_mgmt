@@ -79,7 +79,7 @@ const CreateStudent: React.FC = () => {
                       />{" "}
                     </div>
                   </div>
-                  <div className="mt-5 bg-white rounded-lg shadow-lg mx-4">
+                  <div className="mt-5 bg-white rounded-lg shadow-lg mx-4 mb-5">
                     <div className="flex">
                       <div className="flex-1 py-5 pl-5  overflow-hidden">
                         <h1 className="inline text-2xl font-semibold leading-none">
@@ -88,27 +88,27 @@ const CreateStudent: React.FC = () => {
                       </div>
                     </div>
                     <div className="px-5 pb-5 flex flex-col">
-                      <div className="flex flex-row justify-between">
+                      <div className="md:flex md:flex-row md:justify-between">
                         {" "}
                         <input
                           placeholder="Class (Eg:CS2)"
-                          className=" text-black placeholder-gray-500 w-1/3 px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
+                          className=" text-black placeholder-gray-500 md:w-1/3 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
                           required
                         />
                         <input
                           placeholder="Assign Room (Eg:302)"
-                          className=" text-black placeholder-gray-500 w-1/3 px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
+                          className=" text-black placeholder-gray-500 md:w-1/3 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
                           required
                         />
                       </div>
-                      <div className="flex flex-row justify-between">
+                      <div className="md:flex md:flex-row md:justify-between">
                         {" "}
                         <input
                           placeholder="Semester (Eg:S6)"
-                          className=" text-black placeholder-gray-500 w-1/3 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
+                          className=" text-black placeholder-gray-500 md:w-1/3 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
                           required
                         />
-                        <div className="bg-gray-200 rounded-lg w-1/3 px-4 py-2.5 mt-2 text-base flex ">
+                        <div className="bg-gray-200 rounded-lg md:w-1/3 w-full px-4 py-2.5 mt-2 text-base flex ">
                           <input
                             type="checkbox"
                             className="w-6 h-6 text-black text-sm bg-transparent border-none rounded-md focus:ring-transparent  accent-black"
@@ -120,7 +120,7 @@ const CreateStudent: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="flex flex-col items-center space-y-4">
+                    <div className="flex flex-col items-center space-y-4 px-4 py-2.5">
                       <div className="w-full max-w-md">
                         <label
                           htmlFor="imageInput"
