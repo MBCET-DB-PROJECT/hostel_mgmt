@@ -45,7 +45,7 @@ const StudentsList: React.FC = () => {
             </h1>
             <Link
               href="/CreateStudent"
-              className={`mt-6 mr-2 px-1 py-1 bg-gray-400 rounded-lg ${
+              className={`mt-6 mr-4 px-1 py-1 bg-gray-400 rounded-lg ${
                 isSidebarOpen ? "hidden md:block" : ""
               }`}
             >
