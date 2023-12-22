@@ -23,7 +23,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
       <h1 className="font-semibold mt-10 space-y-6 text-center flex justify-center items-center flex-col ">
         <Link
           href="/"
-          className="hover:bg-gray-100 p-3 w-full rounded-lg flex "
+          className="hover:bg-gray-200 p-3 w-full rounded-lg flex "
         >
           <div className="w-1/3 flex justify-center">
             <FaHome size={24} />
@@ -32,7 +32,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
         </Link>
         <Link
           href="/StudentsList"
-          className="hover:bg-gray-100 p-3 w-full rounded-lg flex"
+          className="hover:bg-gray-200 p-3 w-full rounded-lg flex"
         >
           <div className="w-1/3 flex justify-center">
             <PiStudentFill size={28} />
@@ -41,7 +41,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
         </Link>
         <Link
           href="/AdminNotifications"
-          className="hover:bg-gray-100 p-3 w-full rounded-lg flex"
+          className="hover:bg-gray-200 p-3 w-full rounded-lg flex"
         >
           <div className="w-1/3 flex justify-center">
             <IoIosNotifications size={26} />
@@ -50,7 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
         </Link>
         <Link
           href="/AdminTickets"
-          className="hover:bg-gray-100 p-3 w-full rounded-lg flex"
+          className="hover:bg-gray-200 p-3 w-full rounded-lg flex"
         >
           <div className="w-1/3 flex justify-center">
             <IoTicket size={24} />
@@ -59,7 +59,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
         </Link>
         <Link
           href="/AdminRooms"
-          className="hover:bg-gray-100 p-3 w-full rounded-lg flex"
+          className="hover:bg-gray-200 p-3 w-full rounded-lg flex"
         >
           <div className="w-1/3 flex justify-center">
             <FaBuilding size={22} />
@@ -68,7 +68,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
         </Link>
         <Link
           href="/CreateStudent"
-          className="hover:bg-gray-100 p-3 w-full rounded-lg flex"
+          className="hover:bg-gray-200 p-3 w-full rounded-lg flex"
         >
           <div className="w-1/3 flex justify-center">
             <FaPeopleGroup size={28} />
@@ -79,7 +79,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
       <div className=" text-center flex justify-center items-center">
         <Link
           href="/"
-          className="hover:bg-gray-100 p-3 text-red-700 w-full rounded-lg flex"
+          className="hover:bg-gray-200 p-3 text-red-700 w-full rounded-lg flex"
         >
           <div className="w-1/3 flex justify-center ">
             <TbLogout2 size={26} />
