@@ -77,7 +77,6 @@ const TopBar: React.FC = () => {
           </div>
         </div>
       </nav>
-      <Sidebar isOpen={isSidebarOpen} />
     </div>
   );
 };
