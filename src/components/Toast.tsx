@@ -7,7 +7,7 @@ export const showToast = (
   type: "success" | "error" | "info" = "info"
 ) => {
   const options: ToastOptions = {
-    position: "bottom-right",
+    position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,

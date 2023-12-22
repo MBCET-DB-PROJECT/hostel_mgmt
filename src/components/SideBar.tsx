@@ -18,7 +18,7 @@ interface SidebarProps {
 }
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   return (
-    <div className="p-4 text-black">
+    <div className="p-4 text-black h-screen">
       <h1 className="font-semibold mt-10 space-y-6 text-center flex justify-center items-center flex-col ">
         <Link
           href="/"
