@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import studentdata from "./../../data/StudentDetails.json";
+import "tailwindcss/tailwind.css";
+
 interface Student {
   id: number;
   name: string;
@@ -32,13 +34,42 @@ const EditStudent: React.FC = () => {
   }
 
   return (
-    <div>
-      <h1>Edit Student {id}</h1>
-      <p>Name: {student.name}</p>
-      <p>Class: {student.class}</p>
-      <p>Semester: {student.sem}</p>
-      <p>Room: {student.roomno}</p>
-      {/* ... display other student details as needed */}
+    <div className="flex justify-center">
+      <div className="w-1/3 flex justify-center flex-col bg-red-100">
+        <div className="flex justify-center text-center items-center ">
+          <h1 className="text-3xl font-semibold mt-5">Edit Student:</h1>
+        </div>
+        <div>
+          <div className="flex flex-col  space-y-5 ">
+            <div className="flex  justify-around mt-10">
+              <div>
+                <p>Name: {student.name}</p>
+              </div>
+              <div>
+                <button className="px-4 py-2 rounded-lg bg-gray-300">
+                  edit
+                </button>
+              </div>
+            </div>
+
+            <div className="flex  justify-around  ">
+              {" "}
+              <p>Class: {student.class}</p>
+              <button className="px-4 py-2 rounded-lg bg-gray-300">edit</button>
+            </div>
+            <div className="flex justify-around ">
+              <p>Semester: {student.sem}</p>
+              <button className="px-4 py-2 rounded-lg bg-gray-300">edit</button>
+            </div>
+            <div className="flex justify-around ">
+              <p>Room: {student.roomno}</p>
+              <button className="px-4 py-2 rounded-lg bg-gray-300">edit</button>
+            </div>
+          </div>
+
+          {/* ... display other student details as needed */}
+        </div>
+      </div>
     </div>
   );
 };
