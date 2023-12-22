@@ -26,7 +26,7 @@ const CreateStudent: React.FC<SidebarProps> = ({ isOpen }) => {
         </div>
         <div className="md:block md:w-5/6 bg-gray-100 h-screen w-full ">
           <div className="flex justify-center text-center">
-            <h1 className=" mt-2 font-semibold text-3xl">Create Students</h1>
+            <h1 className=" mt-2 font-semibold text-3xl">Add Students</h1>
           </div>
           <div className="flex bg-gray-100">
             <div className="m-auto">
