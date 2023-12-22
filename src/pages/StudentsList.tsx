@@ -52,6 +52,8 @@ const StudentsList: React.FC = () => {
               </div>
               <p className="mt-4">Name: {selectedStudent.name}</p>
               <p>Class: {selectedStudent.class}</p>
+              <p>Sem: {selectedStudent.sem}</p>
+              <p>Room: {selectedStudent.roomno}</p>
               {/* ... other details */}
               <div className="mt-6">
                 <Link

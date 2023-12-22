@@ -36,6 +36,8 @@ const EditStudent: React.FC = () => {
       <h1>Edit Student {id}</h1>
       <p>Name: {student.name}</p>
       <p>Class: {student.class}</p>
+      <p>Semester: {student.sem}</p>
+      <p>Room: {student.roomno}</p>
       {/* ... display other student details as needed */}
     </div>
   );
