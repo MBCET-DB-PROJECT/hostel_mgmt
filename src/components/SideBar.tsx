@@ -6,6 +6,7 @@ import StudentsList from "@/pages/StudentsList";
 import AdminNotifications from "@/pages/AdminNotifications";
 import AdminTickets from "@/pages/AdminTickets";
 import AdminRooms from "@/pages/AdminRooms";
+import { TbLogout2 } from "react-icons/tb";
 import { FaHome } from "react-icons/fa";
 import { PiStudentFill } from "react-icons/pi";
 import { IoIosNotifications } from "react-icons/io";
@@ -18,7 +19,7 @@ interface SidebarProps {
 }
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   return (
-    <div className="p-4 text-black h-screen">
+    <div className="p-4 text-black h-screen   flex flex-col justify-between">
       <h1 className="font-semibold mt-10 space-y-6 text-center flex justify-center items-center flex-col ">
         <Link
           href="/"
@@ -75,6 +76,17 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
           <h1 className="flex">Add Students</h1>
         </Link>
       </h1>
+      <div className=" text-center flex justify-center items-center">
+        <Link
+          href="/"
+          className="hover:bg-gray-100 p-3 text-red-700 w-full rounded-lg flex"
+        >
+          <div className="w-1/3 flex justify-center ">
+            <TbLogout2 size={26} />
+          </div>
+          <h1 className="flex font-semibold text-lg">Logout</h1>
+        </Link>
+      </div>
       {/* Add your sidebar links or components here */}
     </div>
   );
