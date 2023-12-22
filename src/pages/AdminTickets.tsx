@@ -6,8 +6,7 @@ interface SidebarProps {
   isOpen: boolean;
 }
 
-const AdminTickets: React.FC<SidebarProps> = ({ isOpen }) => {
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
+const AdminTickets: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   //function to handle user button click
 
@@ -16,11 +15,11 @@ const AdminTickets: React.FC<SidebarProps> = ({ isOpen }) => {
   };
   return (
     <div>
-      <TopBar />
+      <TopBar onSidebarToggle={handleSidebarToggle} />
       <div className="flex">
         <div
           className={`md:block md:w-1/6 bg-white h-screen shadow-lg ${
-            isOpen ? "block" : "hidden"
+            isSidebarOpen ? "block" : "hidden"
           }`}
         >
           <Sidebar isOpen={isSidebarOpen} />

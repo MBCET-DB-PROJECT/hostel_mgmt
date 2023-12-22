@@ -17,13 +17,6 @@ interface SidebarProps {
   isOpen: boolean;
 }
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
-  //function to handle user button click
-
-  const handleSidebarToggle = () => {
-    setSidebarOpen(!isSidebarOpen);
-  };
   return (
     <div className="p-4 text-black">
       <h1 className="font-semibold mt-10 space-y-6 text-center flex justify-center items-center flex-col ">

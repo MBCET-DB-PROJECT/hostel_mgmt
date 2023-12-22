@@ -2,17 +2,18 @@ import React, { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { showToast } from "./Toast";
 import Sidebar from "./SideBar";
-const TopBar: React.FC = () => {
+
+interface TopBarProps {
+  onSidebarToggle: () => void;
+}
+
+const TopBar: React.FC<{ onSidebarToggle: () => void }> = ({
+  onSidebarToggle,
+}) => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
-  //function to handle user button click
+
   const handleClick = () => {
-    // Show a success toast
-    showToast("Button clicked!", "success");
     setDropdownVisible(!isDropdownVisible);
-  };
-  const handleSidebarToggle = () => {
-    setSidebarOpen(!isSidebarOpen);
   };
   return (
     <div>
@@ -56,7 +57,7 @@ const TopBar: React.FC = () => {
               id="sidebarbutton"
               type="button"
               className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-              onClick={handleSidebarToggle}
+              onClick={onSidebarToggle}
             >
               <svg
                 className="w-5 h-5"
