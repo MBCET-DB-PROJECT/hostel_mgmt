@@ -133,7 +133,7 @@ const CreateStudent: React.FC = () => {
                           id="imageInput"
                           accept="image/*"
                           onChange={handleImageChange}
-                          className="w-full p-2 border rounded-lg"
+                          className="w-full p-2 border border-2 border-gray-300 rounded-lg"
                         />
                       </div>
                       {image && (
