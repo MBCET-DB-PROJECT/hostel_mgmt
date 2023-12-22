@@ -1,6 +1,12 @@
 import CreateStudent from "@/pages/CreateStudent";
 import TestPage from "@/pages/TestPage";
+import Link from "next/link";
 import React from "react";
+import StudentsList from "@/pages/StudentsList";
+import AdminNotifications from "@/pages/AdminNotifications";
+import AdminTickets from "@/pages/AdminTickets";
+import AdminRooms from "@/pages/AdminRooms";
+
 interface SidebarProps {
   isOpen: boolean;
 }
@@ -14,24 +20,42 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
       >
         <div className="p-4 text-black">
           <h1 className="font-semibold mt-10 space-y-6 text-center flex justify-center items-center flex-col ">
-            <div className="hover:bg-gray-100 p-3 w-full rounded-lg text-center">
+            <Link
+              href="/"
+              className="hover:bg-gray-100 p-3 w-full rounded-lg text-center"
+            >
               Home
-            </div>
-            <div className="hover:bg-gray-100 p-3 w-full rounded-lg text-center">
+            </Link>
+            <Link
+              href="/StudentsList"
+              className="hover:bg-gray-100 p-3 w-full rounded-lg text-center"
+            >
               Students
-            </div>
-            <div className="hover:bg-gray-100 p-3 w-full rounded-lg text-center">
+            </Link>
+            <Link
+              href="AdminNotifications"
+              className="hover:bg-gray-100 p-3 w-full rounded-lg text-center"
+            >
               Notifications
-            </div>
-            <div className="hover:bg-gray-100 p-3 w-full rounded-lg text-center">
+            </Link>
+            <Link
+              href="/AdminTickets"
+              className="hover:bg-gray-100 p-3 w-full rounded-lg text-center"
+            >
               Tickets
-            </div>
-            <div className="hover:bg-gray-100 p-3 w-full rounded-lg text-center">
+            </Link>
+            <Link
+              href="/AdminRooms"
+              className="hover:bg-gray-100 p-3 w-full rounded-lg text-center"
+            >
               Rooms
-            </div>
-            <div className="hover:bg-gray-100 p-3 w-full rounded-lg text-center">
+            </Link>
+            <Link
+              href="/CreateStudent"
+              className="hover:bg-gray-100 p-3 w-full rounded-lg text-center"
+            >
               Create Students
-            </div>
+            </Link>
           </h1>
           {/* Add your sidebar links or components here */}
         </div>
