@@ -31,9 +31,9 @@ const CreateStudent: React.FC<SidebarProps> = ({ isOpen }) => {
           <div className="flex bg-gray-100">
             <div className="m-auto">
               <div>
-                <div className="mt-5 bg-white rounded-lg shadow-lg">
+                <div className="mt-5 bg-white rounded-lg shadow-lg mx-4">
                   <div className="flex">
-                    <div className="flex-1 py-5 pl-5 overflow-hidden">
+                    <div className="flex-1 py-5 pl-5  overflow-hidden">
                       <h1 className="inline text-2xl font-semibold leading-none">
                         Create Student Account
                       </h1>

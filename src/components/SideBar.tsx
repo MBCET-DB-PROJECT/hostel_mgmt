@@ -1,7 +1,7 @@
 import CreateStudent from "@/pages/CreateStudent";
 import TestPage from "@/pages/TestPage";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import StudentsList from "@/pages/StudentsList";
 import AdminNotifications from "@/pages/AdminNotifications";
 import AdminTickets from "@/pages/AdminTickets";
@@ -17,6 +17,13 @@ interface SidebarProps {
   isOpen: boolean;
 }
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  //function to handle user button click
+
+  const handleSidebarToggle = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
   return (
     <div className="p-4 text-black">
       <h1 className="font-semibold mt-10 space-y-6 text-center flex justify-center items-center flex-col ">
