@@ -13,6 +13,17 @@ import EditStudents from "./EditStudents/[id]";
 interface SidebarProps {
   isOpen: boolean;
 }
+interface Student {
+  id: number;
+  name: string;
+  class: string;
+  sem: string;
+  roomno: string;
+  email: string;
+  fees: string;
+  password: string;
+  // ... other properties
+}
 
 const StudentsList: React.FC = () => {
   const students = StudentData;
@@ -20,16 +31,7 @@ const StudentsList: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<any>(null);
   const [isBlurry, setBlurry] = useState(false);
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [studentToDelete, setStudentToDelete] = useState<any>(null);
-  const [, forceRender] = useState({});
-
-  const handleDeleteClick = (student: any) => {
-    setStudentToDelete(student);
-    console.log("delete clicked", student);
-    setDeleteModalOpen(true);
-    forceRender({}); // Force re-render
-  };
+  const [studentsList, setStudentsList] = useState<Student[]>(StudentData);
 
   const handleSidebarToggle = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -45,48 +47,19 @@ const StudentsList: React.FC = () => {
       setBlurry(false);
     }
   }, [isModalOpen]);
-  useEffect(() => {
-    console.log("deleteModalOpen:", deleteModalOpen);
-  }, [deleteModalOpen]);
+  const deleteStudent = (id: number) => {
+    const updatedList = studentsList.filter((student) => student.id !== id);
+    setStudentsList(updatedList);
+  };
 
   return (
     <div>
-      {deleteModalOpen && studentToDelete && (
-        <div className=" flex items-center justify-center z-100">
-          <div className="bg-white p-6 rounded-lg md:w-1/3 w-2/3 shadow-lg mt-5">
-            <h2 className="text-xl mb-4 font-semibold">Confirm Deletion</h2>
-            <p>
-              Are you sure you want to delete student {studentToDelete.name}?
-            </p>
-            <div className="mt-6 flex justify-end">
-              <button
-                className="bg-red-500 text-white px-4 py-2 rounded mr-2"
-                onClick={() => {
-                  // Implement your delete logic here, for now just close the modal
-                  setDeleteModalOpen(false);
-                }}
-              >
-                Delete
-              </button>
-              <button
-                className="bg-gray-300 text-black px-4 py-2 rounded"
-                onClick={() => {
-                  setDeleteModalOpen(false), console.log("cancel clicked");
-                }}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {isModalOpen && selectedStudent && (
         <div className="md:w-1/6 md:block shadow-lg">
           <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="bg-white md:p-8 p-4  rounded-lg md:w-1/2 w-2/3 shadow-md">
               <div className="flex justify-between">
-                <h2 className="text-xl ">Student Details</h2>
+                <h2 className="text-xl font-semibold">Student Details</h2>
                 <button
                   onClick={() => setModalOpen(false)}
                   className="hover:bg-gray-200 px-1 py-1 rounded-lg"
@@ -102,15 +75,16 @@ const StudentsList: React.FC = () => {
               <div className="mt-6">
                 <Link
                   href={`/EditStudents/${selectedStudent.id}`}
-                  className="mr-4 text-blue-500"
+                  className="mr-4 text-white py-2 px-2 bg-blue-500 rounded-md hover:bg-blue-400"
                 >
                   Edit
                 </Link>
                 <button
-                  className="text-red-500"
+                  className="text-white py-2 px-2 bg-red-500 rounded-md hover:bg-red-400"
                   onClick={(e) => {
-                    e.preventDefault();
-                    handleDeleteClick(selectedStudent);
+                    console.log("delete clicked");
+                    deleteStudent(selectedStudent.id);
+                    setModalOpen(false);
                   }}
                 >
                   Delete
@@ -147,7 +121,7 @@ const StudentsList: React.FC = () => {
 
             <div className="flex bg-gray-100">
               <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
-                {students.map((student) => (
+                {studentsList.map((student) => (
                   <div
                     key={student.id}
                     onClick={() => handleStudentClick(student)}
