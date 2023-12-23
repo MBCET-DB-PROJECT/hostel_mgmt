@@ -22,32 +22,38 @@ interface Student {
   email: string;
   fees: string;
   password: string;
-  // ... other properties
 }
 
 const StudentsList: React.FC = () => {
   const students = StudentData;
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(false); //to check whether sidebar is open in responsive view
+  const [isModalOpen, setModalOpen] = useState(false); //to check whether the student details modal is open
   const [selectedStudent, setSelectedStudent] = useState<any>(null);
-  const [isBlurry, setBlurry] = useState(false);
-  const [studentsList, setStudentsList] = useState<Student[]>(StudentData);
+  const [isBlurry, setBlurry] = useState(false); //to blur background when modal is open
+  const [studentsList, setStudentsList] = useState<Student[]>(StudentData); //to map student list
 
   const handleSidebarToggle = () => {
+    //handles sidebar open or not in mobile view
     setSidebarOpen(!isSidebarOpen);
   };
+
   const handleStudentClick = (student: any) => {
+    //to select particular student to show details of in student details modal
     setSelectedStudent(student);
     setModalOpen(true);
   };
+
   useEffect(() => {
+    //to set background to blur when modal is open
     if (isModalOpen) {
       setBlurry(true);
     } else {
       setBlurry(false);
     }
   }, [isModalOpen]);
+
   const deleteStudent = (id: number) => {
+    //to map the deleted students
     const updatedList = studentsList.filter((student) => student.id !== id);
     setStudentsList(updatedList);
   };
@@ -55,6 +61,7 @@ const StudentsList: React.FC = () => {
   return (
     <div>
       {isModalOpen && selectedStudent && (
+        //modal for student details
         <div className="md:w-1/6 md:block shadow-lg">
           <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="bg-white md:p-8 p-4  rounded-lg md:w-1/2 w-2/3 shadow-md">
