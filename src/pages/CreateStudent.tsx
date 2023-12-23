@@ -9,13 +9,13 @@ import "react-toastify/dist/ReactToastify.css";
 import Toast from "@/components/Toast";
 
 const CreateStudent: React.FC = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [showCreateToast, setShowCreateToast] = useState(false);
-  const [image, setImage] = useState<string | null>(null);
+  const [isSidebarOpen, setSidebarOpen] = useState(false); //to check sidebar open or not in mobile view
+  const [showCreateToast, setShowCreateToast] = useState(false); //to show user created toast
+  const [image, setImage] = useState<string | null>(null); //used for image insertion and preview
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedImage = e.target.files?.[0];
-
+    //to handle image insertion and preview
     if (selectedImage) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -24,18 +24,21 @@ const CreateStudent: React.FC = () => {
       reader.readAsDataURL(selectedImage);
     }
   };
+
   const handleSubmit = (e: FormEvent) => {
+    //useless funtion to debug
     e.preventDefault();
-    // Handle image upload logic here
     console.log("Image uploaded:", image);
-    // showToast("submitted successfully", "success");
   };
+
   const handleSidebarToggle = () => {
+    //handles sidebar
     setSidebarOpen(!isSidebarOpen);
   };
   const handleCreateClick = () => {
     setShowCreateToast(true);
   };
+
   return (
     <div>
       <TopBar onSidebarToggle={handleSidebarToggle} />
