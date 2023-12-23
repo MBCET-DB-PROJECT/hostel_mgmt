@@ -5,12 +5,13 @@ import Sidebar from "@/components/SideBar";
 import TopBar from "@/components/TopBar";
 import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
-import { showToast } from "@/components/Toast";
+//import { showToast } from "@/components/Toast";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import Link from "next/link";
 import StudentsList from "../StudentsList";
+import Toast from "@/components/Toast";
 
 interface Student {
   id: number;
@@ -29,6 +30,9 @@ const EditStudent: React.FC = () => {
   const [student, setStudent] = useState<Student | null>(null);
   const [image, setImage] = useState<string | null>(null);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isEditingEmail, setIsEditingEmail] = useState(false);
+  const [showEmailToast, setShowEmailToast] = useState(false);
+  const [showUpdateToast, setShowUpdateToast] = useState(false);
   useEffect(() => {
     if (id) {
       const selectedStudent = studentdata.find(
@@ -60,12 +64,17 @@ const EditStudent: React.FC = () => {
     e.preventDefault();
     // Handle image upload logic here
     console.log("Image uploaded:", image);
-    showToast("submitted successfully", "success");
+    // showToast("submitted successfully", "success");
   };
   const handleSidebarToggle = () => {
     setSidebarOpen(!isSidebarOpen);
   };
-
+  const handleEmailClick = () => {
+    setShowEmailToast(true);
+  };
+  const handleUpdateClick = () => {
+    setShowUpdateToast(true);
+  };
   return (
     <div>
       <TopBar onSidebarToggle={handleSidebarToggle} />
@@ -121,7 +130,15 @@ const EditStudent: React.FC = () => {
                         type="email"
                         className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
                         required
+                        onClick={handleEmailClick}
                       />
+                      {showEmailToast && (
+                        <Toast
+                          message="Email cannot be changed."
+                          type="success"
+                          onClose={() => setShowEmailToast(false)}
+                        />
+                      )}
                       <input
                         placeholder="Password"
                         type="password"
@@ -129,7 +146,7 @@ const EditStudent: React.FC = () => {
                         onChange={(e) =>
                           setStudent((prevState: Student | null) => ({
                             ...prevState!,
-                            name: e.target.value,
+                            password: e.target.value,
                           }))
                         }
                         className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current"
@@ -154,7 +171,7 @@ const EditStudent: React.FC = () => {
                           onChange={(e) =>
                             setStudent((prevState: Student | null) => ({
                               ...prevState!,
-                              name: e.target.value,
+                              class: e.target.value,
                             }))
                           }
                           className=" text-black placeholder-gray-500 md:w-2/5 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
@@ -166,7 +183,7 @@ const EditStudent: React.FC = () => {
                           onChange={(e) =>
                             setStudent((prevState: Student | null) => ({
                               ...prevState!,
-                              name: e.target.value,
+                              roomno: e.target.value,
                             }))
                           }
                           className=" text-black placeholder-gray-500 md:w-2/5 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
@@ -181,7 +198,7 @@ const EditStudent: React.FC = () => {
                           onChange={(e) =>
                             setStudent((prevState: Student | null) => ({
                               ...prevState!,
-                              name: e.target.value,
+                              sem: e.target.value,
                             }))
                           }
                           className=" text-black placeholder-gray-500 md:w-2/5 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
@@ -227,6 +244,7 @@ const EditStudent: React.FC = () => {
                       <button
                         type="submit"
                         className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 mb-5 "
+                        onClick={handleUpdateClick}
                       >
                         <div className="flex ">
                           {" "}
@@ -236,6 +254,13 @@ const EditStudent: React.FC = () => {
                           <div>Update</div>
                         </div>
                       </button>
+                      {showUpdateToast && (
+                        <Toast
+                          message="Details updated successfully."
+                          type="success"
+                          onClose={() => setShowUpdateToast(false)}
+                        />
+                      )}
                     </div>
                   </div>
                 </form>

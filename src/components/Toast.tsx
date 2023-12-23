@@ -1,32 +1,39 @@
-// Toast.tsx
-import { toast, ToastOptions } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState, useEffect } from "react";
 
-export const showToast = (
-  message: string,
-  type: "success" | "error" | "info" = "info"
-) => {
-  const options: ToastOptions = {
-    position: "top-right",
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-  };
+interface ToastProps {
+  message: string;
+  type: "success" | "error" | "info";
+  onClose?: () => void;
+}
 
-  switch (type) {
-    case "success":
-      toast.success(message, options);
-      break;
-    case "error":
-      toast.error(message, options);
-      break;
-    case "info":
-      toast.info(message, options);
-      break;
-    default:
-      toast(message, options);
-      break;
-  }
+const Toast: React.FC<ToastProps> = ({ message, type, onClose }) => {
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShow(false);
+      if (onClose) {
+        onClose();
+      }
+    }, 3000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className={`fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-${type}-500 text-white px-4 py-2 rounded bg-red-500`}
+      style={{
+        opacity: show ? "1" : "0",
+        transition: "opacity 0.3s ease-in-out",
+        zIndex: 9999,
+      }}
+    >
+      {message}
+    </div>
+  );
 };
+
+export default Toast;

@@ -3,12 +3,14 @@ import TopBar from "@/components/TopBar";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import "tailwindcss/tailwind.css";
 import { FaPlus } from "react-icons/fa";
-import { showToast } from "@/components/Toast";
+//import { showToast } from "@/components/Toast";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Toast from "@/components/Toast";
+
 const CreateStudent: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-
+  const [showCreateToast, setShowCreateToast] = useState(false);
   const [image, setImage] = useState<string | null>(null);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -26,12 +28,14 @@ const CreateStudent: React.FC = () => {
     e.preventDefault();
     // Handle image upload logic here
     console.log("Image uploaded:", image);
-    showToast("submitted successfully", "success");
+    // showToast("submitted successfully", "success");
   };
   const handleSidebarToggle = () => {
     setSidebarOpen(!isSidebarOpen);
   };
-
+  const handleCreateClick = () => {
+    setShowCreateToast(true);
+  };
   return (
     <div>
       <TopBar onSidebarToggle={handleSidebarToggle} />
@@ -148,6 +152,7 @@ const CreateStudent: React.FC = () => {
                       <button
                         type="submit"
                         className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 mb-5 "
+                        onClick={handleCreateClick}
                       >
                         <div className="flex ">
                           {" "}
@@ -157,6 +162,13 @@ const CreateStudent: React.FC = () => {
                           <div>Add</div>
                         </div>
                       </button>
+                      {showCreateToast && (
+                        <Toast
+                          message="Details updated successfully."
+                          type="success"
+                          onClose={() => setShowCreateToast(false)}
+                        />
+                      )}
                     </div>
                   </div>
                 </form>
