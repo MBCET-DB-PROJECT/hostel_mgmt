@@ -106,6 +106,12 @@ const EditStudent: React.FC = () => {
                       <input
                         placeholder="Name"
                         value={student.name}
+                        onChange={(e) =>
+                          setStudent((prevState: Student | null) => ({
+                            ...prevState!,
+                            name: e.target.value,
+                          }))
+                        }
                         className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
                         required
                       />
@@ -120,6 +126,12 @@ const EditStudent: React.FC = () => {
                         placeholder="Password"
                         type="password"
                         value={student.password}
+                        onChange={(e) =>
+                          setStudent((prevState: Student | null) => ({
+                            ...prevState!,
+                            name: e.target.value,
+                          }))
+                        }
                         className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current"
                         required
                       />{" "}
@@ -139,12 +151,24 @@ const EditStudent: React.FC = () => {
                         <input
                           placeholder="Class (Eg:CS2)"
                           value={student.class}
+                          onChange={(e) =>
+                            setStudent((prevState: Student | null) => ({
+                              ...prevState!,
+                              name: e.target.value,
+                            }))
+                          }
                           className=" text-black placeholder-gray-500 md:w-2/5 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
                           required
                         />
                         <input
                           placeholder="Assign Room (Eg:302)"
                           value={student.roomno}
+                          onChange={(e) =>
+                            setStudent((prevState: Student | null) => ({
+                              ...prevState!,
+                              name: e.target.value,
+                            }))
+                          }
                           className=" text-black placeholder-gray-500 md:w-2/5 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
                           required
                         />
@@ -154,6 +178,12 @@ const EditStudent: React.FC = () => {
                         <input
                           placeholder="Semester (Eg:S6)"
                           value={student.sem}
+                          onChange={(e) =>
+                            setStudent((prevState: Student | null) => ({
+                              ...prevState!,
+                              name: e.target.value,
+                            }))
+                          }
                           className=" text-black placeholder-gray-500 md:w-2/5 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
                           required
                         />
