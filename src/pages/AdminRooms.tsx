@@ -32,24 +32,18 @@ const AdminRooms: React.FC = () => {
                 Occupied Rooms
               </h1>
               <div className="mt-2 flex items-center justify-center border-b  p-3 border-black"></div>
-              <div className="flex items-center justify-center border-b  p-3 border-black">
+              <button className="flex items-center justify-center border-b  p-3 border-black w-full">
                 smth
-              </div>
-              <div className="flex items-center justify-center border-b  p-3 border-black">
-                smth2
-              </div>
+              </button>
             </div>
             <div className="bg-blue-200 p-4 w-1/3 right-0 rounded-md shadow-md">
               <h1 className="flex justify-center font-semibold text-2xl">
                 Unoccupied Rooms
               </h1>
               <div className="mt-2 flex items-center justify-center border-b  p-3 border-black"></div>
-              <div className="flex items-center justify-center border-b  p-3 border-black">
+              <button className="flex items-center justify-center border-b  p-3 border-black w-full">
                 lala
-              </div>
-              <div className="flex items-center justify-center border-b  p-3 border-black">
-                lala2
-              </div>
+              </button>
             </div>
           </div>
           <div className="mt-5 flex justify-center">
