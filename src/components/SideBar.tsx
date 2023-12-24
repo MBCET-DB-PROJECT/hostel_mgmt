@@ -79,7 +79,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
       <div className=" text-center flex justify-center items-center">
         <Link
           href="/"
-          className="hover:bg-gray-200 p-3 text-red-700 w-full rounded-lg flex"
+          className="hover:bg-red-100 p-3 text-red-700 w-full rounded-lg flex"
         >
           <div className="w-1/3 flex justify-center ">
             <TbLogout2 size={26} />
