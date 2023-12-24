@@ -2,27 +2,68 @@ import Sidebar from "@/components/SideBar";
 import TopBar from "@/components/TopBar";
 import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
+import Toast from "@/components/Toast";
+import { useEffect } from "react";
+import NotifData from "./../data/Notifications.json";
+
 interface SidebarProps {
   isOpen: boolean;
 }
-
+interface Notification {
+  nid: number;
+  content: string;
+  date: string;
+}
 import { MdAdd } from "react-icons/md";
 const CreateNotifications: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [notificationContent, setNotificationContent] = useState<string>("");
+  const [nid, setNid] = useState<number>(1);
+  const [showToast, setShowToast] = useState(false);
 
+  /*useEffect(() => {
+    // Find the highest nid from the JSON file
+    const maxNid = Math.max(
+      ...NotifData.map((notif: Notification) => notif.nid),
+      0
+    );
+  }, []);*/
+  const maxNid = Math.max(
+    ...NotifData.map((notif: Notification) => notif.nid),
+    0
+  );
   const handleSidebarToggle = () => {
     setSidebarOpen(!isSidebarOpen);
   };
-  const [notificationContent, setNotificationContent] = useState<string>("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNotificationContent(event.target.value);
   };
 
   const handleCreateNotification = () => {
-    console.log(notificationContent);
+    const newNotification = {
+      nid: maxNid + 1,
+      content: notificationContent,
+      date: new Date().toLocaleDateString(),
+    };
+    setShowToast(true);
+    NotifData.push(newNotification);
+
+    setNid((prevNid) => prevNid + 1);
+
+    console.log(newNotification);
     setNotificationContent("");
   };
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => {
+        setShowToast(false);
+      }, 3000); // Hide the toast after 3 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [showToast]);
+
   return (
     <div>
       <TopBar onSidebarToggle={handleSidebarToggle} />
@@ -66,6 +107,14 @@ const CreateNotifications: React.FC = () => {
               >
                 Create
               </button>
+              {showToast && (
+                <Toast
+                  message={`Successfully created - nid: ${
+                    maxNid + 1
+                  }, content: ${notificationContent}, date: ${new Date().toLocaleDateString()}`}
+                  type="success"
+                />
+              )}
             </div>
           </div>
         </div>
