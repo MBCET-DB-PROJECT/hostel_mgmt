@@ -23,8 +23,8 @@ const TestPage: React.FC = () => {
         >
           <Sidebar isOpen={isSidebarOpen} />
         </div>
-        <div className="md:block md:w-5/6 bg-gray-200 h-screen w-full ">
-          Mae changes here
+        <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
+          Make changes here
         </div>
       </div>
     </div>

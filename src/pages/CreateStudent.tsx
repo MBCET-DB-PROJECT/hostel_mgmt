@@ -50,7 +50,7 @@ const CreateStudent: React.FC = () => {
         >
           <Sidebar isOpen={isSidebarOpen} />
         </div>
-        <div className="md:block md:w-5/6 bg-gray-100 h-screen w-full ">
+        <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
           <div className="flex justify-center text-center">
             <h1 className=" mt-6 font-semibold text-3xl">Add Students</h1>
           </div>
@@ -140,7 +140,7 @@ const CreateStudent: React.FC = () => {
                           id="imageInput"
                           accept="image/*"
                           onChange={handleImageChange}
-                          className="w-full p-2 border border-2 border-gray-300 rounded-lg"
+                          className="w-full p-2  border-2 border-gray-300 rounded-lg"
                         />
                       </div>
                       {image && (

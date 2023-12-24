@@ -49,7 +49,7 @@ const CreateNotifications: React.FC = () => {
       content: notificationContent,
       date: new Date().toLocaleDateString(),
     };
-    setNewNotification(notification); // set the newNotification state here
+    setNewNotification(notification); //newNotification state for toast
     setShowToast(true);
     NotifData.push(notification);
     setNid((prevNid) => prevNid + 1);
@@ -78,7 +78,7 @@ const CreateNotifications: React.FC = () => {
         >
           <Sidebar isOpen={isSidebarOpen} />
         </div>
-        <div className="md:block md:w-5/6 bg-gray-200 h-screen w-full ">
+        <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
           <div className=" mt-6 flex justify-center items-center text-center">
             <div className="container mx-auto mt-10">
               <div className="px-1">
