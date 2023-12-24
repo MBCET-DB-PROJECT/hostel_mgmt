@@ -20,6 +20,9 @@ const CreateNotifications: React.FC = () => {
   const [notificationContent, setNotificationContent] = useState<string>("");
   const [nid, setNid] = useState<number>(1);
   const [showToast, setShowToast] = useState(false);
+  const [newNotification, setNewNotification] = useState<Notification | null>(
+    null
+  );
 
   /*useEffect(() => {
     // Find the highest nid from the JSON file
@@ -41,19 +44,19 @@ const CreateNotifications: React.FC = () => {
   };
 
   const handleCreateNotification = () => {
-    const newNotification = {
+    const notification = {
       nid: maxNid + 1,
       content: notificationContent,
       date: new Date().toLocaleDateString(),
     };
+    setNewNotification(notification); // set the newNotification state here
     setShowToast(true);
-    NotifData.push(newNotification);
-
+    NotifData.push(notification);
     setNid((prevNid) => prevNid + 1);
-
-    console.log(newNotification);
+    console.log(notification);
     setNotificationContent("");
   };
+
   useEffect(() => {
     if (showToast) {
       const timer = setTimeout(() => {
@@ -107,11 +110,13 @@ const CreateNotifications: React.FC = () => {
               >
                 Create
               </button>
-              {showToast && (
+              {showToast && newNotification && (
                 <Toast
                   message={`Successfully created - nid: ${
                     maxNid + 1
-                  }, content: ${notificationContent}, date: ${new Date().toLocaleDateString()}`}
+                  },content: ${
+                    newNotification.content
+                  }, date: ${new Date().toLocaleDateString()}`}
                   type="success"
                 />
               )}
