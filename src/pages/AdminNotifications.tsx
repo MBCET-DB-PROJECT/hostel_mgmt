@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import StudentData from "./../data/StudentDetails.json";
 import { MdEditNotifications } from "react-icons/md";
 import NotifData from "./../data/Notifications.json";
+import CreateNotifications from "./CreateNotifications";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -29,9 +30,9 @@ interface Notif {
   content: string;
   date: string;
 }
-const StudentsList: React.FC = () => {
+const AdminNotifications: React.FC = () => {
   const students = StudentData;
-  const notifs = NotifData;
+
   const [isSidebarOpen, setSidebarOpen] = useState(false); //to check whether sidebar is open in responsive view
   const [isModalOpen, setModalOpen] = useState(false); //to check whether the student details modal is open
   const [isBlurry, setBlurry] = useState(false); //to blur background when modal is open
@@ -106,7 +107,7 @@ const StudentsList: React.FC = () => {
                 Notifications
               </h1>
               <Link
-                href="/CreateStudent"
+                href="/CreateNotifications"
                 className={`mt-6 mr-4 px-1 py-1 bg-gray-400 rounded-lg hover:bg-gray-300 ${
                   isSidebarOpen ? "hidden md:block" : ""
                 }`}
@@ -140,4 +141,4 @@ const StudentsList: React.FC = () => {
   );
 };
 
-export default StudentsList;
+export default AdminNotifications;

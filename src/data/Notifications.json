@@ -2,16 +2,16 @@
   {
     "nid": 1,
     "content": "abc is v abc so do abc",
-    "date": "25-12-2023"
+    "date": "25/12/2023"
   },
   {
     "nid": 2,
     "content": "def is v def so do def",
-    "date": "20-12-2023"
+    "date": "20/12/2023"
   },
   {
     "nid": 3,
     "content": "ghi is v ghi so do ghi",
-    "date": "18-12-2023"
+    "date": "18/12/2023"
   }
 ]
