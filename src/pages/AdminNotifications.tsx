@@ -116,7 +116,7 @@ const AdminNotifications: React.FC = () => {
               </Link>
             </div>
 
-            <div className="flex bg-gray-100">
+            <div className="flex bg-slate-200">
               <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
                 {notifsList.map((notif) => (
                   <div key={notif.nid} onClick={() => handleNotifClick(notif)}>

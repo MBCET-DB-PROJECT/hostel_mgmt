@@ -5,6 +5,9 @@ import "tailwindcss/tailwind.css";
 import Toast from "@/components/Toast";
 import { useEffect } from "react";
 import NotifData from "./../data/Notifications.json";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import Link from "next/link";
+import AdminNotifications from "./AdminNotifications";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -80,11 +83,17 @@ const CreateNotifications: React.FC = () => {
         </div>
         <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
           <div className=" mt-6 flex justify-center items-center text-center">
-            <div className="container mx-auto mt-10">
-              <div className="px-1">
-                <h1 className="text-3xl font-semibold mb-4">
+            <div className="px-1 container mx-auto mt-10 ">
+              <div className=" flex justify-between">
+                <h1 className="text-3xl font-semibold mb-4 flex-1">
                   Create New Notification
                 </h1>
+                <Link
+                  href="/AdminNotifications"
+                  className="bg-black hover:bg-gray-800 text-white font-bold px-2 py-1 rounded flex mr-2 mt-2"
+                >
+                  <IoMdArrowRoundBack size={20} className="mt-1 mr-2" /> Back
+                </Link>
               </div>
 
               <div className="mb-4">
