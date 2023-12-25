@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
 import { FaPlus } from "react-icons/fa";
 import { useEffect } from "react";
-import RoomData from "../../data/Rooms.json";
+import RoomData from "../data/Rooms.json";
 
 interface SidebarProps {
   isOpen: boolean;
