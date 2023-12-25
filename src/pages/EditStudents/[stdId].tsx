@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import studentdata from "./../../data/StudentDetails.json";
+import studentdata from "../../data/StudentDetails.json";
 import "tailwindcss/tailwind.css";
 import Sidebar from "@/components/SideBar";
 import TopBar from "@/components/TopBar";
@@ -12,60 +12,193 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import Link from "next/link";
 import StudentsList from "../StudentsList";
 import Toast from "@/components/Toast";
+import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import app from "@/app/firebase";
+import { createUserWithEmailAndPassword, getAuth, updateCurrentUser } from "firebase/auth";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
-interface Student {
-  id: number;
+
+interface StudentDetails {
+  
   name: string;
-  class: string;
-  sem: string;
-  roomno: string;
   email: string;
-  fees: string;
   password: string;
+  stdclass: string;
+  semester: string;
+  roomno: string;
+  photo: File | null;
+  feespaid: boolean;
+  role: string;
 }
 
+
+
 const EditStudent: React.FC = () => {
-  const router = useRouter();
-  const { id } = router.query;
-  const [student, setStudent] = useState<Student | null>(null);
+  const [formData, setFormData] = useState<StudentDetails>({
+
+    name: "",
+    email: "",
+    password: "",
+    stdclass : "",
+    semester: "",
+    roomno: "",
+    photo: null,
+    feespaid: false,
+    role: "student",
+  });
+ 
   const [image, setImage] = useState<string | null>(null);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [showEmailToast, setShowEmailToast] = useState(false);
   const [showUpdateToast, setShowUpdateToast] = useState(false);
-  useEffect(() => {
-    if (id) {
-      const selectedStudent = studentdata.find(
-        (s: any) => s.id === parseInt(id as string)
-      );
-      if (!selectedStudent) {
-        console.error("Student not found");
-        return;
-      }
-      setStudent(selectedStudent);
-    }
-  }, [id]);
+  const router = useRouter();
+  const { stdId } = router.query;
+  const [postDetails,setPostDetails] = useState<StudentDetails | null>(null);
+  const [isChecked, setIsChecked] = useState(false);
+  
 
-  if (!id || !student) {
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const fetchPostDataFromFirestore = async (
+    stdId : string,
+  ): Promise<StudentDetails | null> => {
+    try {
+      const db = getFirestore(app);
+      const studentRef = doc(db,`students/${stdId}`);
+      const studentsSnaphot = await getDoc(studentRef);
+
+      if(studentsSnaphot.exists()) {
+        const fetchStudentData = studentsSnaphot.data() as StudentDetails;
+        return fetchStudentData;  
+       } else {
+        console.log("Post not found");
+        return null;
+       } 
+    } catch (error) {
+      console.error("Error fetching post data:",error);
+      return null;
+    }
+  } 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if(stdId === undefined) {
+          console.error("Post ID not provided in router query",router.query);
+          return;
+        }
+
+        const fetchedStudentData = await fetchPostDataFromFirestore(
+          stdId as string
+        );
+        if(fetchedStudentData) {
+          setPostDetails(fetchedStudentData);
+        } else {
+          console.log("Post not found");
+        }
+      } catch (error) {
+        console.error("Error fetching post data",error);
+      }
+    };
+
+    fetchData();
+
+  },[stdId,router.query] );
+
+  if (!postDetails) {
     return <div>Loading...</div>;
   }
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const selectedImage = e.target.files?.[0];
 
-    if (selectedImage) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result as string);
-      };
-      reader.readAsDataURL(selectedImage);
+
+
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    setFormData((prevData) => ({
+      ...prevData,
+      photo: file,
+    }));
+  };
+  try {
+  } catch (error) {}
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const auth = getAuth(app);
+    const { name, email, password, roomno, stdclass,semester, feespaid, role, photo } = formData;
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const student = userCredential.user;
+
+      const db = getFirestore(app);
+      const storage = getStorage(app);
+
+      if (photo) {
+        const imageRef = ref(storage, `images/${formData.photo?.name}`);
+        await uploadBytes(imageRef, photo);
+        const imageUrl = await getDownloadURL(imageRef);
+        console.log("Image uploaded:", imageUrl);
+
+        const studentDocRef = doc(db, "student", student.uid);
+        const studentData = {
+          name,
+          roomno,
+          stdclass,
+          semester,
+          feespaid,
+          imageUrl,
+          role
+        };
+
+        await setDoc(studentDocRef, studentData);
+      } else {
+        console.error("No photo selected");
+      }
+
+      console.log("user created");
+
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        stdclass: "",
+        semester: "",
+        roomno: "",
+        feespaid: false,
+        photo: null,
+        role: "student",
+      });
+    } catch (error: any) {
+      console.error("error creating user", error.code, error.message);
     }
   };
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    // Handle image upload logic here
-    console.log("Image uploaded:", image);
-    // showToast("submitted successfully", "success");
+
+ 
+  const handleCreateClick = () => {
+    setShowUpdateToast(true);
   };
+
+
+  const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked);
+    setFormData((prevData) => ({
+      ...prevData,
+      feespaid: e.target.checked,
+    }));
+  };
+
   const handleSidebarToggle = () => {
     setSidebarOpen(!isSidebarOpen);
   };
@@ -114,20 +247,21 @@ const EditStudent: React.FC = () => {
                     <div className="px-5 pb-5">
                       <input
                         placeholder="Name"
-                        value={student.name}
-                        onChange={(e) =>
-                          setStudent((prevState: Student | null) => ({
-                            ...prevState!,
-                            name: e.target.value,
-                          }))
-                        }
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
                         className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
                         required
                       />
                       <input
-                        placeholder="Email"
-                        value={student.email}
-                        type="email"
+                         placeholder="Email"
+                         type="text"
+                         id="email"
+                         name="email"
+                         onChange={handleChange}
+                         value={formData.email}
                         className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
                         required
                         onClick={handleEmailClick}
@@ -141,14 +275,11 @@ const EditStudent: React.FC = () => {
                       )}
                       <input
                         placeholder="Password"
-                        type="password"
-                        value={student.password}
-                        onChange={(e) =>
-                          setStudent((prevState: Student | null) => ({
-                            ...prevState!,
-                            password: e.target.value,
-                          }))
-                        }
+                        type="text"
+                        id="password"
+                        name="password"
+                        onChange={handleChange}
+                        value={formData.password}
                         className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current"
                         required
                       />{" "}
@@ -166,26 +297,21 @@ const EditStudent: React.FC = () => {
                       <div className="md:flex md:flex-row md:justify-between">
                         {" "}
                         <input
-                          placeholder="Class (Eg:CS2)"
-                          value={student.class}
-                          onChange={(e) =>
-                            setStudent((prevState: Student | null) => ({
-                              ...prevState!,
-                              class: e.target.value,
-                            }))
-                          }
+                         placeholder="Class (Eg:CS2)"
+                         type="text"
+                         id="class"
+                         name="stdclass"
+                         onChange={handleChange}
+                         value={formData.stdclass}
                           className=" text-black placeholder-gray-500 md:w-2/5 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
                           required
                         />
                         <input
-                          placeholder="Assign Room (Eg:302)"
-                          value={student.roomno}
-                          onChange={(e) =>
-                            setStudent((prevState: Student | null) => ({
-                              ...prevState!,
-                              roomno: e.target.value,
-                            }))
-                          }
+                          type="text"
+                          id="roomno"
+                          name="roomno"
+                          onChange={handleChange}
+                          value={formData.roomno}
                           className=" text-black placeholder-gray-500 md:w-2/5 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
                           required
                         />
@@ -194,13 +320,11 @@ const EditStudent: React.FC = () => {
                         {" "}
                         <input
                           placeholder="Semester (Eg:S6)"
-                          value={student.sem}
-                          onChange={(e) =>
-                            setStudent((prevState: Student | null) => ({
-                              ...prevState!,
-                              sem: e.target.value,
-                            }))
-                          }
+                          type="text"
+                          id="semester"
+                          name="semester"
+                          onChange={handleChange}
+                          value={formData.semester}
                           className=" text-black placeholder-gray-500 md:w-2/5 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
                           required
                         />
@@ -225,10 +349,10 @@ const EditStudent: React.FC = () => {
                           Upload Image
                         </label>
                         <input
-                          type="file"
-                          id="imageInput"
-                          accept="image/*"
-                          onChange={handleImageChange}
+                         type="file"
+                         id="imageInput"
+                         accept="image/*"
+                         onChange={handleImageChange}
                           className="w-full p-2 border border-2 border-gray-300 rounded-lg"
                         />
                       </div>
