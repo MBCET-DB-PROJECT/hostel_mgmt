@@ -7,7 +7,7 @@ import Link from "next/link";
 import CreateStudent from "./CreateStudent";
 import { IoClose } from "react-icons/io5";
 import { useEffect } from "react";
-import StudentData from "../../data/StudentDetails.json";
+import StudentData from "../data/StudentDetails.json";
 import EditStudents from "./EditStudents/[id]";
 
 interface SidebarProps {
