@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
 import Toast from "@/components/Toast";
 import { useEffect } from "react";
-import NotifData from "./../data/Notifications.json";
+import NotifData from "../../data/Notifications.json";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import Link from "next/link";
 import AdminNotifications from "./AdminNotifications";
