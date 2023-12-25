@@ -1,11 +1,11 @@
-import CreateStudent from "@/pages/Admin/CreateStudent";
-import TestPage from "@/pages/Admin/TestPage";
+import CreateStudent from "@/pages/CreateStudent";
+import TestPage from "@/pages/TestPage";
 import Link from "next/link";
 import React, { useState } from "react";
-import StudentsList from "@/pages/Admin/StudentsList";
-import AdminNotifications from "@/pages/Admin/AdminNotifications";
-import AdminTickets from "@/pages/Admin/AdminTickets";
-import AdminRooms from "@/pages/Admin/AdminRooms";
+import StudentsList from "@/pages/StudentsList";
+import AdminNotifications from "@/pages/AdminNotifications";
+import AdminTickets from "@/pages/AdminTickets";
+import AdminRooms from "@/pages/AdminRooms";
 import { TbLogout2 } from "react-icons/tb";
 import { FaHome } from "react-icons/fa";
 import { PiStudentFill } from "react-icons/pi";

@@ -7,7 +7,7 @@ import Link from "next/link";
 import CreateStudent from "./CreateStudent";
 import { IoClose } from "react-icons/io5";
 import { useEffect } from "react";
-import StudentData from "../../data/StudentDetails.json";
+import StudentData from "../data/StudentDetails.json";
 import EditStudents from "./EditStudents/[id]";
 
 interface SidebarProps {
@@ -126,7 +126,7 @@ const StudentsList: React.FC = () => {
               </Link>
             </div>
 
-            <div className="flex bg-gray-100">
+            <div className="flex bg-slate-200">
               <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
                 {studentsList.map((student) => (
                   <div

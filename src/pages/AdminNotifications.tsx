@@ -7,9 +7,9 @@ import Link from "next/link";
 import CreateStudent from "./CreateStudent";
 import { IoClose } from "react-icons/io5";
 import { useEffect } from "react";
-import StudentData from "./../../data/StudentDetails.json";
+import StudentData from "../data/StudentDetails.json";
 import { MdEditNotifications } from "react-icons/md";
-import NotifData from "../../data/Notifications.json";
+import NotifData from "../data/Notifications.json";
 import CreateNotifications from "./CreateNotifications";
 
 interface SidebarProps {
