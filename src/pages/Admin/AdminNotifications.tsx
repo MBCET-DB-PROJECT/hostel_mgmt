@@ -7,8 +7,10 @@ import Link from "next/link";
 import CreateStudent from "./CreateStudent";
 import { IoClose } from "react-icons/io5";
 import { useEffect } from "react";
-import StudentData from "./../data/StudentDetails.json";
-import EditStudents from "./EditStudents/[id]";
+import StudentData from "./../../data/StudentDetails.json";
+import { MdEditNotifications } from "react-icons/md";
+import NotifData from "../../data/Notifications.json";
+import CreateNotifications from "./CreateNotifications";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -23,14 +25,21 @@ interface Student {
   fees: string;
   password: string;
 }
-
-const StudentsList: React.FC = () => {
+interface Notif {
+  nid: number;
+  content: string;
+  date: string;
+}
+const AdminNotifications: React.FC = () => {
   const students = StudentData;
+
   const [isSidebarOpen, setSidebarOpen] = useState(false); //to check whether sidebar is open in responsive view
   const [isModalOpen, setModalOpen] = useState(false); //to check whether the student details modal is open
-  const [selectedStudent, setSelectedStudent] = useState<any>(null);
   const [isBlurry, setBlurry] = useState(false); //to blur background when modal is open
+  const [selectedStudent, setSelectedStudent] = useState<any>(null);
   const [studentsList, setStudentsList] = useState<Student[]>(StudentData); //to map student list
+  const [notifsList, setNotifsList] = useState<Notif[]>(NotifData);
+  const [selectedNotif, setSelectedNotif] = useState<any>(null);
 
   const handleSidebarToggle = () => {
     //handles sidebar open or not in mobile view
@@ -40,6 +49,11 @@ const StudentsList: React.FC = () => {
   const handleStudentClick = (student: any) => {
     //to select particular student to show details of in student details modal
     setSelectedStudent(student);
+    setModalOpen(true);
+  };
+  const handleNotifClick = (notif: any) => {
+    //to select particular student to show details of in student details modal
+    setSelectedNotif(notif);
     setModalOpen(true);
   };
 
@@ -52,21 +66,17 @@ const StudentsList: React.FC = () => {
     }
   }, [isModalOpen]);
 
-  const deleteStudent = (id: number) => {
-    //to map the deleted students
-    const updatedList = studentsList.filter((student) => student.id !== id);
-    setStudentsList(updatedList);
-  };
-
   return (
     <div>
-      {isModalOpen && selectedStudent && (
+      {isModalOpen && selectedNotif && (
         //modal for student details
         <div className="md:w-1/6 md:block shadow-lg">
           <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="bg-white md:p-8 p-4  rounded-lg md:w-1/2 w-2/3 shadow-md">
               <div className="flex justify-between">
-                <h2 className="text-xl font-semibold">Student Details</h2>
+                <h2 className="text-xl font-semibold">
+                  Notification {selectedNotif.nid}
+                </h2>
                 <button
                   onClick={() => setModalOpen(false)}
                   className="hover:bg-gray-200 px-1 py-1 rounded-lg"
@@ -74,29 +84,8 @@ const StudentsList: React.FC = () => {
                   <IoClose size={24} />
                 </button>
               </div>
-              <p className="mt-4">Name: {selectedStudent.name}</p>
-              <p>Class: {selectedStudent.class}</p>
-              <p>Sem: {selectedStudent.sem}</p>
-              <p>Room: {selectedStudent.roomno}</p>
+              <p className="mt-4">{selectedNotif.content}</p>
               {/* ... other details */}
-              <div className="mt-6">
-                <Link
-                  href={`/EditStudents/${selectedStudent.id}`}
-                  className="mr-4 text-white py-2 px-2 bg-blue-500 rounded-md hover:bg-blue-400"
-                >
-                  Edit
-                </Link>
-                <button
-                  className="text-white py-2 px-2 bg-red-500 rounded-md hover:bg-red-400"
-                  onClick={(e) => {
-                    console.log("delete clicked");
-                    deleteStudent(selectedStudent.id);
-                    setModalOpen(false);
-                  }}
-                >
-                  Delete
-                </button>
-              </div>
             </div>
           </div>
         </div>
@@ -111,48 +100,31 @@ const StudentsList: React.FC = () => {
           >
             <Sidebar isOpen={isSidebarOpen} />
           </div>
-          <div className="md:block md:w-5/6 bg-gray-100 h-screen w-full ">
+          <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
             <div className="flex justify-between text-center">
               <h1 className=" mt-6 font-semibold text-3xl flex-1">
-                Students List
+                Notifications
               </h1>
               <Link
-                href="/CreateStudent"
-                className={`mt-6 mr-4 px-1 py-1 bg-gray-400 rounded-lg ${
+                href="/CreateNotifications"
+                className={`mt-6 mr-4 px-1 py-1 bg-gray-400 rounded-lg hover:bg-gray-300 ${
                   isSidebarOpen ? "hidden md:block" : ""
                 }`}
               >
-                <BsPersonFillAdd size={32} />
+                <MdEditNotifications size={30} />
               </Link>
             </div>
 
-            <div className="flex bg-gray-100">
+            <div className="flex bg-slate-200">
               <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
-                {studentsList.map((student) => (
-                  <div
-                    key={student.id}
-                    onClick={() => handleStudentClick(student)}
-                  >
+                {notifsList.map((notif) => (
+                  <div key={notif.nid} onClick={() => handleNotifClick(notif)}>
                     <form>
                       <div className="mt-5 bg-white rounded-md shadow-lg mx-4 text-center items-center">
                         <div className="px-5 pb-5 w-full">
                           <div className="flex justify-between py-2">
-                            <div>{student.name}</div>
-                            <div className="flex right-0 w-1/4 justify-between">
-                              <div className="hidden md:block">
-                                Class:{student.class}
-                              </div>
-                              <div className="hidden md:block">
-                                Sem:{student.sem}
-                              </div>
-                              <div
-                                className={`flex ${
-                                  isSidebarOpen ? "hidden md:block" : ""
-                                }`}
-                              >
-                                Room:{student.roomno}
-                              </div>
-                            </div>
+                            <div>{notif.content}</div>
+                            <div>{notif.date}</div>
                           </div>
                         </div>
                       </div>
@@ -168,4 +140,4 @@ const StudentsList: React.FC = () => {
   );
 };
 
-export default StudentsList;
+export default AdminNotifications;

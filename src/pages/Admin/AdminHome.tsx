@@ -5,8 +5,7 @@ import "tailwindcss/tailwind.css";
 interface SidebarProps {
   isOpen: boolean;
 }
-
-const AdminTickets: React.FC = () => {
+const AdminHome: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   //function to handle user button click
 
@@ -24,12 +23,12 @@ const AdminTickets: React.FC = () => {
         >
           <Sidebar isOpen={isSidebarOpen} />
         </div>
-        <div className="md:block md:w-5/6 bg-gray-200 h-screen w-full ">
-          AdminTickets
+        <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
+          AdminHome
         </div>
       </div>
     </div>
   );
 };
 
-export default AdminTickets;
+export default AdminHome;
