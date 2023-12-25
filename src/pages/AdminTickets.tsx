@@ -25,7 +25,8 @@ const AdminTickets: React.FC = () => {
           <Sidebar isOpen={isSidebarOpen} />
         </div>
         <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
-          AdminTickets
+          <div className="p-4 h-1/3 bg-white">hi</div>
+          <div className="p-4 h-1/3 bg-white">hello</div>
         </div>
       </div>
     </div>

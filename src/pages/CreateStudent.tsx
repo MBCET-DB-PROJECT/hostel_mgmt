@@ -54,7 +54,7 @@ const CreateStudent: React.FC = () => {
           <div className="flex justify-center text-center">
             <h1 className=" mt-6 font-semibold text-3xl">Add Students</h1>
           </div>
-          <div className="flex bg-gray-100">
+          <div className="flex bg-slate-200">
             <div className="m-auto">
               <div>
                 <form onSubmit={handleSubmit}>
