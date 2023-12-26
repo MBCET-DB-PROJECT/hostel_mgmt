@@ -62,6 +62,13 @@ const CreateStudent: React.FC = () => {
       ...prevData,
       photo: file,
     }));
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
   };
   try {
   } catch (error) {}
@@ -75,7 +82,7 @@ const CreateStudent: React.FC = () => {
   };
   //handles the submit
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  //  e.preventDefault();
     const auth = getAuth(app);
     const { name, email, password, roomno, stdclass,semester, feespaid, role, photo } = formData;
 
@@ -170,6 +177,7 @@ const CreateStudent: React.FC = () => {
                         type="text"
                         id="name"
                         name="name"
+                        placeholder="Name"
                         onChange={handleChange}
                         value={formData.name}
                         className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
@@ -275,6 +283,7 @@ const CreateStudent: React.FC = () => {
                         <div className="mt-4">
                           <img
                             src={image}
+                          
                             alt="Uploaded Preview"
                             className="w-64 h-64 object-cover rounded"
                           />

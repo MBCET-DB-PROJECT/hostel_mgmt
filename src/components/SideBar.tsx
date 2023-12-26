@@ -2,7 +2,7 @@ import CreateStudent from "@/pages/CreateStudent";
 import TestPage from "@/pages/TestPage";
 import Link from "next/link";
 import React, { useState } from "react";
-import StudentsList from "@/pages/StudentsList";
+import StudentsList from "@/components/StudentsListComp";
 import AdminNotifications from "@/pages/AdminNotifications";
 import AdminTickets from "@/pages/AdminTickets";
 import AdminRooms from "@/pages/AdminRooms";

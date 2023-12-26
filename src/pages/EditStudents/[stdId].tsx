@@ -10,7 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import Link from "next/link";
-import StudentsList from "../StudentsList";
+import StudentsList from "../../components/StudentsListComp";
 import Toast from "@/components/Toast";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 import app from "@/app/firebase";
@@ -28,6 +28,7 @@ interface StudentDetails {
   roomno: string;
   photo: File | null;
   feespaid: boolean;
+  imageUrl:string;
   role: string;
 }
 
@@ -35,14 +36,16 @@ interface StudentDetails {
 
 const EditStudent: React.FC = () => {
   const [formData, setFormData] = useState<StudentDetails>({
-
+    
     name: "",
     email: "",
     password: "",
     stdclass : "",
     semester: "",
     roomno: "",
+    imageUrl:"",
     photo: null,
+    
     feespaid: false,
     role: "student",
   });
@@ -72,7 +75,7 @@ const EditStudent: React.FC = () => {
   ): Promise<StudentDetails | null> => {
     try {
       const db = getFirestore(app);
-      const studentRef = doc(db,`students/${stdId}`);
+      const studentRef = doc(db,`student/${stdId}`);
       const studentsSnaphot = await getDoc(studentRef);
 
       if(studentsSnaphot.exists()) {
@@ -91,31 +94,51 @@ const EditStudent: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if(stdId === undefined) {
-          console.error("Post ID not provided in router query",router.query);
+        if (stdId === undefined) {
+          console.error("Post ID not provided in router query", router.query);
           return;
         }
-
+  
         const fetchedStudentData = await fetchPostDataFromFirestore(
           stdId as string
         );
-        if(fetchedStudentData) {
-          setPostDetails(fetchedStudentData);
+  
+        if (fetchedStudentData) {
+          // Set the initial form data with the existing student details
+          setFormData({
+            name: fetchedStudentData.name,
+            email: fetchedStudentData.email,
+            password: fetchedStudentData.password,
+            stdclass: fetchedStudentData.stdclass,
+            semester: fetchedStudentData.semester,
+            roomno: fetchedStudentData.roomno,
+            imageUrl: fetchedStudentData.imageUrl,
+            photo: null, // You may need to handle the photo separately if needed
+            feespaid: fetchedStudentData.feespaid,
+            role: fetchedStudentData.role,
+          });
+  
+          // Handle the image separately if available
+          if (fetchedStudentData.imageUrl) {
+            setImage(fetchedStudentData.imageUrl);
+          }
         } else {
-          console.log("Post not found");
+          console.log("Student details not found");
         }
       } catch (error) {
-        console.error("Error fetching post data",error);
+        console.error("Error fetching student details", error);
       }
     };
-
+  
     fetchData();
+  }, [stdId, router.query]);
+  
 
-  },[stdId,router.query] );
-
-  if (!postDetails) {
+  // Show a loading state until the stdId becomes available
+  if (stdId === undefined || postDetails === null) {
     return <div>Loading...</div>;
   }
+
 
 
 
@@ -126,9 +149,18 @@ const EditStudent: React.FC = () => {
       ...prevData,
       photo: file,
     }));
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
   };
   try {
   } catch (error) {}
+
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const auth = getAuth(app);
@@ -178,6 +210,7 @@ const EditStudent: React.FC = () => {
         roomno: "",
         feespaid: false,
         photo: null,
+        imageUrl:"",
         role: "student",
       });
     } catch (error: any) {
@@ -319,11 +352,11 @@ const EditStudent: React.FC = () => {
                       <div className="md:flex md:flex-row md:justify-between">
                         {" "}
                         <input
-                          placeholder="Semester (Eg:S6)"
+                          placeholder=""
                           type="text"
                           id="semester"
                           name="semester"
-                          onChange={handleChange}
+                          onChange={handleCheck}
                           value={formData.semester}
                           className=" text-black placeholder-gray-500 md:w-2/5 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
                           required
