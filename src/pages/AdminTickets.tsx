@@ -13,6 +13,7 @@ import NotifData from "../data/Notifications.json";
 import CreateNotifications from "./CreateNotifications";
 import { FaEdit } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
+import TicketDetails from "./../data/TicketDetails.json";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -30,7 +31,7 @@ interface Student {
 
 const AdminTicket: React.FC = () => {
   const students = StudentData;
-
+  const [ticketsList, setTicketsList] = useState(TicketDetails); // State to store ticket details
   const [isSidebarOpen, setSidebarOpen] = useState(false); //to check whether sidebar is open in responsive view
 
   const [selectedStudent, setSelectedStudent] = useState<any>(null);
@@ -77,22 +78,27 @@ const AdminTicket: React.FC = () => {
               <div className={`m-auto w-full `}>
                 <div>
                   <form>
-                    <div className="mt-5 bg-white rounded-md shadow-lg mx-4 text-center items-center">
-                      <div className="px-5 pb-5 w-full">
-                        <div className="flex justify-between py-2">
-                          <div>kettle</div>
-                          <div className="flex flex-row space-x-5">
-                            <div>Students raised : 10</div>
-                            <button
-                              className="p-1 bg-gray-300 rounded-md hover:bg-gray-200"
-                              onClick={toggleDropdown}
-                            >
-                              <FaChevronDown size={20} />
-                            </button>
+                    {ticketsList.map((ticket) => (
+                      <div
+                        key={ticket.tid}
+                        className="mt-5 bg-white rounded-md shadow-lg mx-4 text-center items-center"
+                      >
+                        <div className="px-5 pb-5 w-full">
+                          <div className="flex justify-between py-2">
+                            <div>{ticket.name}</div>
+                            <div className="flex flex-row space-x-5">
+                              <div>Students raised : 10</div>
+                              <button
+                                className="p-1 bg-gray-300 rounded-md hover:bg-gray-200"
+                                onClick={toggleDropdown}
+                              >
+                                <FaChevronDown size={20} />
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    ))}
                     {isDropdownOpen && (
                       <div className="mt-3 mx-4 bg-white rounded-md shadow-lg p-2">
                         {/* Dropdown items go here */}
