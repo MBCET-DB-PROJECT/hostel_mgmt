@@ -5,6 +5,7 @@ import "tailwindcss/tailwind.css";
 import { FaEdit, FaChevronDown } from "react-icons/fa";
 import Link from "next/link";
 import TicketDetails from "./../data/TicketDetails.json";
+import { useEffect } from "react";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -22,18 +23,47 @@ interface Student {
 }
 
 const AdminTicket: React.FC = () => {
-  const [ticketsList, setTicketsList] = useState(TicketDetails); // State to store ticket details
+  const [ticketsList, setTicketsList] = useState(TicketDetails);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedTicket, setSelectedTicket] = useState<any>(null);
 
   const handleSidebarToggle = () => {
     setSidebarOpen(!isSidebarOpen);
   };
-
-  const toggleDropdown = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const toggleDropdown = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    ticket: any
+  ) => {
+    console.log("Toggling dropdown");
     event.preventDefault();
-    setDropdownOpen(!isDropdownOpen);
+    event.stopPropagation();
+
+    setSelectedTicket(ticket); // Set the clicked ticket as the selected ticket
+
+    // Toggle the dropdown
+    setDropdownOpen((prevState) => !prevState);
   };
+
+  const handleTicketSelect = (ticket: any) => {
+    console.log("Selecting ticket", ticket);
+    setSelectedTicket(ticket);
+    setDropdownOpen(false); // Close the dropdown when a ticket is selected
+  };
+
+  const handleOutsideClick = (event: any) => {
+    if (event.target.closest(".dropdown-content") === null && isDropdownOpen) {
+      setDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      window.removeEventListener("click", handleOutsideClick);
+    };
+  }, [isDropdownOpen]);
 
   return (
     <div>
@@ -61,25 +91,26 @@ const AdminTicket: React.FC = () => {
           </div>
 
           <div className="flex bg-slate-200">
-            <div className={`m-auto w-full `}>
+            <div className="m-auto w-full ">
               <div>
-                <form>
+                <form className="w-full">
                   {ticketsList.map((ticket) => {
                     const studentCount = ticket.students.length;
 
                     return (
                       <div
                         key={ticket.tid}
-                        className="mt-5 bg-white rounded-md shadow-lg mx-4 text-center items-center"
+                        onClick={() => handleTicketSelect(ticket)}
+                        className="cursor-pointer mt-5 bg-white rounded-md shadow-lg mx-4 text-center items-center"
                       >
-                        <div className="px-5 pb-5 w-full">
+                        <div className="px-5 pb-5 ">
                           <div className="flex justify-between py-2">
                             <div>{ticket.name}</div>
                             <div className="flex flex-row space-x-5">
                               <div>Students raised: {studentCount}</div>
                               <button
                                 className="p-1 bg-gray-300 rounded-md hover:bg-gray-200"
-                                onClick={toggleDropdown}
+                                onClick={(e) => toggleDropdown(e, ticket)}
                               >
                                 <FaChevronDown size={20} />
                               </button>
@@ -89,14 +120,30 @@ const AdminTicket: React.FC = () => {
                       </div>
                     );
                   })}
-                  {isDropdownOpen && (
-                    <div className="mt-3 mx-4 bg-white rounded-md shadow-lg p-2">
-                      <div className="mt-2 flex items-center justify-between border-b p-3 border-black">
-                        <h1>thingy 1</h1>
-                        <p>roomno</p>
-                      </div>
-                      <div className="mt-2 flex items-center justify-between border-b p-3 border-black">
-                        thingy 2
+                  {isDropdownOpen && selectedTicket && (
+                    <div
+                      className="mt-3 mx-4 dropdown-content rounded-md shadow-lg p-1 w-full bg-green-100"
+                      ref={(node) =>
+                        node &&
+                        node.addEventListener("click", (e) =>
+                          e.stopPropagation()
+                        )
+                      }
+                    >
+                      <div className="mt-2 flex w-full ">
+                        {/*<h1>{selectedTicket.name}</h1>*/}
+
+                        <div className=" ">
+                          {selectedTicket.students.map((student: any) => (
+                            <div
+                              key={student.sid}
+                              className="flex  justify-between border-b p-3 border-black w-full bg-red-100"
+                            >
+                              <div>{student.name} </div>
+                              <div>Room No: {student.roomno} </div>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   )}
