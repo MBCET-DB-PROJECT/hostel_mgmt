@@ -126,9 +126,7 @@ const StudentsList: React.FC = () => {
               </Link>
             </div>
 
-
             <div className="flex bg-slate-200">
-
               <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
                 {studentsList.map((student) => (
                   <div
