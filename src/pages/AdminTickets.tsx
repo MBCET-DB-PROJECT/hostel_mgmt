@@ -6,7 +6,6 @@ import "tailwindcss/tailwind.css";
 import Link from "next/link";
 import { FaEdit } from "react-icons/fa";
 
-
 interface SidebarProps {
   isOpen: boolean;
 }
@@ -30,7 +29,6 @@ const AdminTickets: React.FC = () => {
           <Sidebar isOpen={isSidebarOpen} />
         </div>
         <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
-
           <div className="flex justify-between text-center">
             <h1 className=" mt-6 font-semibold text-3xl flex-1">Tickets</h1>
             <Link
@@ -49,7 +47,6 @@ const AdminTickets: React.FC = () => {
           <div className="p-4 h-1/4 bg-white m-4 rounded-md shadow-md uppercase font-semibold text-xl">
             soap
           </div>
-
         </div>
       </div>
     </div>
