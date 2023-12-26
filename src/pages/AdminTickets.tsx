@@ -93,19 +93,19 @@ const AdminTicket: React.FC = () => {
                         </div>
                       </div>
                     </div>
+                    {isDropdownOpen && (
+                      <div className="mt-3 mx-4 bg-white rounded-md shadow-lg p-2">
+                        {/* Dropdown items go here */}
+                        <div className="mt-2 flex items-center justify-between border-b p-3 border-black">
+                          <h1>thingy 1</h1>
+                          <p>roomno</p>
+                        </div>
+                        <div className="mt-2 flex items-center justify-between border-b p-3 border-black">
+                          thingy 2
+                        </div>
+                      </div>
+                    )}
                   </form>
-                  {isDropdownOpen && (
-                    <div className="mt-3 mx-4 bg-white rounded-md shadow-lg p-2">
-                      {/* Dropdown items go here */}
-                      <div className="mt-2 flex items-center justify-between border-b p-3 border-black">
-                        <h1>thingy 1</h1>
-                        <p>roomno</p>
-                      </div>
-                      <div className="mt-2 flex items-center justify-between border-b p-3 border-black">
-                        thingy 2
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
