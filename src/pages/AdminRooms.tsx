@@ -20,6 +20,7 @@ const AdminRooms: React.FC = () => {
   //function to handle user button click
 
   const [rooms, setRooms] = useState<Room[]>([]); // Use the Room interface here
+
   /*useEffect(() => {
     setRooms(RoomData);
   }, []);*/
@@ -36,6 +37,7 @@ const AdminRooms: React.FC = () => {
   useEffect(() => {
     setRooms(RoomData as Room[]);
   }, []);
+
 
   const occupiedRooms = rooms.filter((room) => room.status === "occupied");
   const unoccupiedRooms = rooms.filter((room) => room.status === "unoccupied");
@@ -54,10 +56,12 @@ const AdminRooms: React.FC = () => {
         >
           <Sidebar isOpen={isSidebarOpen} />
         </div>
+
         <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full flex justify-center items-center flex-col">
           <div className="flex justify-around   mx-5 mt-5 space-x-5 h-5/6">
             <div className=" bg-blue-200 p-4 md:w-1/3 w-1/2 rounded-md shadow-md ">
               <h1 className="flex justify-center font-semibold text-2xl text-center">
+
                 Occupied Rooms
               </h1>
               <div className="mt-2 flex items-center justify-center border-b  p-3 border-black"></div>
@@ -70,8 +74,10 @@ const AdminRooms: React.FC = () => {
                 </div>
               ))}
             </div>
+
             <div className=" bg-white p-4 md:w-1/3 w-1/2 right-0 rounded-md shadow-md">
               <h1 className="flex justify-center font-semibold text-2xl text-center">
+
                 Unoccupied Rooms
               </h1>
               <div className="mt-2 flex items-center justify-center border-b  p-3 border-black"></div>
