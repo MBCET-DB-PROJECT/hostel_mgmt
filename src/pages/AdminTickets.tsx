@@ -122,7 +122,7 @@ const AdminTicket: React.FC = () => {
                   })}
                   {isDropdownOpen && selectedTicket && (
                     <div
-                      className="mt-3 mx-4 dropdown-content rounded-md shadow-lg p-1 "
+                      className="mt-3 mx-4 dropdown-content bg-white rounded-md shadow-lg p-1 "
                       ref={(node) =>
                         node &&
                         node.addEventListener("click", (e) =>
