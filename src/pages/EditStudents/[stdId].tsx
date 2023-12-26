@@ -118,10 +118,14 @@ const EditStudent: React.FC = () => {
             role: fetchedStudentData.role,
           });
   
+          setIsChecked(fetchedStudentData.feespaid);
+
           // Handle the image separately if available
           if (fetchedStudentData.imageUrl) {
             setImage(fetchedStudentData.imageUrl);
           }
+
+          setPostDetails(fetchedStudentData);
         } else {
           console.log("Student details not found");
         }
