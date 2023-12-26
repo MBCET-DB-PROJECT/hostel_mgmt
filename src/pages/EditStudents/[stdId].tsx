@@ -12,7 +12,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import Link from "next/link";
 import StudentsList from "../../components/StudentsListComp";
 import Toast from "@/components/Toast";
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore, setDoc, updateDoc } from "firebase/firestore";
 import app from "@/app/firebase";
 import { createUserWithEmailAndPassword, getAuth, updateCurrentUser } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
@@ -171,39 +171,39 @@ const EditStudent: React.FC = () => {
     const { name, email, password, roomno, stdclass,semester, feespaid, role, photo } = formData;
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const student = userCredential.user;
+    
 
       const db = getFirestore(app);
       const storage = getStorage(app);
+      const { stdId } = router.query;
 
       if (photo) {
         const imageRef = ref(storage, `images/${formData.photo?.name}`);
         await uploadBytes(imageRef, photo);
         const imageUrl = await getDownloadURL(imageRef);
         console.log("Image uploaded:", imageUrl);
-
-        const studentDocRef = doc(db, "student", student.uid);
+        if(typeof stdId === 'string') {
+        const studentDocRef = doc(db, "student", stdId);
         const studentData = {
-          name,
-          roomno,
-          stdclass,
-          semester,
-          feespaid,
+          name: formData.name,
+          roomno: formData.roomno,
+          stdclass: formData.stdclass,
+          semester: formData.semester,
+          feespaid: formData.feespaid,
           imageUrl,
-          role
+          role: formData.role,
         };
-
-        await setDoc(studentDocRef, studentData);
+      
+        await updateDoc(studentDocRef, studentData);
+        console.log("Student details updated successfully");
       } else {
         console.error("No photo selected");
       }
+    } else {
+      console.error("Invalid student ID");
+    }
 
-      console.log("user created");
+    
 
       setFormData({
         name: "",
@@ -300,7 +300,7 @@ const EditStudent: React.FC = () => {
                          onChange={handleChange}
                          value={formData.email}
                         className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
-                        required
+                     
                         onClick={handleEmailClick}
                       />
                       {showEmailToast && (
@@ -318,7 +318,7 @@ const EditStudent: React.FC = () => {
                         onChange={handleChange}
                         value={formData.password}
                         className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current"
-                        required
+                        
                       />{" "}
                     </div>
                   </div>
@@ -360,14 +360,16 @@ const EditStudent: React.FC = () => {
                           type="text"
                           id="semester"
                           name="semester"
-                          onChange={handleCheck}
+                          onChange={handleChange}
                           value={formData.semester}
                           className=" text-black placeholder-gray-500 md:w-2/5 w-full px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current "
                           required
                         />
                         <div className="bg-gray-200 rounded-lg md:w-2/5 w-full px-4 py-2.5 mt-2 text-base flex ">
                           <input
-                            type="checkbox"
+                           type="checkbox"
+                           checked={isChecked}
+                           onChange={handleCheck}
                             className="w-6 h-6 text-black text-sm bg-transparent border-none rounded-md focus:ring-transparent  accent-black"
                           />
                           <label className="block ml-2 text-sm text-gray-900 font-semibold">
