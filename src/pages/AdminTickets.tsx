@@ -122,7 +122,7 @@ const AdminTicket: React.FC = () => {
                   })}
                   {isDropdownOpen && selectedTicket && (
                     <div
-                      className="mt-3 mx-4 dropdown-content rounded-md shadow-lg p-1 w-full bg-green-100"
+                      className="mt-3 mx-4 dropdown-content rounded-md shadow-lg p-1 "
                       ref={(node) =>
                         node &&
                         node.addEventListener("click", (e) =>
@@ -133,11 +133,11 @@ const AdminTicket: React.FC = () => {
                       <div className="mt-2 flex w-full ">
                         {/*<h1>{selectedTicket.name}</h1>*/}
 
-                        <div className=" ">
+                        <div className="w-full">
                           {selectedTicket.students.map((student: any) => (
                             <div
                               key={student.sid}
-                              className="flex  justify-between border-b p-3 border-black w-full bg-red-100"
+                              className="flex  justify-between border-b p-3 border-black "
                             >
                               <div>{student.name} </div>
                               <div>Room No: {student.roomno} </div>
