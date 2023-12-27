@@ -10,7 +10,7 @@ import AdminHome from "@/pages/AdminHome";
 const DfltPage = () => {
   return (
     <div>
-      <Admin />
+      <AdminHome />
       <ToastContainer />
     </div>
   );

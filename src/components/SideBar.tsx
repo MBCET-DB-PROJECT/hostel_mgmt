@@ -22,7 +22,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
     <div className="p-4 text-black h-screen   flex flex-col justify-between">
       <h1 className="font-semibold mt-10 space-y-6 text-center flex justify-center items-center flex-col ">
         <Link
-          href="/"
+          href="/AdminHome"
           className="hover:bg-gray-200 p-3 w-full rounded-lg flex "
         >
           <div className="w-1/3 flex justify-center">

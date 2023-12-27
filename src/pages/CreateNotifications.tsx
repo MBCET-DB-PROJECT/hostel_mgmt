@@ -88,12 +88,12 @@ const CreateNotifications: React.FC = () => {
                 <h1 className="text-3xl font-semibold mb-4 flex-1">
                   Create New Notification
                 </h1>
-                <Link
+                {/*<Link
                   href="/AdminNotifications"
                   className="bg-black hover:bg-gray-800 text-white font-bold px-2 py-1 rounded flex mr-2 mt-2"
                 >
                   <IoMdArrowRoundBack size={20} className="mt-1 mr-2" /> Back
-                </Link>
+        </Link>*/}
               </div>
 
               <div className="mb-4">
@@ -109,7 +109,7 @@ const CreateNotifications: React.FC = () => {
                   placeholder="Enter notification content..."
                   value={notificationContent}
                   onChange={handleInputChange}
-                  className="shadow appearance-none border rounded w-2/3 md:w-2/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border rounded w-2/3 md:w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
               </div>
 
