@@ -7,10 +7,12 @@ import Link from "next/link";
 import CreateStudent from "./CreateStudent";
 import { IoClose } from "react-icons/io5";
 import { useEffect } from "react";
-import StudentData from "./../data/StudentDetails.json";
+import StudentData from "../data/StudentDetails.json";
 import { MdEditNotifications } from "react-icons/md";
-import NotifData from "./../data/Notifications.json";
+import NotifData from "../data/Notifications.json";
 import CreateNotifications from "./CreateNotifications";
+import AdminNotifComp from "@/components/AdminNotifComp";
+import NotifDetails from "@/components/AdminNotifComp";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -38,7 +40,6 @@ const AdminNotifications: React.FC = () => {
   const [isBlurry, setBlurry] = useState(false); //to blur background when modal is open
   const [selectedStudent, setSelectedStudent] = useState<any>(null);
   const [studentsList, setStudentsList] = useState<Student[]>(StudentData); //to map student list
-
   const [notifsList, setNotifsList] = useState<Notif[]>(NotifData);
   const [selectedNotif, setSelectedNotif] = useState<any>(null);
 
@@ -69,7 +70,7 @@ const AdminNotifications: React.FC = () => {
 
   return (
     <div>
-      {isModalOpen && selectedNotif && (
+      {/*} {isModalOpen && selectedNotif && (
         //modal for student details
         <div className="md:w-1/6 md:block shadow-lg">
           <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -86,11 +87,11 @@ const AdminNotifications: React.FC = () => {
                 </button>
               </div>
               <p className="mt-4">{selectedNotif.content}</p>
-              {/* ... other details */}
+             
             </div>
           </div>
         </div>
-      )}
+     )}*/}
       <div className={` ${isBlurry ? "blur" : ""}`}>
         <TopBar onSidebarToggle={handleSidebarToggle} />
         <div className="flex">
@@ -101,7 +102,7 @@ const AdminNotifications: React.FC = () => {
           >
             <Sidebar isOpen={isSidebarOpen} />
           </div>
-          <div className="md:block md:w-5/6 bg-gray-100 h-screen w-full ">
+          <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
             <div className="flex justify-between text-center">
               <h1 className=" mt-6 font-semibold text-3xl flex-1">
                 Notifications
@@ -115,9 +116,9 @@ const AdminNotifications: React.FC = () => {
                 <MdEditNotifications size={30} />
               </Link>
             </div>
-
-            <div className="flex bg-gray-100">
-              <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
+            <NotifDetails notifId=""  />
+            {/*<div className="flex bg-slate-200">
+              <div className={m-auto w-full ${isBlurry ? "blur" : ""}}>
                 {notifsList.map((notif) => (
                   <div key={notif.nid} onClick={() => handleNotifClick(notif)}>
                     <form>
@@ -133,7 +134,7 @@ const AdminNotifications: React.FC = () => {
                   </div>
                 ))}
               </div>
-            </div>
+                </div>*/}
           </div>
         </div>
       </div>

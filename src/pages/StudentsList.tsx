@@ -26,7 +26,7 @@ const StudentsList: React.FC = () => {
           <Sidebar isOpen={isSidebarOpen} />
         </div>
         <div className="md:block md:w-5/6 bg-gray-200 h-screen w-full ">
-          <StdDetails cardId="">
+          <StdDetails stdId="">
           </StdDetails>
         </div>
       </div>
