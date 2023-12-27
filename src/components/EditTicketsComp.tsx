@@ -30,7 +30,7 @@ const EditTicketsComp = () => {
     }
   };
   return (
-    <div>
+    <div className="w-full flex flex-col mt-4 space-y-5 justify-center items-center">
       {tickets.map((ticket, index) => (
         <div
           key={index}
