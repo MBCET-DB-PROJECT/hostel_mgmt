@@ -7,6 +7,7 @@ import Link from "next/link";
 import TicketDetails from "./../data/TicketDetails.json";
 import { useEffect } from "react";
 import EditTickets from "./EditTickets";
+import AdminTicketsComp from "@/components/AdminTicketsComp";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -90,8 +91,8 @@ const AdminTicket: React.FC = () => {
               Edit Tickets
             </Link>
           </div>
-
-          <div className="flex bg-slate-200">
+          <AdminTicketsComp />
+          {/* <div className="flex bg-slate-200">
             <div className="m-auto w-full ">
               <div>
                 <form className="w-full">
@@ -132,8 +133,6 @@ const AdminTicket: React.FC = () => {
                       }
                     >
                       <div className="mt-2 flex w-full ">
-                        {/*<h1>{selectedTicket.name}</h1>*/}
-
                         <div className="w-full">
                           {selectedTicket.students.map((student: any) => (
                             <div
@@ -151,7 +150,7 @@ const AdminTicket: React.FC = () => {
                 </form>
               </div>
             </div>
-          </div>
+                          </div>*/}
         </div>
       </div>
     </div>
