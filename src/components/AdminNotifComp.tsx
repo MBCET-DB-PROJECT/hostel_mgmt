@@ -4,14 +4,13 @@ import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
 import { BsPersonFillAdd } from "react-icons/bs";
 import Link from "next/link";
-import CreateStudent from "./CreateStudent";
+import CreateStudent from "./../pages/CreateStudent";
 import { IoClose } from "react-icons/io5";
 import { useEffect } from "react";
 import StudentData from "../data/StudentDetails.json";
 import { MdEditNotifications } from "react-icons/md";
 import NotifData from "../data/Notifications.json";
-import CreateNotifications from "./CreateNotifications";
-import AdminNotifComp from "@/components/AdminNotifComp";
+import CreateNotifications from "./../pages/CreateNotifications";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -31,7 +30,8 @@ interface Notif {
   content: string;
   date: string;
 }
-const AdminNotifications: React.FC = () => {
+
+const AdminNotifComp = () => {
   const students = StudentData;
 
   const [isSidebarOpen, setSidebarOpen] = useState(false); //to check whether sidebar is open in responsive view
@@ -69,7 +69,7 @@ const AdminNotifications: React.FC = () => {
 
   return (
     <div>
-      {/*} {isModalOpen && selectedNotif && (
+      {isModalOpen && selectedNotif && (
         //modal for student details
         <div className="md:w-1/6 md:block shadow-lg">
           <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -86,54 +86,27 @@ const AdminNotifications: React.FC = () => {
                 </button>
               </div>
               <p className="mt-4">{selectedNotif.content}</p>
-             
             </div>
           </div>
         </div>
-     )}*/}
-      <div className={` ${isBlurry ? "blur" : ""}`}>
-        <TopBar onSidebarToggle={handleSidebarToggle} />
-        <div className="flex">
-          <div
-            className={`md:block md:w-1/6 bg-white h-screen shadow-lg ${
-              isSidebarOpen ? "block" : "hidden"
-            }`}
-          >
-            <Sidebar isOpen={isSidebarOpen} />
-          </div>
-          <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
-            <div className="flex justify-between text-center">
-              <h1 className=" mt-6 font-semibold text-3xl flex-1">
-                Notifications
-              </h1>
-              <Link
-                href="/CreateNotifications"
-                className={`mt-6 mr-4 px-1 py-1 bg-gray-400 rounded-lg hover:bg-gray-300 ${
-                  isSidebarOpen ? "hidden md:block" : ""
-                }`}
-              >
-                <MdEditNotifications size={30} />
-              </Link>
-            </div>
-            <AdminNotifComp />
-            {/*<div className="flex bg-slate-200">
-              <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
-                {notifsList.map((notif) => (
-                  <div key={notif.nid} onClick={() => handleNotifClick(notif)}>
-                    <form>
-                      <div className="mt-5 bg-white rounded-md shadow-lg mx-4 text-center items-center">
-                        <div className="px-5 pb-5 w-full">
-                          <div className="flex justify-between py-2">
-                            <div>{notif.content}</div>
-                            <div>{notif.date}</div>
-                          </div>
-                        </div>
+      )}
+      <div className="flex ">
+        <div className="flex bg-slate-200 w-full">
+          <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
+            {notifsList.map((notif) => (
+              <div key={notif.nid} onClick={() => handleNotifClick(notif)}>
+                <form>
+                  <div className="mt-5 bg-white rounded-md shadow-lg mx-4 text-center items-center">
+                    <div className="px-5 pb-5 w-full">
+                      <div className="flex justify-between py-2">
+                        <div>{notif.content}</div>
+                        <div>{notif.date}</div>
                       </div>
-                    </form>
+                    </div>
                   </div>
-                ))}
+                </form>
               </div>
-                </div>*/}
+            ))}
           </div>
         </div>
       </div>
@@ -141,4 +114,4 @@ const AdminNotifications: React.FC = () => {
   );
 };
 
-export default AdminNotifications;
+export default AdminNotifComp;
