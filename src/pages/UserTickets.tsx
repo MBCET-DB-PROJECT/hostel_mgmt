@@ -48,11 +48,7 @@ const UserTickets: React.FC = () => {
                 <option
                   key={index}
                   value={ticket}
-                  className={
-                    index !== 0
-                      ? "mt-4 border-b border-2 border-black bg-red-100"
-                      : ""
-                  }
+                  className={index !== 0 ? "" : ""}
                 >
                   {ticket}
                 </option>
