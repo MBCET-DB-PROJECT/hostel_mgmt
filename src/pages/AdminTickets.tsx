@@ -6,6 +6,7 @@ import { FaEdit, FaChevronDown } from "react-icons/fa";
 import Link from "next/link";
 import TicketDetails from "./../data/TicketDetails.json";
 import { useEffect } from "react";
+import EditTickets from "./EditTickets";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -80,7 +81,7 @@ const AdminTicket: React.FC = () => {
           <div className="flex justify-between text-center">
             <h1 className="mt-6 font-semibold text-3xl flex-1">Tickets</h1>
             <Link
-              href="/CreateNotifications"
+              href="/EditTickets"
               className={`mt-6 mr-4 px-2 py-2 bg-gray-400 rounded-lg hover:bg-gray-300 flex ${
                 isSidebarOpen ? "hidden md:block" : ""
               }`}
