@@ -37,7 +37,7 @@ const UserSidebar: React.FC<SidebarProps> = ({ isOpen }) => {
           <div className="w-1/3 flex justify-center">
             <PiStudentFill size={28} />
           </div>
-          <h1 className="flex">Create Ticket</h1>
+          <h1 className="flex">Raise&nbsp;Ticket</h1>
         </Link>
         <Link
           href="/UserNotifications"
