@@ -53,12 +53,17 @@ const AdminNotifComp = () => {
     setSelectedStudent(student);
     setModalOpen(true);
   };
-  const handleNotifClick = (notif: any) => {
-    //to select particular student to show details of in student details modal
+  const handleNotifClick = (notif: Notif) => {
     setSelectedNotif(notif);
     setModalOpen(true);
   };
 
+  const handleDeleteNotif = (notif: Notif) => {
+    // Filter out the notification that matches the clicked notification's nid
+    const updatedNotifs = notifsList.filter((n) => n.nid !== notif.nid);
+    setNotifsList(updatedNotifs);
+    setModalOpen(false); // Close the modal after deletion (if desired)
+  };
   useEffect(() => {
     //to set background to blur when modal is open
     if (isModalOpen) {
@@ -88,7 +93,10 @@ const AdminNotifComp = () => {
               </div>
               <div className="flex justify-between">
                 <p className="mt-4">{selectedNotif.content}</p>
-                <button className="mt-4 hover:bg-red-300 p-2 rounded-md">
+                <button
+                  className="mt-4 hover:bg-red-300 p-2 rounded-md"
+                  onClick={() => handleDeleteNotif(selectedNotif)}
+                >
                   <MdDelete size={20} />
                 </button>
               </div>
