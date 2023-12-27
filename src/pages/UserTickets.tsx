@@ -82,6 +82,7 @@ const UserTickets: React.FC = () => {
             )}
           </form>
         </div>
+        {/* raised and accepted tickets here */}
       </div>
     </div>
   );
