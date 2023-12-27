@@ -168,60 +168,45 @@ const EditStudent: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const auth = getAuth(app);
-    const { name, email, password, roomno, stdclass,semester, feespaid, role, photo } = formData;
-
+    const { name, email, password, roomno, stdclass, semester, feespaid, role, photo } = formData;
+  
     try {
-    
-
       const db = getFirestore(app);
       const storage = getStorage(app);
       const { stdId } = router.query;
-
-      if (photo) {
+      console.log("Student ID:", stdId);
+  
+      if (photo && (typeof stdId === 'string' || stdId instanceof String)) {
         const imageRef = ref(storage, `images/${formData.photo?.name}`);
         await uploadBytes(imageRef, photo);
         const imageUrl = await getDownloadURL(imageRef);
         console.log("Image uploaded:", imageUrl);
-        if(typeof stdId === 'string') {
-        const studentDocRef = doc(db, "student", stdId);
+  
+        const studentDocRef = doc(db, "student", stdId as string);
+
         const studentData = {
-          name: formData.name,
-          roomno: formData.roomno,
-          stdclass: formData.stdclass,
-          semester: formData.semester,
-          feespaid: formData.feespaid,
+          name: name,
+          roomno: roomno,
+          stdclass: stdclass,
+          semester: semester,
+          feespaid: feespaid,
           imageUrl,
-          role: formData.role,
+          role: role,
         };
-      
+  
         await updateDoc(studentDocRef, studentData);
         console.log("Student details updated successfully");
+        window.location.reload();
       } else {
-        console.error("No photo selected");
+        console.error("Invalid student ID or no photo selected");
       }
-    } else {
-      console.error("Invalid student ID");
-    }
-
-    
-
-      setFormData({
-        name: "",
-        email: "",
-        password: "",
-        stdclass: "",
-        semester: "",
-        roomno: "",
-        feespaid: false,
-        photo: null,
-        imageUrl:"",
-        role: "student",
-      });
+  
+      
     } catch (error: any) {
-      console.error("error creating user", error.code, error.message);
+      console.error("Error updating student details", error.code, error.message);
     }
   };
-
+  
  
   const handleCreateClick = () => {
     setShowUpdateToast(true);
