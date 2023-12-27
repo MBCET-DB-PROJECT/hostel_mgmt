@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
 import { FaPlus } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import EditTicketsComp from "@/components/EditTicketsComp";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -51,7 +52,8 @@ const EditTickets: React.FC = () => {
             Current tickets :{" "}
           </h2>
           <div className="flex flex-col  mt-4 space-y-5 justify-center items-center">
-            {tickets.map((ticket, index) => (
+            <EditTicketsComp />
+            {/*{tickets.map((ticket, index) => (
               <div
                 key={index}
                 className="flex justify-between items-center bg-gray-300 text-center p-3 w-1/6 rounded-md"
@@ -64,7 +66,7 @@ const EditTickets: React.FC = () => {
                   <MdDelete size={18} />
                 </button>
               </div>
-            ))}
+           ))}*/}
 
             <div className="flex justify-center items-center w-1/6">
               <input
