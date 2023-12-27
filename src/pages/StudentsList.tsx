@@ -126,6 +126,7 @@ const StudentsList: React.FC = () => {
                 <BsPersonFillAdd size={32} />
               </Link>
             </div>
+            {/* some issue with spacing,ignore */}
             <div className="flex justify-between text-center">
               <h1 className=" mt-6 font-semibold text-3xl flex-1">
                 Students List
