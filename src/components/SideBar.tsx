@@ -1,93 +1,77 @@
-import CreateStudent from "@/pages/CreateStudent";
-import TestPage from "@/pages/TestPage";
 import Link from "next/link";
-import React, { useState } from "react";
-import StudentsList from "@/pages/StudentsList";
-import AdminNotifications from "@/pages/AdminNotifications";
-import AdminTickets from "@/pages/AdminTickets";
-import AdminRooms from "@/pages/AdminRooms";
-import { TbLogout2 } from "react-icons/tb";
 import { FaHome } from "react-icons/fa";
 import { PiStudentFill } from "react-icons/pi";
 import { IoIosNotifications } from "react-icons/io";
 import { IoTicket } from "react-icons/io5";
 import { FaBuilding } from "react-icons/fa6";
 import { FaPeopleGroup } from "react-icons/fa6";
+import { TbLogout2 } from "react-icons/tb";
 
 interface SidebarProps {
   isOpen: boolean;
 }
+
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   return (
-    <div className="p-4 text-black h-screen fixed top-0 left-0 z-50 flex flex-col justify-between">
-      <h1 className="font-semibold mt-10 space-y-6 text-center flex justify-center items-center flex-col ">
-        <Link
-          href="/AdminHome"
-          className="hover:bg-gray-200 p-3 w-full rounded-lg flex "
+    <div className="p-4 w-1/6 text-black h-screen fixed top-0 left-0 z-50 flex flex-col justify-between ">
+      <div className="w-full flex justify-center">
+        <div
+          className="font-semibold  space-y-6 text-center flex flex-col flex-grow overflow-y-auto  w-full mt-10
+      "
         >
-          <div className="w-1/3 flex justify-center">
-            <FaHome size={24} />
-          </div>
-          <h1 className="flex">Home</h1>
-        </Link>
-        <Link
-          href="/StudentsList"
-          className="hover:bg-gray-200 p-3 w-full rounded-lg flex"
-        >
-          <div className="w-1/3 flex justify-center">
-            <PiStudentFill size={28} />
-          </div>
-          <h1 className="flex">Students</h1>
-        </Link>
-        <Link
-          href="/AdminNotifications"
-          className="hover:bg-gray-200 p-3 w-full rounded-lg flex"
-        >
-          <div className="w-1/3 flex justify-center">
+          <Link
+            href="/AdminHome"
+            className="hover:bg-gray-200 p-3 w-full rounded-lg flex items-center mt-10"
+          >
+            <FaHome size={26} />
+            <h1 className="ml-2">Home</h1>
+          </Link>
+          <Link
+            href="/StudentsList"
+            className="hover:bg-gray-200 p-3 w-full rounded-lg flex items-center"
+          >
+            <PiStudentFill size={26} />
+            <h1 className="ml-2">Students</h1>
+          </Link>
+          <Link
+            href="/AdminNotifications"
+            className="hover:bg-gray-200 p-3 w-full rounded-lg flex items-center"
+          >
             <IoIosNotifications size={26} />
-          </div>
-          <h1 className="flex">Notifications</h1>
-        </Link>
-        <Link
-          href="/AdminTickets"
-          className="hover:bg-gray-200 p-3 w-full rounded-lg flex"
-        >
-          <div className="w-1/3 flex justify-center">
-            <IoTicket size={24} />
-          </div>
-          <h1 className="flex">Tickets</h1>
-        </Link>
-        <Link
-          href="/AdminRooms"
-          className="hover:bg-gray-200 p-3 w-full rounded-lg flex"
-        >
-          <div className="w-1/3 flex justify-center">
-            <FaBuilding size={22} />
-          </div>
-          <h1 className="flex">Rooms</h1>
-        </Link>
-        <Link
-          href="/CreateStudent"
-          className="hover:bg-gray-200 p-3 w-full rounded-lg flex"
-        >
-          <div className="w-1/3 flex justify-center">
-            <FaPeopleGroup size={28} />
-          </div>
-          <h1 className="flex">Add&nbsp;Students</h1>
-        </Link>
-      </h1>
+            <h1 className="ml-2">Notifications</h1>
+          </Link>
+          <Link
+            href="/AdminTickets"
+            className="hover:bg-gray-200 p-3 w-full rounded-lg flex items-center"
+          >
+            <IoTicket size={26} />
+            <h1 className="ml-2">Tickets</h1>
+          </Link>
+          <Link
+            href="/AdminRooms"
+            className="hover:bg-gray-200 p-3 w-full rounded-lg flex items-center"
+          >
+            <FaBuilding size={26} />
+            <h1 className="ml-2">Rooms</h1>
+          </Link>
+          <Link
+            href="/CreateStudent"
+            className="hover:bg-gray-200 p-3 w-full rounded-lg flex items-center"
+          >
+            <FaPeopleGroup size={26} />
+            <h1 className="ml-2">Add&nbsp;Students</h1>
+          </Link>
+        </div>
+      </div>
       <div className="sticky bottom-4 text-center flex justify-center items-center">
         <Link
           href="/"
-          className="hover:bg-red-100 p-3 text-red-700 w-full rounded-lg flex"
+          className="hover:bg-red-100 p-3 text-red-700 w-full rounded-lg flex items-center"
         >
-          <div className="w-1/3 flex justify-center ">
-            <TbLogout2 size={26} />
-          </div>
-          <h1 className="flex font-semibold text-lg">Logout</h1>
+          <TbLogout2 size={26} />
+          <h1 className="ml-2 font-semibold text-lg">Logout</h1>
         </Link>
       </div>
-      {/* Add your sidebar links or components here */}
     </div>
   );
 };

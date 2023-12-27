@@ -104,11 +104,12 @@ const StudentsList: React.FC = () => {
       )}
       <div className={` ${isBlurry ? "blur" : ""}`}>
         <TopBar onSidebarToggle={handleSidebarToggle} />
-        <div className="flex">
+        <div className="flex h-screen">
           <div
-            className={`md:block md:w-1/6 bg-white h-screen shadow-lg ${
+            className={`md:block md:w-1/6 bg-green-100 flex-grow overflow-y-auto shadow-lg ${
               isSidebarOpen ? "block" : "hidden"
             }`}
+            style={{ height: "100vh" }} // Explicitly set height
           >
             <Sidebar isOpen={isSidebarOpen} />
           </div>
