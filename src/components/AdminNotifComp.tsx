@@ -11,6 +11,7 @@ import StudentData from "../data/StudentDetails.json";
 import { MdEditNotifications } from "react-icons/md";
 import NotifData from "../data/Notifications.json";
 import CreateNotifications from "./../pages/CreateNotifications";
+import { MdDelete } from "react-icons/md";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -85,7 +86,12 @@ const AdminNotifComp = () => {
                   <IoClose size={24} />
                 </button>
               </div>
-              <p className="mt-4">{selectedNotif.content}</p>
+              <div className="flex justify-between">
+                <p className="mt-4">{selectedNotif.content}</p>
+                <button className="mt-4 hover:bg-red-300 p-2 rounded-md">
+                  <MdDelete size={20} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
