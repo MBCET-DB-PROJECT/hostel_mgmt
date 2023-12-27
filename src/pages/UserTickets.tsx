@@ -5,6 +5,7 @@ import TopBar from "@/components/TopBar";
 import { useState } from "react";
 import "tailwindcss/tailwind.css";
 import { BiUpArrowAlt } from "react-icons/bi";
+import Toast from "@/components/Toast";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -13,13 +14,16 @@ const UserTickets: React.FC = () => {
   const [tickets, setTickets] = useState(["Kettle", "Soap", "Towel"]);
   const [selectedTicket, setSelectedTicket] = useState<string | null>(null);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  //function to handle user button click
+  const [showToast, setShowToast] = useState(false);
 
   const handleSidebarToggle = () => {
     setSidebarOpen(!isSidebarOpen);
   };
   const handleDropdownChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedTicket(e.target.value);
+  };
+  const handleCreateNotification = () => {
+    setShowToast(true);
   };
   return (
     <div>
@@ -63,10 +67,16 @@ const UserTickets: React.FC = () => {
                   {selectedTicket}
                 </div>
               </div>
-              <button className="p-2 w-1/8 bg-black text-white mt-6 rounded-md flex hover:bg-gray-500">
+              <button
+                onClick={handleCreateNotification}
+                className="p-2 w-1/8 bg-black text-white mt-6 rounded-md flex hover:bg-gray-500"
+              >
                 Raise{" "}
                 <BiUpArrowAlt className="mt-1 ml-1 font-semibold" size={20} />
               </button>
+              {showToast && (
+                <Toast message={`Raised Ticket. `} type="success" />
+              )}
             </div>
           )}
         </div>
