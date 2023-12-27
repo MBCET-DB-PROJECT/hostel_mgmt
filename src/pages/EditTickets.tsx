@@ -3,6 +3,7 @@ import TopBar from "@/components/TopBar";
 import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
 import { FaPlus } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -48,9 +49,15 @@ const EditTickets: React.FC = () => {
             {tickets.map((ticket, index) => (
               <div
                 key={index}
-                className="flex justify-center items-center bg-gray-300 text-center p-3 w-1/6 rounded-md"
+                className="flex justify-between items-center bg-gray-300 text-center p-3 w-1/6 rounded-md"
               >
-                {ticket}
+                <div className="flex-1">{ticket}</div>
+                <button>
+                  <MdDelete
+                    className="flex justify-right rounded-md hover:bg-red-300"
+                    size={18}
+                  />
+                </button>
               </div>
             ))}
 
@@ -62,13 +69,13 @@ const EditTickets: React.FC = () => {
                 placeholder="Enter new ticket"
                 className="p-2 border rounded-md"
               />
-              <button
-                onClick={handleAddTicket}
-                className="ml-2 p-2 bg-gray-300 rounded-md font-semibold hover:bg-gray-400 flex"
-              >
-                <FaPlus className="mr-2 mt-1" /> Add
-              </button>
             </div>
+            <button
+              onClick={handleAddTicket}
+              className="ml-2 p-2 bg-gray-300 rounded-md font-semibold hover:bg-gray-400 flex"
+            >
+              <FaPlus className="mr-2 mt-1" /> Add
+            </button>
           </div>
         </div>
       </div>
