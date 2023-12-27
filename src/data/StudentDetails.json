@@ -108,35 +108,5 @@
     "email": "mary@abc.com",
     "fees": "y",
     "password": "abcd"
-  },
-  {
-    "id": 3,
-    "name": "Mary",
-    "class": "EC1",
-    "sem": "3",
-    "roomno": "102",
-    "email": "mary@abc.com",
-    "fees": "y",
-    "password": "abcd"
-  },
-  {
-    "id": 3,
-    "name": "Mary",
-    "class": "EC1",
-    "sem": "3",
-    "roomno": "102",
-    "email": "mary@abc.com",
-    "fees": "y",
-    "password": "abcd"
-  },
-  {
-    "id": 3,
-    "name": "Mary",
-    "class": "EC1",
-    "sem": "3",
-    "roomno": "102",
-    "email": "mary@abc.com",
-    "fees": "y",
-    "password": "abcd"
   }
 ]
