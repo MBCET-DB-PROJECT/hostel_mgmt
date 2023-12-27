@@ -11,7 +11,7 @@ import StudentData from "../data/StudentDetails.json";
 import { MdEditNotifications } from "react-icons/md";
 import NotifData from "../data/Notifications.json";
 import CreateNotifications from "./CreateNotifications";
-import AdminNotifComp from "@/components/AdminNotifComp";
+import UserNotifComp from "@/components/UserNotifComp";
 import UserSidebar from "@/components/UserSideBar";
 
 interface SidebarProps {
@@ -84,7 +84,7 @@ const UserNotifications: React.FC = () => {
           <div className="flex justify-center text-center">
             <h1 className=" mt-6 font-semibold text-3xl ">Notifications</h1>
           </div>
-          <AdminNotifComp />
+          <UserNotifComp />
         </div>
       </div>
     </div>
