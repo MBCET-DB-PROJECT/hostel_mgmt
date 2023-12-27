@@ -5,3 +5,7 @@
 .blur {
   filter: blur(100px);
 }
+
+.no-scroll {
+  overflow: hidden;
+}
