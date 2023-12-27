@@ -20,7 +20,12 @@ const EditTickets: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTicket(e.target.value);
   };
-
+  const handleDeleteTicket = (ticketToDelete: string) => {
+    const updatedTickets = tickets.filter(
+      (ticket) => ticket !== ticketToDelete
+    );
+    setTickets(updatedTickets);
+  };
   const handleAddTicket = () => {
     if (newTicket.trim() !== "") {
       setTickets([...tickets, newTicket.trim()]);
@@ -52,11 +57,11 @@ const EditTickets: React.FC = () => {
                 className="flex justify-between items-center bg-gray-300 text-center p-3 w-1/6 rounded-md"
               >
                 <div className="flex-1">{ticket}</div>
-                <button>
-                  <MdDelete
-                    className="flex justify-right rounded-md hover:bg-red-300"
-                    size={18}
-                  />
+                <button
+                  onClick={() => handleDeleteTicket(ticket)}
+                  className="rounded-md hover:bg-red-300 p-1"
+                >
+                  <MdDelete size={18} />
                 </button>
               </div>
             ))}
