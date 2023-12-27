@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CgProfile } from "react-icons/cg";
-import { showToast } from "./Toast";
+
 import Sidebar from "./SideBar";
 
 interface TopBarProps {
