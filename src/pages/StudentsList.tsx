@@ -126,7 +126,19 @@ const StudentsList: React.FC = () => {
                 <BsPersonFillAdd size={32} />
               </Link>
             </div>
-            test
+            <div className="flex justify-between text-center">
+              <h1 className=" mt-6 font-semibold text-3xl flex-1">
+                Students List
+              </h1>
+              <Link
+                href="/CreateStudent"
+                className={`mt-6 mr-4 px-1 py-1 bg-gray-400 rounded-lg ${
+                  isSidebarOpen ? "hidden md:block" : ""
+                }`}
+              >
+                <BsPersonFillAdd size={32} />
+              </Link>
+            </div>
             <StudentsListComp />
             {/* <div className="flex bg-slate-200">
               <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
