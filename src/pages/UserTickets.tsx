@@ -64,7 +64,8 @@ const UserTickets: React.FC = () => {
                 </div>
               </div>
               <button className="p-2 w-1/10 bg-black text-white mt-6 rounded-md flex hover:bg-gray-500">
-                Raise <BiUpArrowAlt className="mt-1 ml-1 font-bold" size={20} />
+                Raise{" "}
+                <BiUpArrowAlt className="mt-1 ml-1 font-semibold" size={20} />
               </button>
             </div>
           )}
