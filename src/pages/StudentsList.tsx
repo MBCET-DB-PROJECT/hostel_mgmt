@@ -1,3 +1,5 @@
+//RESPONSIVE SIDE BAR ERROR, PULL PREV COMMIT CODE. FILES CHANGED: ADMIN ROOMS,SIDEBAR,TOPBAR,STUDENTSLIST,JSON
+
 import Sidebar from "@/components/SideBar";
 import TopBar from "@/components/TopBar";
 import React, { useState } from "react";
