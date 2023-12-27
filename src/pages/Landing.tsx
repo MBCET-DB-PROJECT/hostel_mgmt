@@ -4,28 +4,24 @@ import "tailwindcss/tailwind.css";
 
 export default function Landing() {
   return (
-    <div className="bg-fixed bg-cover bg-center bg-no-repeat min-h-screen" style={{ backgroundImage: 'url(https://hostel-gentileza.hoteis-em-goias.com/data/Images/OriginalPhoto/12056/1205674/1205674189/image-alto-paraiso-de-goias-hostel-gentileza-13.JPEG)' }}>
-<nav className="bg-transparent fixed top-0 left-0 w-full z-10">
-  <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 h-20">
-    <a className="flex items-center space-x-3 rtl:space-x-reverse text-white">
-        logo
-    </a>
-
-    <div className="hidden w-full md:block md:w-auto " >
-      <ul className="font-semibold flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent ">
-        <li>
-          <a href="#" className=" italic block py-2 px-3 text-black rounded text-xl  md:hover:text-white md:hover:bg-transparent md:border-0 md:p-0">Home</a>
-        </li>
-        <li>
-          <a href="#" className="italic block py-2 px-3 text-black rounded text-xl  md:hover:text-white md:hover:bg-transparent md:border-0 md:p-0">About</a>
-        </li>
-       <li>
-          <a href="#" className=" italic block py-2 px-3 text-black rounded text-xl  md:hover:text-white  md:hover:bg-transparent md:border-0  md:p-0">Contact</a>
-        </li>
-      </ul>
+    <div>
+    <div className=" bg-cover bg-center bg-no-repeat min-h-screen" style={{ backgroundImage: 'url(https://hostel-gentileza.hoteis-em-goias.com/data/Images/OriginalPhoto/12056/1205674/1205674189/image-alto-paraiso-de-goias-hostel-gentileza-13.JPEG)' }}>
+<div className="z-10 flex justify-center w-full h-full text-black  items-center ">
+      <div className="md:w-[80%] w-[95%] h-full  bg-white m-2 z-2 rounded-full shadow-md text-slate-800 font-semibold">
+        <div className="flex items-center justify-between">
+          <div className="flex gap-6  p-5 ">
+            
+            <label className="md:flex hidden">HOME</label>
+            <label className="md:flex hidden">CONTACT</label>
+            <label className="md:flex hidden">ABOUT</label>
+          </div>
+          <div className="flex gap-6 px-5">
+           
+            <button title="Signup" className="bg-black py-3 px-6 rounded-full text-white">LOG IN</button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</nav>
 <div>
 <div className="flex justify-around items-center text-center h-screen">
 <div className="flex flex-col space-y-6">
@@ -42,6 +38,26 @@ export default function Landing() {
   </div>
 
 
+</div>
+<div className="h-screen">
+  <div className="h-full">
+    
+    <div
+      className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
+      <div
+        className="shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12">
+        <img
+          src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+          className="w-full"
+          alt="Sample image" />
+      </div>
+
+    
+      
+  </div>
+</div>
+
+</div>
 </div>
   )
 }
