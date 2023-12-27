@@ -7,6 +7,7 @@ import { FaPlus } from "react-icons/fa";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Toast from "@/components/Toast";
+import CreateStudentComp from "@/components/CreateStudentComp";
 
 const CreateStudent: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false); //to check sidebar open or not in mobile view
@@ -54,8 +55,8 @@ const CreateStudent: React.FC = () => {
           <div className="flex justify-center text-center">
             <h1 className=" mt-6 font-semibold text-3xl">Add Students</h1>
           </div>
-
-          <div className="flex bg-slate-200">
+          <CreateStudentComp />
+          {/*<div className="flex bg-slate-200">
 
             <div className="m-auto">
               <div>
@@ -179,7 +180,7 @@ const CreateStudent: React.FC = () => {
                 </form>
               </div>
             </div>
-          </div>
+                      </div>*/}
         </div>
       </div>
     </div>
