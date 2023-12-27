@@ -76,7 +76,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
           <h1 className="flex">Add Students</h1>
         </Link>
       </h1>
-      <div className=" text-center flex justify-center items-center">
+      <div className="sticky bottom-4 text-center flex justify-center items-center">
         <Link
           href="/"
           className="hover:bg-red-100 p-3 text-red-700 w-full rounded-lg flex"
