@@ -126,6 +126,7 @@ const StudentsList: React.FC = () => {
                 <BsPersonFillAdd size={32} />
               </Link>
             </div>
+            test
             <StudentsListComp />
             {/* <div className="flex bg-slate-200">
               <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
