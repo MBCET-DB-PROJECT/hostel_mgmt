@@ -107,7 +107,7 @@ const AdminRooms: React.FC = () => {
             </div>
           </div>*/}
           <div className="mt-5 flex justify-center">
-            <button className="px-4 py-2 rounded-md bg-black text-white flex hover:bg-gray-800 mt-5">
+            <button className="px-4 py-2 rounded-md bg-black text-white flex hover:bg-gray-800 mt-5 mb-5 ">
               <FaPlus size={18} className="mt-1 mr-2" /> Add Rooms
             </button>
           </div>
