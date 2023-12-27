@@ -36,10 +36,10 @@ const UserTickets: React.FC = () => {
           <h1 className="flex justify-center mt-4 text-3xl font-semibold">
             Raise A Ticket
           </h1>
-          <div className="flex justify-center mt-4">
+          <div className="flex justify-center mt-6">
             <select
               onChange={handleDropdownChange}
-              className="p-2 border rounded-md w-1/6 "
+              className="p-2 border rounded-md w-1/4 "
             >
               <option value="" disabled selected>
                 Select a ticket
@@ -57,13 +57,13 @@ const UserTickets: React.FC = () => {
           </div>
           {selectedTicket && (
             <div className="mt-4 flex justify-center space-x-3 flex-col items-center">
-              <div className="mt-4 bg-gray-300 p-4 w-1/6 rounded-md">
+              <div className="mt-4 bg-gray-300 p-4 w-1/4 rounded-md">
                 You have selected:{" "}
                 <div className="font-semibold flex justify-center mt-2 text-lg">
                   {selectedTicket}
                 </div>
               </div>
-              <button className="p-2 w-1/10 bg-black text-white mt-6 rounded-md flex hover:bg-gray-500">
+              <button className="p-2 w-1/8 bg-black text-white mt-6 rounded-md flex hover:bg-gray-500">
                 Raise{" "}
                 <BiUpArrowAlt className="mt-1 ml-1 font-semibold" size={20} />
               </button>
