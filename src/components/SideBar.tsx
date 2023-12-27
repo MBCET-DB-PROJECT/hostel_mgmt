@@ -19,7 +19,7 @@ interface SidebarProps {
 }
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   return (
-    <div className="p-4 text-black h-screen   flex flex-col justify-between">
+    <div className="p-4 text-black h-screen fixed top-0 left-0 z-50 flex flex-col justify-between">
       <h1 className="font-semibold mt-10 space-y-6 text-center flex justify-center items-center flex-col ">
         <Link
           href="/AdminHome"
@@ -73,7 +73,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
           <div className="w-1/3 flex justify-center">
             <FaPeopleGroup size={28} />
           </div>
-          <h1 className="flex">Add Students</h1>
+          <h1 className="flex">Add&nbsp;Students</h1>
         </Link>
       </h1>
       <div className="sticky bottom-4 text-center flex justify-center items-center">
