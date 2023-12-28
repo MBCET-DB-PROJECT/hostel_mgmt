@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import RoomData from "../data/Rooms.json";
 import AdminRoomsComp from "@/components/AdminRoomsComp";
 import "./../app/globals.css";
+
 interface SidebarProps {
   isOpen: boolean;
 }
@@ -42,6 +43,7 @@ const AdminRooms: React.FC = () => {
   const occupiedRooms = rooms.filter((room) => room.status === "occupied");
   const unoccupiedRooms = rooms.filter((room) => room.status === "unoccupied");
   const [isScrollDisabled, setScrollDisabled] = useState(false);
+
   const handleSidebarToggle = () => {
     setSidebarOpen(!isSidebarOpen);
   };
