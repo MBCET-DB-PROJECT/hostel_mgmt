@@ -96,7 +96,8 @@ const StudentsList: React.FC = () => {
           </div>
         </div>
       )}
-      <div className={` ${isBlurry ? "blur" : ""}`}>
+      {/*<div className={` ${isBlurry ? "blur" : ""}`}>*/}
+      <div className={` ${isModalOpen ? "blur" : ""}`}>
         <TopBar onSidebarToggle={handleSidebarToggle} />
         <div className="flex">
           <div
@@ -107,8 +108,16 @@ const StudentsList: React.FC = () => {
             <Sidebar isOpen={isSidebarOpen} />
           </div>
           <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full  ">
-            <div className="flex justify-between text-center">
-              <h1 className=" mt-6 font-semibold text-3xl flex-1">
+            <div
+              className={`flex justify-between text-center ${
+                isModalOpen ? "blur" : ""
+              }`}
+            >
+              <h1
+                className={`mt-6 font-semibold text-3xl flex-1 ${
+                  isModalOpen ? "blur" : ""
+                }`}
+              >
                 Students List
               </h1>
               <Link

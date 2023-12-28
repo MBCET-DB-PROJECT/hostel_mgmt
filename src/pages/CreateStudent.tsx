@@ -62,16 +62,18 @@ const CreateStudent: React.FC = () => {
           <Sidebar isOpen={isSidebarOpen} />
         </div>
         <div
-          className={`md:block md:w-5/6 bg-slate-200 h-screen w-full flex justify-center items-center flex-col ${
+          className={`md:block md:w-5/6 bg-slate-200 h-screen w-full ${
             isScrollDisabled ? "overflow-y-auto" : ""
           }`}
-          style={{ maxHeight: "calc(100vh - 60px)" }}
+          //style={{ maxHeight: "calc(100vh - 60px)" }}
         >
           <div className="flex justify-center text-center">
             <h1 className=" mt-6 font-semibold text-3xl">Add Students</h1>
           </div>
-          <CreateStudentComp />
-          {/*<div className="flex bg-slate-200">
+          {/* Apply .no-scroll class conditionally */}
+          <div className={isScrollDisabled ? "no-scroll" : ""}>
+            <CreateStudentComp />
+            {/*<div className="flex bg-slate-200">
 
             <div className="m-auto">
               <div>
@@ -196,6 +198,7 @@ const CreateStudent: React.FC = () => {
               </div>
             </div>
                       </div>*/}
+          </div>
         </div>
       </div>
     </div>
