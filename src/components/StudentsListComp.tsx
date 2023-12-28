@@ -115,7 +115,7 @@ const StudentsListComp = () => {
                         <div className="hidden md:block">Sem:{student.sem}</div>
                         <div
                           className={`flex ${
-                            isSidebarOpen ? "hidden md:block" : ""
+                            isSidebarOpen ? "hidden md:block truncate " : ""
                           }`}
                         >
                           Room:{student.roomno}

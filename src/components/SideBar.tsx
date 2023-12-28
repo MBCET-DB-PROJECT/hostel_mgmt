@@ -13,7 +13,6 @@ import { IoIosNotifications } from "react-icons/io";
 import { IoTicket } from "react-icons/io5";
 import { FaBuilding } from "react-icons/fa6";
 import { FaPeopleGroup } from "react-icons/fa6";
-
 interface SidebarProps {
   isOpen: boolean;
 }
@@ -73,10 +72,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
           <div className="w-1/3 flex justify-center">
             <FaPeopleGroup size={28} />
           </div>
-          <h1 className="flex">Add Students</h1>
+
+          <h1 className="flex">Add&nbsp;Students</h1>
         </Link>
       </h1>
-      <div className=" text-center flex justify-center items-center">
+      <div className="sticky bottom-4 text-center flex justify-center items-center">
         <Link
           href="/"
           className="hover:bg-red-100 p-3 text-red-700 w-full rounded-lg flex"
@@ -91,5 +91,4 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
     </div>
   );
 };
-
 export default Sidebar;
