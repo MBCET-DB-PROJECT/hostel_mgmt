@@ -16,8 +16,8 @@ const TopBar: React.FC<{ onSidebarToggle: () => void }> = ({
     setDropdownVisible(!isDropdownVisible);
   };
   return (
-    <div className="fixed top-0 left-0 right-0 z-50">
-      <nav className="bg-white  shadow-lg border-10 border-black md:shadow-lg">
+    <div className="">
+      <nav className="bg-white  shadow-lg border-10 border-black md:shadow-lg ">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <a
             href=""

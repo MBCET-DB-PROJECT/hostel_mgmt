@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import StudentData from "../data/StudentDetails.json";
 import EditStudents from "./EditStudents/[id]";
 import StudentsListComp from "@/components/StudentsListComp";
+import "./../app/globals.css";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -108,27 +109,13 @@ const StudentsList: React.FC = () => {
         <TopBar onSidebarToggle={handleSidebarToggle} />
         <div className="flex">
           <div
-            className={`md:block md:w-1/6 bg-white h-screen shadow-lg${
+            className={`md:block md:w-1/6 bg-white h-screen shadow-lg shadow-right${
               isSidebarOpen ? "block" : "hidden"
             }`}
           >
             <Sidebar isOpen={isSidebarOpen} />
           </div>
           <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full  ">
-            <div className="flex justify-between text-center">
-              <h1 className=" mt-6 font-semibold text-3xl flex-1">
-                Students List
-              </h1>
-              <Link
-                href="/CreateStudent"
-                className={`mt-6 mr-4 px-1 py-1 bg-gray-400 rounded-lg ${
-                  isSidebarOpen ? "hidden md:block" : ""
-                }`}
-              >
-                <BsPersonFillAdd size={32} />
-              </Link>
-            </div>
-            {/* some issue with spacing,ignore */}
             <div className="flex justify-between text-center">
               <h1 className=" mt-6 font-semibold text-3xl flex-1">
                 Students List
