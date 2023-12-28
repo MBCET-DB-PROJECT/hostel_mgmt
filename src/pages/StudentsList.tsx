@@ -1,5 +1,3 @@
-//RESPONSIVE SIDE BAR ERROR, PULL PREV COMMIT CODE. FILES CHANGED: ADMIN ROOMS,SIDEBAR,TOPBAR,STUDENTSLIST,JSON,global.css
-
 import Sidebar from "@/components/SideBar";
 import TopBar from "@/components/TopBar";
 import React, { useState } from "react";
@@ -12,7 +10,6 @@ import { useEffect } from "react";
 import StudentData from "../data/StudentDetails.json";
 import EditStudents from "./EditStudents/[id]";
 import StudentsListComp from "@/components/StudentsListComp";
-import "./../app/globals.css";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -27,7 +24,6 @@ interface Student {
   fees: string;
   password: string;
 }
-
 const StudentsList: React.FC = () => {
   const students = StudentData;
   const [isSidebarOpen, setSidebarOpen] = useState(false); //to check whether sidebar is open in responsive view
@@ -35,18 +31,15 @@ const StudentsList: React.FC = () => {
   const [selectedStudent, setSelectedStudent] = useState<any>(null);
   const [isBlurry, setBlurry] = useState(false); //to blur background when modal is open
   const [studentsList, setStudentsList] = useState<Student[]>(StudentData); //to map student list
-
   const handleSidebarToggle = () => {
     //handles sidebar open or not in mobile view
     setSidebarOpen(!isSidebarOpen);
   };
-
   const handleStudentClick = (student: any) => {
     //to select particular student to show details of in student details modal
     setSelectedStudent(student);
     setModalOpen(true);
   };
-
   useEffect(() => {
     //to set background to blur when modal is open
     if (isModalOpen) {
@@ -55,13 +48,11 @@ const StudentsList: React.FC = () => {
       setBlurry(false);
     }
   }, [isModalOpen]);
-
   const deleteStudent = (id: number) => {
     //to map the deleted students
     const updatedList = studentsList.filter((student) => student.id !== id);
     setStudentsList(updatedList);
   };
-
   return (
     <div>
       {isModalOpen && selectedStudent && (
@@ -109,7 +100,7 @@ const StudentsList: React.FC = () => {
         <TopBar onSidebarToggle={handleSidebarToggle} />
         <div className="flex">
           <div
-            className={`md:block md:w-1/6 bg-white h-screen shadow-lg shadow-right${
+            className={`md:block md:w-1/6 bg-white h-screen shadow-lg ${
               isSidebarOpen ? "block" : "hidden"
             }`}
           >
@@ -164,12 +155,11 @@ const StudentsList: React.FC = () => {
                   </div>
                 ))}
               </div>
-                              </div>*/}
+                                 </div>*/}
           </div>
         </div>
       </div>
     </div>
   );
 };
-
 export default StudentsList;
