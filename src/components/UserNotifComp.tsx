@@ -32,7 +32,7 @@ interface Notif {
   date: string;
 }
 
-const AdminNotifComp = () => {
+const UserNotifComp = () => {
   const students = StudentData;
 
   const [isSidebarOpen, setSidebarOpen] = useState(false); //to check whether sidebar is open in responsive view
@@ -91,15 +91,8 @@ const AdminNotifComp = () => {
                   <IoClose size={24} />
                 </button>
               </div>
-              <div className="flex justify-between">
-                <p className="mt-4">{selectedNotif.content}</p>
-                <button
-                  className="mt-4 hover:bg-red-300 p-2 rounded-md"
-                  onClick={() => handleDeleteNotif(selectedNotif)}
-                >
-                  <MdDelete size={20} />
-                </button>
-              </div>
+
+              <p className="mt-4">{selectedNotif.content}</p>
             </div>
           </div>
         </div>
@@ -128,4 +121,4 @@ const AdminNotifComp = () => {
   );
 };
 
-export default AdminNotifComp;
+export default UserNotifComp;
