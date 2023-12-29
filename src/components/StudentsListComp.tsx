@@ -4,13 +4,11 @@ import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
 import { BsPersonFillAdd } from "react-icons/bs";
 import Link from "next/link";
-import CreateStudent from "./CreateStudent";
+import CreateStudent from "./../pages/CreateStudent";
 import { IoClose } from "react-icons/io5";
 import { useEffect } from "react";
 import StudentData from "../data/StudentDetails.json";
-import EditStudents from "./EditStudents/[id]";
-import StudentsListComp from "@/components/StudentsListComp";
-
+import EditStudents from "./../pages/EditStudents/[id]";
 interface SidebarProps {
   isOpen: boolean;
 }
@@ -25,7 +23,7 @@ interface Student {
   password: string;
 }
 
-const StudentsList: React.FC = () => {
+const StudentsListComp = () => {
   const students = StudentData;
   const [isSidebarOpen, setSidebarOpen] = useState(false); //to check whether sidebar is open in responsive view
   const [isModalOpen, setModalOpen] = useState(false); //to check whether the student details modal is open
@@ -58,7 +56,6 @@ const StudentsList: React.FC = () => {
     const updatedList = studentsList.filter((student) => student.id !== id);
     setStudentsList(updatedList);
   };
-
   return (
     <div>
       {isModalOpen && selectedStudent && (
@@ -102,71 +99,38 @@ const StudentsList: React.FC = () => {
           </div>
         </div>
       )}
-      <div className={` ${isBlurry ? "blur" : ""}`}>
-        <TopBar onSidebarToggle={handleSidebarToggle} />
-        <div className="flex">
-          <div
-            className={`md:block md:w-1/6 bg-white h-screen shadow-lg ${
-              isSidebarOpen ? "block" : "hidden"
-            }`}
-          >
-            <Sidebar isOpen={isSidebarOpen} />
-          </div>
-          <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
-            <div className="flex justify-between text-center">
-              <h1 className=" mt-6 font-semibold text-3xl flex-1">
-                Students List
-              </h1>
-              <Link
-                href="/CreateStudent"
-                className={`mt-6 mr-4 px-1 py-1 bg-gray-400 rounded-lg ${
-                  isSidebarOpen ? "hidden md:block" : ""
-                }`}
-              >
-                <BsPersonFillAdd size={32} />
-              </Link>
-            </div>
-            <StudentsListComp />
-            {/* <div className="flex bg-slate-200">
-              <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
-                {studentsList.map((student) => (
-                  <div
-                    key={student.id}
-                    onClick={() => handleStudentClick(student)}
-                  >
-                    <form>
-                      <div className="mt-5 bg-white rounded-md shadow-lg mx-4 text-center items-center">
-                        <div className="px-5 pb-5 w-full">
-                          <div className="flex justify-between py-2">
-                            <div>{student.name}</div>
-                            <div className="flex right-0 w-1/4 justify-between">
-                              <div className="hidden md:block">
-                                Class:{student.class}
-                              </div>
-                              <div className="hidden md:block">
-                                Sem:{student.sem}
-                              </div>
-                              <div
-                                className={`flex ${
-                                  isSidebarOpen ? "hidden md:block" : ""
-                                }`}
-                              >
-                                Room:{student.roomno}
-                              </div>
-                            </div>
-                          </div>
+      <div className="flex bg-slate-200">
+        <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
+          {studentsList.map((student) => (
+            <div key={student.id} onClick={() => handleStudentClick(student)}>
+              <form>
+                <div className="mt-5 bg-white rounded-md shadow-lg mx-4 text-center items-center">
+                  <div className="px-5 pb-5 w-full">
+                    <div className="flex justify-between py-2">
+                      <div>{student.name}</div>
+                      <div className="flex right-0 w-1/4 justify-between">
+                        <div className="hidden md:block">
+                          Class:{student.class}
+                        </div>
+                        <div className="hidden md:block">Sem:{student.sem}</div>
+                        <div
+                          className={`flex ${
+                            isSidebarOpen ? "hidden md:block" : ""
+                          }`}
+                        >
+                          Room:{student.roomno}
                         </div>
                       </div>
-                    </form>
+                    </div>
                   </div>
-                ))}
-              </div>
-                              </div>*/}
-          </div>
+                </div>
+              </form>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
 };
 
-export default StudentsList;
+export default StudentsListComp;
