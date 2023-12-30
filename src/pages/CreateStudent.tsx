@@ -54,12 +54,16 @@ const CreateStudent: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isChecked, setIsChecked] = useState(false);
  
- const auth = getAuth(app);
+  const auth = getAuth(app);
   const [user,loading] = useAuthState(auth)
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
+
+  const oldUser = auth.currentUser;
 
   useEffect(() => {
+    
     const fetchUserData = async () => {
       const currentUser = auth.currentUser;
   
@@ -77,16 +81,19 @@ const CreateStudent: React.FC = () => {
             
             if (adminData && adminData.role && adminData.role.includes(currentUser.uid)) {
               setIsAdmin(true);
+              setLoading(false);
               console.log('User is an admin');
               // If you want to break out of the loop when an admin is found, you can use 'return;'
             } else {
               setIsAdmin(false);
+              setLoading(false);
               console.log('User is not an admin');
             }
           });
         } catch (error) {
           console.error('Error fetching admin data:', error);
           setIsAdmin(false);
+          setLoading(false);
         }
       }
     };
@@ -94,26 +101,10 @@ const CreateStudent: React.FC = () => {
     fetchUserData();
   }, [user]);
   
-  useEffect(() => {
-    const fetchAdminData = async () => {
-      const db = getFirestore(app);
-      const adminCollectionRef = collection(db, 'admin');
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   
-      try {
-        const querySnapshot = await getDocs(adminCollectionRef);
-  
-        querySnapshot.forEach((doc) => {
-          console.log('Admin Document ID:', doc.id);
-          console.log('Admin Data:', doc.data());
-        });
-  
-      } catch (error) {
-        console.error('Error fetching admin collection:', error);
-      }
-    };
-  
-    fetchAdminData();
-  }, []);
   
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -197,6 +188,10 @@ const CreateStudent: React.FC = () => {
       }
 
       console.log("user created");
+      
+
+      console.log("Student id",student.uid);
+      
 
       setFormData({
         name: "",
@@ -209,6 +204,10 @@ const CreateStudent: React.FC = () => {
         photo: null,
         role: "student",
       });
+
+      updateCurrentUser(auth, oldUser);
+      
+
     } catch (error: any) {
       console.error("error creating user", error.code, error.message);
     }

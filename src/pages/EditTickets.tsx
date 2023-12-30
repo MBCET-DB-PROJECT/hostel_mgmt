@@ -5,7 +5,14 @@ import "tailwindcss/tailwind.css";
 import { FaPlus } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import EditTicketsComp from "@/components/EditTicketsComp";
-import { addDoc, collection, doc, getDocs, getFirestore, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  getFirestore,
+  setDoc,
+} from "firebase/firestore";
 import app from "@/app/firebase";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -22,8 +29,6 @@ interface StudentDetails {
   content: boolean;
 }
 
-
-
 const EditTickets: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [newTicket, setNewTicket] = useState("");
@@ -35,52 +40,55 @@ const EditTickets: React.FC = () => {
   });
 
   const auth = getAuth(app);
-  const [user,loading] = useAuthState(auth)
+  const [user, loading] = useAuthState(auth);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
       const currentUser = auth.currentUser;
-  
+
       if (currentUser) {
         const db = getFirestore(app);
-        const adminCollectionRef = collection(db, 'admin');
-  
-        console.log('User UID:', currentUser.uid);
-  
+        const adminCollectionRef = collection(db, "admin");
+
+        console.log("User UID:", currentUser.uid);
+
         try {
           const querySnapshot = await getDocs(adminCollectionRef);
-    
+
           querySnapshot.forEach((doc) => {
             const adminData = doc.data();
-            
-            if (adminData && adminData.role && adminData.role.includes(currentUser.uid)) {
+
+            if (
+              adminData &&
+              adminData.role &&
+              adminData.role.includes(currentUser.uid)
+            ) {
               setIsAdmin(true);
               setLoading(false);
-              console.log('User is an admin');
+              console.log("User is an admin");
               // If you want to break out of the loop when an admin is found, you can use 'return;'
             } else {
               setIsAdmin(false);
               setLoading(false);
-              console.log('User is not an admin');
+              console.log("User is not an admin");
             }
           });
         } catch (error) {
-          console.error('Error fetching admin data:', error);
+          console.error("Error fetching admin data:", error);
           setIsAdmin(false);
           setLoading(false);
         }
       }
     };
-  
+
     fetchUserData();
   }, [user]);
-  
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
 
   const generateUniqueTicketId = (): string => {
     const ticketDocRef = doc(collection(getFirestore(app), "Tickets"));
@@ -112,36 +120,41 @@ const EditTickets: React.FC = () => {
 
   const handleAddTicket = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     const { content } = formData;
-  
+
     try {
       const db = getFirestore(app);
-  
+
       // Generate a unique ticket ID
       const ticketDocRef = doc(collection(db, "Tickets"));
-  
+
       const ticketData = {
         content,
       };
-  
+
       await setDoc(ticketDocRef, ticketData);
       console.log("Tickets created successfully");
-  
+
       // Update each student with the newly added ticket content as a boolean value
       const studentsRef = collection(db, "student");
       const studentsSnapshot = await getDocs(studentsRef);
-  
+
       studentsSnapshot.forEach(async (studentDoc) => {
         const studentId = studentDoc.id;
-  
-      const ticketColletionRef = collection(db,"student",studentId,"tickets");
 
-       const ticketRef = await addDoc(ticketColletionRef,{
-        [content]: false,
-       })
+        const ticketColletionRef = collection(
+          db,
+          "student",
+          studentId,
+          "tickets"
+        );
+
+        const ticketRef = await addDoc(ticketColletionRef, {
+          [content]: false,
+        });
       });
-  
+
       setFormData({
         content: "",
       });
@@ -150,10 +163,16 @@ const EditTickets: React.FC = () => {
     }
   };
 
-  
-
   return (
     <div>
+      {!isAdmin && (
+        <div>
+          <p>Access denied for non-admin users.</p>
+          {/* You can add more UI elements or a redirect logic here */}
+        </div>
+      )}
+       {isAdmin && (
+        <>
       <TopBar onSidebarToggle={handleSidebarToggle} />
       <div className="flex">
         <div
@@ -207,6 +226,8 @@ const EditTickets: React.FC = () => {
           </div>
         </div>
       </div>
+      </>
+       )}
     </div>
   );
 };
