@@ -10,7 +10,7 @@ const UserHomeComp = () => {
           Welcome&nbsp;Back&nbsp;Abcd!
         </div>
         <div className="flex md:flex-row flex-col md:justify-around w-full  md:space-x-10 space-y-10 md:space-y-0 ">
-          <div className="w-full md:w-1/2 h-64 md:h-64 bg-gradient-to-b from-blue-500 to-slate-300  rounded-3xl">
+          <div className="w-full md:w-1/2 h-64 md:h-64 bg-gradient-to-b from-blue-600 to-slate-300  rounded-3xl">
             <div className="flex justify-between h-full m-2  ">
               <div className="w-1/2  h-full rounded-md flex justify-center items-center  ">
                 <img
@@ -24,7 +24,7 @@ const UserHomeComp = () => {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-1/2 h-64 md:h-64 bg-gradient-to-b from-blue-500 to-slate-300 rounded-3xl relative pb-4 pl-4">
+          <div className="w-full md:w-1/2 h-64 md:h-64 bg-gradient-to-b from-blue-600 to-slate-300 rounded-3xl relative pb-4 pl-4">
             <div className="absolute top-5 right-5">
               <button className=" hover:bg-white  text-black p-1  rounded-md">
                 {" "}
@@ -56,29 +56,18 @@ const UserHomeComp = () => {
           </div>
         </div>
         <div className="flex md:flex-row flex-col md:justify-around w-full  md:space-x-10 space-y-10 md:space-y-0 ">
-          <div className="w-full md:w-1/2 h-64 md:h-64 bg-gradient-to-b from-blue-500 to-slate-300  rounded-md ">
-            <div className="flex justify-center flex-col p-5 font-semibold space-y-6">
-              <div className="flex flex-row justify-between">
-                <p>Mother : </p>
-                <p>Phn No : </p>
+          <div className="w-full  h-64 md:h-64 bg-gradient-to-b from-blue-600 to-slate-300  rounded-3xl ">
+            <div className="flex md:flex-row flex-col p-6 h-full space-x-5 ">
+              <div className="bg-white w-1/3 rounded-3xl shadow-lg">
+                <div className="flex justify-center items-center">
+                  <div className="flex-col">
+                    <p className="text-8xl">S3</p>
+                    <p className="text-4xl">Semester</p>
+                  </div>
+                </div>
               </div>
-              <div className="flex flex-row justify-between">
-                <p>Father : </p>
-                <p>Phn No : </p>
-              </div>
-              <div className="flex flex-row justify-between">
-                <p>Local Guardian : </p>
-                <p>Phn No : </p>
-              </div>
-              <p>Addres : </p>
-              <p></p>
-            </div>
-          </div>
-          <div className="w-full md:w-1/2 h-64 md:h-64 bg-gradient-to-b from-blue-500 to-slate-300  rounded-md">
-            <div className="flex justify-center flex-col p-5 font-semibold space-y-6">
-              <p>Phn No : </p>
-              <p>Local Address : </p>
-              <p>Roommates : </p>
+              <div className="bg-white w-1/3 rounded-3xl shadow-lg">hoi2</div>
+              <div className="bg-white w-1/3 rounded-3xl shadow-lg">jpi3</div>
             </div>
           </div>
         </div>
