@@ -40,7 +40,7 @@ const CreateStudentComp = () => {
   };
 
   return (
-    <div>
+    <div className="overflow-y-auto">
       <div className="flex bg-slate-200">
         <div className="m-auto">
           <div>

@@ -45,7 +45,7 @@ const AdminRoomsComp = () => {
   };
   return (
     <div className="flex justify-around   mx-5 mt-5 space-x-5 h-5/6">
-      <div className=" bg-blue-200 p-4 md:w-1/3 w-1/2 rounded-md shadow-md ">
+      <div className=" bg-blue-200 p-4 md:w-1/3 w-1/2 rounded-md shadow-md overflow-y-auto ">
         <h1 className="flex justify-center font-semibold text-2xl text-center">
           Occupied Rooms
         </h1>
@@ -60,7 +60,7 @@ const AdminRoomsComp = () => {
         ))}
       </div>
 
-      <div className=" bg-white p-4 md:w-1/3 w-1/2 right-0 rounded-md shadow-md">
+      <div className=" bg-white p-4 md:w-1/3 w-1/2 right-0 rounded-md shadow-md overflow-y-auto">
         <h1 className="flex justify-center font-semibold text-2xl text-center">
           Unoccupied Rooms
         </h1>

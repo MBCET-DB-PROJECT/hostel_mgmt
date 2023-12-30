@@ -5,3 +5,25 @@
 .blur {
   filter: blur(100px);
 }
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.shadow-right {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Add a media query for screens that are greater than 768px wide (typical desktop) */
+@media (min-width: 768px) {
+  .no-scroll {
+    overflow: hidden;
+  }
+}
+
+/* Add a media query for screens that are 767px or less in width (typical mobile) */
+@media (max-width: 767px) {
+  .no-scroll {
+    overflow: auto;
+  }
+}

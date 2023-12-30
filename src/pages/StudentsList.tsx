@@ -24,7 +24,6 @@ interface Student {
   fees: string;
   password: string;
 }
-
 const StudentsList: React.FC = () => {
   const students = StudentData;
   const [isSidebarOpen, setSidebarOpen] = useState(false); //to check whether sidebar is open in responsive view
@@ -32,18 +31,15 @@ const StudentsList: React.FC = () => {
   const [selectedStudent, setSelectedStudent] = useState<any>(null);
   const [isBlurry, setBlurry] = useState(false); //to blur background when modal is open
   const [studentsList, setStudentsList] = useState<Student[]>(StudentData); //to map student list
-
   const handleSidebarToggle = () => {
     //handles sidebar open or not in mobile view
     setSidebarOpen(!isSidebarOpen);
   };
-
   const handleStudentClick = (student: any) => {
     //to select particular student to show details of in student details modal
     setSelectedStudent(student);
     setModalOpen(true);
   };
-
   useEffect(() => {
     //to set background to blur when modal is open
     if (isModalOpen) {
@@ -52,13 +48,11 @@ const StudentsList: React.FC = () => {
       setBlurry(false);
     }
   }, [isModalOpen]);
-
   const deleteStudent = (id: number) => {
     //to map the deleted students
     const updatedList = studentsList.filter((student) => student.id !== id);
     setStudentsList(updatedList);
   };
-
   return (
     <div>
       {isModalOpen && selectedStudent && (
@@ -102,7 +96,8 @@ const StudentsList: React.FC = () => {
           </div>
         </div>
       )}
-      <div className={` ${isBlurry ? "blur" : ""}`}>
+      {/*<div className={` ${isBlurry ? "blur" : ""}`}>*/}
+      <div className={` ${isModalOpen ? "blur" : ""}`}>
         <TopBar onSidebarToggle={handleSidebarToggle} />
         <div className="flex">
           <div
@@ -112,9 +107,17 @@ const StudentsList: React.FC = () => {
           >
             <Sidebar isOpen={isSidebarOpen} />
           </div>
-          <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
-            <div className="flex justify-between text-center">
-              <h1 className=" mt-6 font-semibold text-3xl flex-1">
+          <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full  ">
+            <div
+              className={`flex justify-between text-center ${
+                isModalOpen ? "blur" : ""
+              }`}
+            >
+              <h1
+                className={`mt-6 font-semibold text-3xl flex-1 ${
+                  isModalOpen ? "blur" : ""
+                }`}
+              >
                 Students List
               </h1>
               <Link
@@ -161,12 +164,11 @@ const StudentsList: React.FC = () => {
                   </div>
                 ))}
               </div>
-                              </div>*/}
+                                 </div>*/}
           </div>
         </div>
       </div>
     </div>
   );
 };
-
 export default StudentsList;
