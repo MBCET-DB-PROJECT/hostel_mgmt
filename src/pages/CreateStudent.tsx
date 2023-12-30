@@ -5,17 +5,19 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
+  updateCurrentUser,
 } from "firebase/auth";
-import app from "@/app/firebase";
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import app, { auth } from "@/app/firebase";
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import "tailwindcss/tailwind.css";
 import { FaPlus } from "react-icons/fa";
 //import { showToast } from "@/components/Toast";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Toast from "@/components/Toast";
-import { doc, getFirestore, serverTimestamp, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, getFirestore, serverTimestamp, setDoc } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 interface StudentDetails {
   name: string;
@@ -26,6 +28,10 @@ interface StudentDetails {
   roomno: string;
   photo: File | null;
   feespaid: boolean;
+  role: string;
+}
+
+interface User {
   role: string;
 }
 
@@ -47,7 +53,69 @@ const CreateStudent: React.FC = () => {
   const [image, setImage] = useState<string | null>(null); //used for image insertion and preview
   const [error, setError] = useState<string | null>(null);
   const [isChecked, setIsChecked] = useState(false);
+ 
+ const auth = getAuth(app);
+  const [user,loading] = useAuthState(auth)
+  const [isAdmin, setIsAdmin] = useState(false);
 
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const currentUser = auth.currentUser;
+  
+      if (currentUser) {
+        const db = getFirestore(app);
+        const adminCollectionRef = collection(db, 'admin');
+  
+        console.log('User UID:', currentUser.uid);
+  
+        try {
+          const querySnapshot = await getDocs(adminCollectionRef);
+    
+          querySnapshot.forEach((doc) => {
+            const adminData = doc.data();
+            
+            if (adminData && adminData.role && adminData.role.includes(currentUser.uid)) {
+              setIsAdmin(true);
+              console.log('User is an admin');
+              // If you want to break out of the loop when an admin is found, you can use 'return;'
+            } else {
+              setIsAdmin(false);
+              console.log('User is not an admin');
+            }
+          });
+        } catch (error) {
+          console.error('Error fetching admin data:', error);
+          setIsAdmin(false);
+        }
+      }
+    };
+  
+    fetchUserData();
+  }, [user]);
+  
+  useEffect(() => {
+    const fetchAdminData = async () => {
+      const db = getFirestore(app);
+      const adminCollectionRef = collection(db, 'admin');
+  
+      try {
+        const querySnapshot = await getDocs(adminCollectionRef);
+  
+        querySnapshot.forEach((doc) => {
+          console.log('Admin Document ID:', doc.id);
+          console.log('Admin Data:', doc.data());
+        });
+  
+      } catch (error) {
+        console.error('Error fetching admin collection:', error);
+      }
+    };
+  
+    fetchAdminData();
+  }, []);
+  
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -82,16 +150,25 @@ const CreateStudent: React.FC = () => {
   };
   //handles the submit
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  //  e.preventDefault();
+    e.preventDefault();
+
+    if (!isAdmin) {
+      console.log("Access denied for non-admin users.");
+      return;
+    }    
+
+
     const auth = getAuth(app);
     const { name, email, password, roomno, stdclass,semester, feespaid, role, photo } = formData;
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
+   
+     const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
+
       const student = userCredential.user;
 
       const db = getFirestore(app);
@@ -145,8 +222,18 @@ const CreateStudent: React.FC = () => {
     setShowCreateToast(true);
   };
 
+
   return (
     <div>
+   {!isAdmin && (
+      <div>
+        <p>Access denied for non-admin users.</p>
+        {/* You can add more UI elements or a redirect logic here */}
+      </div>
+    )}
+    {isAdmin && (
+
+   <>
       <TopBar onSidebarToggle={handleSidebarToggle} />
       <div className="flex">
         <div
@@ -317,6 +404,8 @@ const CreateStudent: React.FC = () => {
           </div>
         </div>
       </div>
+      </>
+       )}
     </div>
   );
 };

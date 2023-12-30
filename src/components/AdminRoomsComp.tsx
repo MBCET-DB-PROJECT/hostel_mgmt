@@ -18,33 +18,26 @@ interface Room {
 }
 
 interface StudentDetails {
-
-  roomno:string;
-  count:number;
+  roomno: string;
+  count: number;
 }
 
 interface RoomCardProps {
-  data : StudentDetails;
-  
+  data: StudentDetails;
 }
 
-interface RoomDetailsProps {
- 
-}
+interface RoomDetailsProps {}
 
+const RoomDetails: React.FC<RoomDetailsProps> = ({}) => {
+  const [roomDetails, setRoomDetails] = React.useState<StudentDetails[]>([]);
+  const [loadingData, setLoadingData] = React.useState(true);
+  const fetchRoomno = async () => {
+    const db = getFirestore(app);
+    const roomsRef = collection(db, "student");
 
-const RoomDetails:React.FC<RoomDetailsProps> = ({}) => {
-  const [roomDetails,setRoomDetails] = React.useState<StudentDetails[]>([]
-    );
-    const [loadingData,setLoadingData] = React.useState(true);
-    const fetchRoomno = async() => {
-      const db = getFirestore(app);
-      const roomsRef = collection(db,"student");
-
-      try {
+    try {
       const roomsSnapshot = await getDocs(roomsRef);
       const uniqueRoomNumbers = new Set<string>();
-      
 
       const roomCountMap = new Map<string, number>();
 
@@ -59,42 +52,57 @@ const RoomDetails:React.FC<RoomDetailsProps> = ({}) => {
       }, [] as StudentDetails[]);
 
       // Filter unique roomno values
-      const uniqueRoomDetails = Array.from(roomCountMap).map(([roomno, count]) => ({
-        roomno,
-        count,
-      }));
+      const uniqueRoomDetails = Array.from(roomCountMap).map(
+        ([roomno, count]) => ({
+          roomno,
+          count,
+        })
+      );
 
       setRoomDetails(uniqueRoomDetails);
-    } catch(error: any) {
-      console.log('Error fetching room numbers:',error.code,error.message);
+    } catch (error: any) {
+      console.log("Error fetching room numbers:", error.code, error.message);
     } finally {
       setLoadingData(false);
-   }
-  }
+    }
+  };
   React.useEffect(() => {
     fetchRoomno();
-  },[]);
+  }, []);
 
-  if(loadingData) {
+  if (loadingData) {
     return <p>Loading...</p>;
   }
   return (
-    <div className="">
+    <div className="flex justify-around   mx-5 mt-5 space-x-5 h-5/6">
+      <div className=" bg-blue-200 p-4 md:w-1/3 w-1/2 rounded-md shadow-md ">
+        <h1 className="flex justify-center font-semibold text-2xl text-center">
+          Occupied Rooms
+        </h1>
+        <div className="mt-2 flex items-center justify-center border-b  p-3 border-black"></div>
         {roomDetails.map((room, index) => (
-          <RoomsCard key={index} data={room}  />
+          <RoomsCard key={index} data={room} />
         ))}
       </div>
-  )
-}
 
+      <div className=" bg-white p-4 md:w-1/3 w-1/2 right-0 rounded-md shadow-md">
+        <h1 className="flex justify-center font-semibold text-2xl text-center">
+          Unoccupied Rooms
+        </h1>
+        <div className="mt-2 flex items-center justify-center border-b  p-3 border-black"></div>
+        <div className="mt-2 flex items-center justify-center border-b p-3 border-black">
+          Room
+        </div>
+      </div>
+    </div>
+  );
+};
 
-
-
-const RoomsCard: React.FC<RoomCardProps> = ({data}) => {
+const RoomsCard: React.FC<RoomCardProps> = ({ data }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   //function to handle user button click
 
- // const [rooms, setRooms] = useState<Room[]>([]); // Use the Room interface here
+  // const [rooms, setRooms] = useState<Room[]>([]); // Use the Room interface here
 
   /*useEffect(() => {
       setRooms(RoomData);
@@ -109,11 +117,11 @@ const RoomsCard: React.FC<RoomCardProps> = ({data}) => {
         .catch((error) => console.error("Error fetching rooms:", error));
     }, []);
   */
- /* useEffect(() => {
+  /* useEffect(() => {
     setRooms(RoomData as Room[]);
   }, []);
 */
-/*
+  /*
   const occupiedRooms = rooms.filter((room) => room.status === "occupied");
   const unoccupiedRooms = rooms.filter((room) => room.status === "unoccupied");
 */
@@ -121,35 +129,9 @@ const RoomsCard: React.FC<RoomCardProps> = ({data}) => {
     setSidebarOpen(!isSidebarOpen);
   };
   return (
-    <div className="flex justify-around   mx-5 mt-5 space-x-5 h-5/6">
-      <div className=" bg-blue-200 p-4 md:w-1/3 w-1/2 rounded-md shadow-md ">
-        <h1 className="flex justify-center font-semibold text-2xl text-center">
-          Occupied Rooms
-        </h1>
-        <div className="mt-2 flex items-center justify-center border-b  p-3 border-black"></div>
-       
-          <div
-            
-            className="mt-2 flex items-center justify-center border-b p-3 border-black"
-          >
-            Room {data.roomno} (Count: {data.count})
-          </div>
-       
-      </div>
-
-      <div className=" bg-white p-4 md:w-1/3 w-1/2 right-0 rounded-md shadow-md">
-        <h1 className="flex justify-center font-semibold text-2xl text-center">
-          Unoccupied Rooms
-        </h1>
-        <div className="mt-2 flex items-center justify-center border-b  p-3 border-black"></div>
-       
-          <div
-           
-            className="mt-2 flex items-center justify-center border-b p-3 border-black"
-          >
-            Room 
-          </div>
-       
+    <div>
+      <div className="mt-2 flex items-center justify-center border-b p-3 border-black">
+        Room {data.roomno} (Count: {data.count})
       </div>
     </div>
   );

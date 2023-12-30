@@ -13,6 +13,10 @@ import NotifData from "../data/Notifications.json";
 import CreateNotifications from "./CreateNotifications";
 import AdminNotifComp from "@/components/AdminNotifComp";
 import NotifDetails from "@/components/AdminNotifComp";
+import { getAuth } from "firebase/auth";
+import app from "@/app/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -43,6 +47,60 @@ const AdminNotifications: React.FC = () => {
   const [notifsList, setNotifsList] = useState<Notif[]>(NotifData);
   const [selectedNotif, setSelectedNotif] = useState<any>(null);
 
+
+  const auth = getAuth(app);
+  const [user,loading] = useAuthState(auth)
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (isModalOpen) {
+      setBlurry(true);
+    } else {
+      setBlurry(false);
+    }
+    const fetchUserData = async () => {
+      const currentUser = auth.currentUser;
+  
+      if (currentUser) {
+        const db = getFirestore(app);
+        const adminCollectionRef = collection(db, 'admin');
+  
+        console.log('User UID:', currentUser.uid);
+  
+        try {
+          const querySnapshot = await getDocs(adminCollectionRef);
+    
+          querySnapshot.forEach((doc) => {
+            const adminData = doc.data();
+            
+            if (adminData && adminData.role && adminData.role.includes(currentUser.uid)) {
+              setIsAdmin(true);
+              setLoading(false);
+              console.log('User is an admin');
+              // If you want to break out of the loop when an admin is found, you can use 'return;'
+            } else {
+              setIsAdmin(false);
+              setLoading(false);
+              console.log('User is not an admin');
+            }
+          });
+        } catch (error) {
+          console.error('Error fetching admin data:', error);
+          setIsAdmin(false);
+          setLoading(false);
+        }
+      }
+    };
+  
+    fetchUserData();
+  }, [user,isModalOpen]);
+  
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+
   const handleSidebarToggle = () => {
     //handles sidebar open or not in mobile view
     setSidebarOpen(!isSidebarOpen);
@@ -59,17 +117,11 @@ const AdminNotifications: React.FC = () => {
     setModalOpen(true);
   };
 
-  useEffect(() => {
-    //to set background to blur when modal is open
-    if (isModalOpen) {
-      setBlurry(true);
-    } else {
-      setBlurry(false);
-    }
-  }, [isModalOpen]);
+
 
   return (
     <div>
+     
       {/*} {isModalOpen && selectedNotif && (
         //modal for student details
         <div className="md:w-1/6 md:block shadow-lg">

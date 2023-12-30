@@ -8,19 +8,21 @@ import NotifData from "../data/Notifications.json";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import Link from "next/link";
 import AdminNotifications from "./AdminNotifications";
+import { MdAdd } from "react-icons/md";
+import { collection, doc, getDocs, getFirestore, setDoc } from "firebase/firestore";
+import app from "@/app/firebase";
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 interface SidebarProps {
   isOpen: boolean;
 }
 interface Notification {
-  
   content: string;
   timestamp:any;
 }
 
-import { MdAdd } from "react-icons/md";
-import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
-import app from "@/app/firebase";
+
 const CreateNotifications: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [notificationContent, setNotificationContent] = useState<string>("");
@@ -35,6 +37,61 @@ const CreateNotifications: React.FC = () => {
       content: "",
       timestamp:"",
     })
+
+    const auth = getAuth(app);
+  const [user,loading] = useAuthState(auth)
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => {
+        setShowToast(false);
+      }, 3000); // Hide the toast after 3 seconds
+
+      return () => clearTimeout(timer);
+    }
+    const fetchUserData = async () => {
+      const currentUser = auth.currentUser;
+  
+      if (currentUser) {
+        const db = getFirestore(app);
+        const adminCollectionRef = collection(db, 'admin');
+  
+        console.log('User UID:', currentUser.uid);
+  
+        try {
+          const querySnapshot = await getDocs(adminCollectionRef);
+    
+          querySnapshot.forEach((doc) => {
+            const adminData = doc.data();
+            
+            if (adminData && adminData.role && adminData.role.includes(currentUser.uid)) {
+              setIsAdmin(true);
+              setLoading(false);
+              console.log('User is an admin');
+              // If you want to break out of the loop when an admin is found, you can use 'return;'
+            } else {
+              setIsAdmin(false);
+              setLoading(false);
+              console.log('User is not an admin');
+            }
+          });
+        } catch (error) {
+          console.error('Error fetching admin data:', error);
+          setIsAdmin(false);
+          setLoading(false);
+        }
+      }
+    };
+  
+    fetchUserData();
+  }, [user,showToast]);
+  
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
 
 
     const generateUniqueNotificationId = (): string => {
@@ -118,18 +175,19 @@ const CreateNotifications: React.FC = () => {
     setNotificationContent("");
   };
 */
-  useEffect(() => {
-    if (showToast) {
-      const timer = setTimeout(() => {
-        setShowToast(false);
-      }, 3000); // Hide the toast after 3 seconds
 
-      return () => clearTimeout(timer);
-    }
-  }, [showToast]);
 
   return (
     <div>
+      {!isAdmin && (
+      <div>
+        <p>Access denied for non-admin users.</p>
+        {/* You can add more UI elements or a redirect logic here */}
+      </div>
+    )}
+
+{isAdmin && (
+        <>
       <TopBar onSidebarToggle={handleSidebarToggle} />
       <div className="flex">
         <div
@@ -196,6 +254,8 @@ const CreateNotifications: React.FC = () => {
           </div>
         </div>
       </div>
+      </>
+    )}
     </div>
   );
 };

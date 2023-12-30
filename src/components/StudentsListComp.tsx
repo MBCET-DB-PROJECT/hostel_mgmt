@@ -15,6 +15,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   getFirestore,
 } from "firebase/firestore";
@@ -55,6 +56,30 @@ const StdDetails: React.FC<StudentDetailsProps> = ({ stdId }) => {
     []
   );
 
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  //to check whether sidebar is open in responsive view
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const [isBlurry, setBlurry] = useState(false); //to blur background when modal is open
+  const handleSidebarToggle = () => {
+    //handles sidebar open or not in mobile view
+    setSidebarOpen(!isSidebarOpen);
+  };
+  const handleStudentClick = (student: any) => {
+    //to select particular student to show details of in student details modal
+    setSelectedStudent(student);
+    setModalOpen(true);
+  };
+
+  useEffect(() => {
+    //to set background to blur when modal is open
+    if (isModalOpen) {
+      setBlurry(true);
+    } else {
+      setBlurry(false);
+    }
+  }, [isModalOpen]);
+
   const [user, loading] = useState(getAuth(app)); //to check whether the student details modal is open
   const [loadingData, setLoadingData] = React.useState(true);
   const [selectedStudent, setSelectedStudent] = useState<any>(null);
@@ -63,21 +88,21 @@ const StdDetails: React.FC<StudentDetailsProps> = ({ stdId }) => {
     try {
       const db = getFirestore(app);
       const studentsRef = collection(db, "student");
-  
+
       const studentsSnapshot = await getDocs(studentsRef);
-  
+
       const studentDetailsArray: StudentDetails[] = [];
-  
+
       studentsSnapshot.forEach((studentDoc) => {
         const studentData = studentDoc.data() as StudentDetails;
-  
+
         // Append the stdId to the student data
         const studentWithId = { ...studentData, stdId: studentDoc.id };
-  
+
         // Add the student data to the array
         studentDetailsArray.push(studentWithId);
       });
-  
+
       if (studentDetailsArray.length > 0) {
         console.log("Student details loaded:", studentDetailsArray);
         setStudentDetails(studentDetailsArray);
@@ -88,9 +113,12 @@ const StdDetails: React.FC<StudentDetailsProps> = ({ stdId }) => {
       console.error("Error fetching student details", error);
     } finally {
       setLoadingData(false);
-    };
+    }
   };
+
   
+
+
   React.useEffect(() => {
     fetchStudentDetails();
   }, [stdId, user]);
@@ -99,12 +127,15 @@ const StdDetails: React.FC<StudentDetailsProps> = ({ stdId }) => {
     return <p>Loading...</p>;
   }
 
+
   return (
-    <div className="grid grid-cols-3 gap-3 ml-5">
+    <>
+     
       {studentDetails.map((event, index) => (
         <StudentsCard key={index} data={event} stdId={event.stdId} />
       ))}
-    </div>
+     
+    </>
   );
 };
 
@@ -124,17 +155,28 @@ const StudentsCard: React.FC<StudentCardProps> = ({ data, stdId }) => {
     setSelectedStudent(student);
     setModalOpen(true);
   };
+
+
   const deleteStudent = async () => {
     const db = getFirestore(app);
     const storage = getStorage(app);
     const auth = getAuth(app);
     const studentsRef = collection(db, "student");
     const studentDoc = doc(db, "student", stdId);
-
+  
+    const studentSnapshot = await getDoc(studentDoc);
+    const studentData = studentSnapshot.data() as StudentDetails;
     await deleteDoc(studentDoc);
-
-    const photoRef = ref(storage, `images/${stdId}`);
+  
+    if (studentData.imageUrl) {
+      const photoRef = ref(storage, studentData.imageUrl);
+      console.log("image Url is",studentData.imageUrl)
+      await deleteObject(photoRef);
+    } else {
+      console.error("Image URL not found for student:", studentData);
+    }
   };
+  
 
   useEffect(() => {
     //to set background to blur when modal is open
@@ -149,7 +191,7 @@ const StudentsCard: React.FC<StudentCardProps> = ({ data, stdId }) => {
     <>
       {isModalOpen && selectedStudent && (
         //modal for student details
-        <div className="md:w-1/6 md:block shadow-lg">
+        <div className="md:w-1/6  md:block shadow-lg">
           <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="bg-white md:p-8 p-4  rounded-lg md:w-1/2 w-2/3 shadow-md">
               <div className="flex justify-between">
@@ -165,7 +207,7 @@ const StudentsCard: React.FC<StudentCardProps> = ({ data, stdId }) => {
               <p>Class: {data.stdclass}</p>
               <p>Sem: {data.semester}</p>
               <p>Room: {data.roomno}</p>
-              {/* ... other details */}
+
               <div className="mt-6">
                 <Link
                   href={`/EditStudents/[stdId]`}
@@ -190,40 +232,43 @@ const StudentsCard: React.FC<StudentCardProps> = ({ data, stdId }) => {
           </div>
         </div>
       )}
-      <div className={` ${isBlurry ? "blur" : ""}`}>
-        <div
-          className={`md:block md:w-1/6 bg-white h-screen shadow-lg ${
-            isSidebarOpen ? "block" : "hidden"
-          }`}
-        ></div>
-
-        <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
+     
+     <div className="flex bg-slate-200">
+    
+     <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
           <div key={data.stdId} onClick={() => handleStudentClick(data)}>
             <form>
               <div className="mt-5 bg-white rounded-md shadow-lg mx-4 text-center items-center">
                 <div className="px-5 pb-5 w-full">
-                  <div className="flex justify-between py-2">
-                    <div>{data.name}</div>
-                    <div className="flex right-0 w-1/4 justify-between">
-                      <div className="hidden md:block">
-                        Class:{data.stdclass}
+                 
+                  <div className="flex  justify-between py-2">
+                    
+                      <div>{data.name}</div>
+                      <div className="flex right-0 w-1/4 justify-between">
+                        <div className="hidden md:block">
+                          Class:{data.stdclass}
+                        </div>
+                        <div className="hidden md:block">
+                          Sem:{data.semester}
+                        </div>
+                        <div
+                          className={`flex ${
+                            isSidebarOpen ? "hidden md:block" : ""
+                          }`}
+                        >
+                          Room:{data.roomno}
+                        </div>
                       </div>
-                      <div className="hidden md:block">Sem:{data.semester}</div>
-                      <div
-                        className={`flex ${
-                          isSidebarOpen ? "hidden md:block" : ""
-                        }`}
-                      >
-                        Room:{data.roomno}
-                      </div>
-                    </div>
+                    
                   </div>
+                  
                 </div>
               </div>
             </form>
           </div>
-        </div>
-      </div>
+          </div>
+          </div>
+      
     </>
   );
 };
