@@ -7,12 +7,14 @@ import Link from "next/link";
 
 import { useEffect } from "react";
 import EditTickets from "@/pages/EditTickets";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, getFirestore } from "firebase/firestore";
 import app from "@/app/firebase";
 
 interface Tickets {
   content: string;
   ticketId: string;
+  students: string[];
+  studentDetails: StudentDetails[];
 }
 
 interface StudentDetails {
@@ -20,6 +22,11 @@ interface StudentDetails {
   content: boolean;
   roomno: string;
   name: string;
+  feespaid:boolean;
+  stdclass:string;
+  semester:string;
+  imageUrl:string;
+  role:string;
 }
 
 interface TicketDetailsProps {
@@ -28,7 +35,6 @@ interface TicketDetailsProps {
 
 interface AdminTicketsCompProps {
   data: Tickets;
-
   students: StudentDetails[];
 }
 
@@ -41,36 +47,56 @@ const TicketsCard: React.FC<TicketDetailsProps> = ({ ticketId }) => {
     try {
       const db = getFirestore(app);
       const ticketsRef = collection(db, "Tickets");
-      const raisedRef = collection(db, "student");
-     
-
-      
-      const raisedSnapshot = await getDocs(raisedRef);
       const ticketSnapshot = await getDocs(ticketsRef);
-
+  
       const ticketDetailsArray: Tickets[] = [];
-
-      raisedSnapshot.forEach(async (raisedDoc) => {
-        const raisedId = raisedDoc.id;
-        const raisedData = raisedDoc.data();
-        console.log("raisedticket:",raisedData);
-
-        
-      
-      })
-
-
-
-      ticketSnapshot.forEach((ticketDoc) => {
+  
+      // Extract all student details from all tickets
+      const allStudentDetails: StudentDetails[] = [];
+  
+      for (const ticketDoc of ticketSnapshot.docs) {
         const ticketData = ticketDoc.data() as Tickets;
-
         const ticketsId = { ...ticketData, ticketId: ticketDoc.id };
-
-        ticketDetailsArray.push(ticketsId);
-      });
+  
+        console.log("Fetching students for ticket:", ticketsId);
+  
+        const studentDetailsArray: StudentDetails[] = [];
+        for (const studentId of ticketData.students) {
+          console.log("Fetching student details for ID:", studentId);
+          const studentDoc = await getDoc(doc(db, "student", studentId));
+          if (studentDoc.exists()) {
+            const studentData = studentDoc.data() as StudentDetails;
+            studentDetailsArray.push({
+              ...studentData,
+              stdId: studentId,
+            });
+          } else {
+            console.log("Student not found for ID:", studentId);
+          }
+        }
+  
+        console.log("Fetched student details for ticket:", studentDetailsArray);
+  
+        allStudentDetails.push(...studentDetailsArray);
+  
+        ticketDetailsArray.push({
+          ...ticketsId,
+          studentDetails: studentDetailsArray,
+        });
+      }
+  
       if (ticketDetailsArray.length > 0) {
         console.log("Tickets Data Loaded", ticketDetailsArray);
         setTickets(ticketDetailsArray);
+  
+        // Extract unique student details from all tickets
+        const uniqueStudents: StudentDetails[] = Array.from(
+          new Set(allStudentDetails.map((student) => JSON.stringify(student)))
+        ).map((student) => JSON.parse(student));
+  
+        console.log("Unique Students:", uniqueStudents);
+  
+        setStudents(uniqueStudents);
       } else {
         console.log("No Tickets Found");
       }
@@ -80,71 +106,10 @@ const TicketsCard: React.FC<TicketDetailsProps> = ({ ticketId }) => {
       setLoadingData(false);
     }
   };
-
-  const fetchStudents = async () => {
-    try {
-      const db = getFirestore(app);
-      const studentsRef = collection(db, "student");
-     
-      const studentSnapshot = await getDocs(studentsRef);
-     
-
-      const studentsDetailsArray: StudentDetails[] = [];
-
-      studentSnapshot.forEach(async (studentDoc) => {
-        const studentId = studentDoc.id;
-        const studentData = studentDoc.data();
-
-        const raisedTickets: StudentDetails = {
-          stdId: studentId,
-          content: false,
-          roomno: "",
-          name: "",
-        };
-
-        const ticketsRef = collection(db, "student", studentId, "tickets");
-        const ticketsSnapshot = await getDocs(ticketsRef);
-
-        ticketsSnapshot.forEach((ticketDoc) => {
-          const ticketName = ticketDoc.id;
-          const ticketData = ticketDoc.data();
-          console.log("ticketdata:", ticketData);
-
-          // Check if content field exists and its value for the specific ticketName is true
-          const hasTicket =
-            ticketData &&
-            typeof ticketData.content === "object" &&
-            ticketData.content &&
-            ticketData.content[ticketName] === true;
-
-          // If 'content' is still undefined, provide a default value
-          const contentOrDefault = ticketData.content || {};
-
-       
-
-          if (hasTicket) {
-            raisedTickets.content = true; // Set content to true if any ticket is raised
-          }
-        });
-
-       
-        studentsDetailsArray.push(raisedTickets);
-      });
-
-      if (studentsDetailsArray.length > 0) {
-        console.log("Students Data Loaded", studentsDetailsArray);
-        setStudents(studentsDetailsArray);
-      } else {
-        console.log("No Students Found");
-      }
-    } catch (error) {
-      console.log("error fetching students", error);
-    }
-  };
+  
 
   React.useEffect(() => {
     fetchTickets();
-    fetchStudents();
   }, [ticketId]);
 
   if (loadingData) {
@@ -160,10 +125,7 @@ const TicketsCard: React.FC<TicketDetailsProps> = ({ ticketId }) => {
   );
 };
 
-const AdminTicketsComp: React.FC<AdminTicketsCompProps> = ({
-  data,
-  students,
-}) => {
+const AdminTicketsComp: React.FC<AdminTicketsCompProps> = ({ data, students }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState<string | null>(null);
 
@@ -185,14 +147,34 @@ const AdminTicketsComp: React.FC<AdminTicketsCompProps> = ({
   const handleTicketSelect = (ticketId: string) => {
     console.log("Selecting ticket", ticketId);
     setSelectedTicket(ticketId);
+    
     setDropdownOpen(false); // Close the dropdown when a ticket is selected
   };
 
   const handleOutsideClick = (event: any) => {
-    if (event.target.closest(".dropdown-content") === null && isDropdownOpen) {
+    if (
+      event.target.closest(".dropdown-content") === null &&
+      isDropdownOpen
+    ) {
       setDropdownOpen(false);
     }
   };
+
+  console.log('Dropdown Open:', isDropdownOpen);
+  console.log('Selected Ticket:', selectedTicket);
+
+
+console.log("Component students:", students);
+
+console.log(
+  "Matching students:",
+  data.studentDetails.filter((student) =>
+    students.some((detail) => detail.stdId === student.stdId)
+  )
+);
+
+
+
 
   useEffect(() => {
     window.addEventListener("click", handleOutsideClick);
@@ -218,11 +200,7 @@ const AdminTicketsComp: React.FC<AdminTicketsCompProps> = ({
                     <div className="flex flex-row space-x-5">
                       <div>
                         Students raised:{" "}
-                        {
-                          students.filter((student) =>
-                            data.content.includes(student.stdId)
-                          ).length
-                        }
+                        {data.studentDetails.length}
                       </div>
 
                       <button
@@ -246,20 +224,15 @@ const AdminTicketsComp: React.FC<AdminTicketsCompProps> = ({
                 >
                   <div className="mt-2 flex w-full ">
                     <div className="w-full">
-                      {students.map((student) => {
-                        if (data.content.includes(student.stdId)) {
-                          return (
-                            <div
-                              key={student.stdId}
-                              className="flex  justify-between border-b p-3 border-black "
-                            >
-                              <div>{student.name} </div>
-                              <div>Room No: {student.roomno} </div>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })}
+                    {students.map((student) => (
+                        <div
+                          key={student.stdId}
+                          className="flex justify-between border-b p-3 border-black "
+                        >
+                          <div>{student.name}</div>
+                          <div>Room No: {student.roomno}</div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>

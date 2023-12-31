@@ -23,6 +23,7 @@ interface SidebarProps {
 
 interface Tickets {
   content: string;
+  students: Array<any>;
 }
 
 interface StudentDetails {
@@ -37,6 +38,7 @@ const EditTickets: React.FC = () => {
 
   const [formData, setFormData] = useState<Tickets>({
     content: "",
+    students: [],
   });
 
   const auth = getAuth(app);
@@ -131,32 +133,18 @@ const EditTickets: React.FC = () => {
 
       const ticketData = {
         content,
+        students: [],
       };
 
       await setDoc(ticketDocRef, ticketData);
       console.log("Tickets created successfully");
 
       // Update each student with the newly added ticket content as a boolean value
-      const studentsRef = collection(db, "student");
-      const studentsSnapshot = await getDocs(studentsRef);
-
-      studentsSnapshot.forEach(async (studentDoc) => {
-        const studentId = studentDoc.id;
-
-        const ticketColletionRef = collection(
-          db,
-          "student",
-          studentId,
-          "tickets"
-        );
-
-        const ticketRef = await addDoc(ticketColletionRef, {
-          [content]: false,
-        });
-      });
+  
 
       setFormData({
         content: "",
+        students: [],
       });
     } catch (error: any) {
       console.error("error creating tickets", error.code, error.message);
