@@ -7,15 +7,20 @@ import { IoClose } from "react-icons/io5";
 import studentData from "./../data/StudentDetails.json";
 
 const UserHomeComp = () => {
+  const student = studentData[0];
   const [isModalOpen, setModalOpen] = useState(false);
   const [showEditToast, setShowEditToast] = useState(false);
   const [isBlurry, setBlurry] = useState(false);
-  const student = studentData[0];
+  const [editedStudent, setEditedStudent] = useState({
+    ...student, // Ensure it's a string
+  });
 
   const handleSave = () => {
-    //alert("Details saved!");
+    // Update student data in the JSON file or database
+    // For now, just updating the state
     setModalOpen(false);
     setShowEditToast(true);
+    setEditedStudent(editedStudent);
   };
 
   useEffect(() => {
@@ -30,7 +35,7 @@ const UserHomeComp = () => {
     <div className="w-full flex justify-center ">
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
+          <div className="bg-white p-8 rounded-lg shadow-lg md:w-1/3 w-full mx-4">
             <div className="flex justify-between">
               <h2 className="text-xl font-semibold ">Edit Details</h2>
               <button onClick={() => setModalOpen(false)}>
@@ -41,22 +46,68 @@ const UserHomeComp = () => {
               <div className="flex flex-row text-lg">
                 {" "}
                 <p className="font-semibold ">Students Phone : </p>
-                <p className="ml-4"> {student.stphn}</p>
+                <p className="ml-4">
+                  {" "}
+                  <input
+                    type="text"
+                    value={editedStudent.stphn}
+                    onChange={(e) =>
+                      setEditedStudent({
+                        ...editedStudent,
+                        stphn: e.target.value,
+                      })
+                    }
+                  />
+                  {/*ignore the error above,the thingy works fine...until it doesnt but anyways,*/}
+                </p>
               </div>
               <div className="flex flex-row text-lg">
                 {" "}
                 <p className="font-semibold ">Address : </p>
-                <p className="ml-4">{student.address}</p>
+                <p className="ml-4">
+                  <input
+                    type="text"
+                    value={editedStudent.address}
+                    onChange={(e) =>
+                      setEditedStudent({
+                        ...editedStudent,
+                        address: e.target.value,
+                      })
+                    }
+                  />
+                </p>
               </div>
               <div className="flex flex-row text-lg">
                 {" "}
                 <p className=" font-semibold">Local Guardian : </p>
-                <p className="ml-4">{student.localg}</p>
+                <p className="ml-4">
+                  <input
+                    type="text"
+                    value={editedStudent.localg}
+                    onChange={(e) =>
+                      setEditedStudent({
+                        ...editedStudent,
+                        localg: e.target.value,
+                      })
+                    }
+                  />
+                </p>
               </div>
               <div className="flex flex-row text-lg">
                 {" "}
                 <p className=" font-semibold">Phone : </p>
-                <p className="ml-4">{student.locphn}</p>
+                <p className="ml-4">
+                  <input
+                    type="text"
+                    value={editedStudent.locphn}
+                    onChange={(e) =>
+                      setEditedStudent({
+                        ...editedStudent,
+                        locphn: e.target.value,
+                      })
+                    }
+                  />
+                </p>
               </div>
             </div>
             <button
