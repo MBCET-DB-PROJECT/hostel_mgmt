@@ -137,7 +137,7 @@ const UserHomeComp = () => {
           Welcome&nbsp;Back&nbsp;Abcd!
         </div>
         <div className="flex md:flex-row flex-col md:justify-around w-full  md:space-x-10 space-y-10 md:space-y-0 ">
-          <div className="w-full md:w-1/2 h-64 md:h-64 bg-gradient-to-b from-blue-600 to-slate-300  rounded-3xl transition-transform duration-300 hover:scale-105">
+          <div className="w-full md:w-1/2 h-64 md:h-64 shadow-lg bg-gradient-to-b from-blue-600 to-slate-300  rounded-3xl transition-transform duration-300 hover:scale-105">
             <div className="flex justify-between h-full m-2  ">
               <div className="w-1/2  h-full rounded-md flex justify-center items-center  ">
                 <img
@@ -151,7 +151,7 @@ const UserHomeComp = () => {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-1/2 h-64 md:h-64 bg-gradient-to-b from-blue-600 to-slate-300 rounded-3xl relative pb-4 pl-4 transition-transform duration-300 hover:scale-105">
+          <div className="w-full md:w-1/2 h-64 md:h-64 shadow-lg bg-gradient-to-b from-blue-600 to-slate-300 rounded-3xl relative pb-4 pl-4 transition-transform duration-300 hover:scale-105">
             <div className="absolute top-5 right-5">
               <button
                 onClick={() => setModalOpen(true)}
@@ -185,45 +185,49 @@ const UserHomeComp = () => {
             </div>
           </div>
         </div>
-        <div className="flex md:flex-row flex-col md:justify-around w-full  md:space-x-10 space-y-10 md:space-y-0 ">
-          <div className="w-full  h-64 md:h-64 bg-gradient-to-b from-blue-600 to-slate-300  rounded-3xl  ">
-            <div className="flex md:flex-row flex-col p-6 h-full space-x-8 ">
-              <div className="bg-white w-1/3 rounded-3xl shadow-lg transition-transform duration-300 hover:scale-105 p-6">
-                <div className="flex justify-center items-center text-center">
-                  <div className="flex flex-col space-y-2 justify-center items-center ">
-                    <p className="text-8xl flex justify-center items-center">
-                      {student.sem}
-                    </p>
-                    <p className="text-2xl text-gray-300">Semester</p>
-                  </div>
+        <div className="flex flex-row flex-wrap justify-around w-full space-y-10 md:space-y-0 bg-white rounded-3xl shadow-lg">
+          <div className="w-full sm:w-1/2 md:w-1/3 p-4 ">
+            <div className="bg-gradient-to-b from-blue-500 to-slate-300  rounded-3xl shadow-lg transition-transform duration-300 hover:scale-105 p-6">
+              <div className="flex justify-center items-center text-center">
+                <div className="flex flex-col space-y-2 justify-center items-center">
+                  <p className="text-6xl flex justify-center items-center">
+                    {student.sem}
+                  </p>
+                  <p className="text-base italic font-thin text-black">
+                    Semester
+                  </p>
                 </div>
               </div>
-
-              <div className="bg-white w-1/3 rounded-3xl shadow-lg transition-transform duration-300 hover:scale-105 p-6">
-                <div className="flex justify-center items-center text-center">
-                  <div className="flex flex-col space-y-2 justify-center items-center ">
-                    <p className="text-8xl flex justify-center items-center">
-                      {student.class}
-                    </p>
-                    <p className="text-2xl text-gray-300">Class</p>
-                  </div>
+            </div>
+          </div>
+          <div className="w-full sm:w-1/2 md:w-1/3 p-4">
+            <div className="bg-gradient-to-b from-blue-500 to-slate-300  rounded-3xl shadow-lg transition-transform duration-300 hover:scale-105 p-6">
+              <div className="flex justify-center items-center text-center">
+                <div className="flex flex-col space-y-2 justify-center items-center">
+                  <p className="text-6xl flex justify-center items-center">
+                    {student.class}
+                  </p>
+                  <p className="text-base font-thin italic text-black">Class</p>
                 </div>
               </div>
-              <div className="bg-white w-1/3 rounded-3xl shadow-lg transition-transform duration-300 hover:scale-105 p-6">
-                <div className="flex justify-center items-center text-center">
-                  <div className="flex flex-col space-y-2 justify-center items-center ">
-                    <p className="text-8xl flex justify-center items-center">
-                      <input
-                        type="checkbox"
-                        className="w-16 h-16 text-black text-sm bg-transparent border-none rounded-md focus:ring-transparent  accent-black"
-                      />{" "}
-                    </p>
-                    <p className="text-2xl text-gray-300">
-                      {" "}
-                      <label className="block  text-3xl text-gray-300 ">
-                        Fees Paid
-                      </label>
-                    </p>
+            </div>
+          </div>
+          <div className="w-full sm:w-1/2 md:w-1/3 p-4">
+            <div className="bg-gradient-to-b from-blue-500 to-slate-300  rounded-3xl shadow-lg transition-transform duration-300 hover:scale-105 p-6">
+              <div className="flex justify-center items-center text-center">
+                <div className="flex flex-col space-y-2 justify-center items-center">
+                  <div className="flex flex-col space-y-2 justify-center items-center">
+                    <div className="text-6xl flex justify-center items-center flex-col">
+                      <div>
+                        <input
+                          type="checkbox"
+                          className="w-14 h-14 text-black text-sm bg-transparent border-none rounded-md focus:ring-transparent  accent-black"
+                        />
+                      </div>
+                      <div className="block  text-base italic text-black font-thin mt-1">
+                        Fees
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
