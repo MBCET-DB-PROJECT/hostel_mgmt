@@ -1,112 +1,44 @@
 [
   {
     "id": 1,
-    "name": "John",
+    "name": "John Cena",
     "class": "CS1",
     "sem": "5",
     "roomno": "101",
     "email": "john@abc.com",
     "fees": "y",
-    "password": "abcd"
+    "password": "abcd",
+    "stphn": "123456789",
+    "address": "ab,abcd,abcde",
+    "localg": "superman",
+    "locphn": "987654321"
   },
   {
     "id": 2,
-    "name": "Doe",
+    "name": "Doe Doe",
     "class": "ME2",
     "sem": "7",
     "roomno": "102",
     "email": "doe@abc.com",
     "fees": "n",
-    "password": "abcd"
+    "password": "abcd",
+    "StPhn": "1234567323",
+    "address": "abc,abcdee,abcdewd",
+    "localg": "spiderman",
+    "locphn": "987654637"
   },
   {
     "id": 3,
-    "name": "Mary",
+    "name": "Mary Jane",
     "class": "EC1",
     "sem": "3",
     "roomno": "102",
     "email": "mary@abc.com",
     "fees": "y",
-    "password": "abcd"
-  },
-  {
-    "id": 3,
-    "name": "Mary",
-    "class": "EC1",
-    "sem": "3",
-    "roomno": "102",
-    "email": "mary@abc.com",
-    "fees": "y",
-    "password": "abcd"
-  },
-  {
-    "id": 3,
-    "name": "Mary",
-    "class": "EC1",
-    "sem": "3",
-    "roomno": "102",
-    "email": "mary@abc.com",
-    "fees": "y",
-    "password": "abcd"
-  },
-  {
-    "id": 3,
-    "name": "Mary",
-    "class": "EC1",
-    "sem": "3",
-    "roomno": "102",
-    "email": "mary@abc.com",
-    "fees": "y",
-    "password": "abcd"
-  },
-  {
-    "id": 3,
-    "name": "Mary",
-    "class": "EC1",
-    "sem": "3",
-    "roomno": "102",
-    "email": "mary@abc.com",
-    "fees": "y",
-    "password": "abcd"
-  },
-  {
-    "id": 3,
-    "name": "Mary",
-    "class": "EC1",
-    "sem": "3",
-    "roomno": "102",
-    "email": "mary@abc.com",
-    "fees": "y",
-    "password": "abcd"
-  },
-  {
-    "id": 3,
-    "name": "Mary",
-    "class": "EC1",
-    "sem": "3",
-    "roomno": "102",
-    "email": "mary@abc.com",
-    "fees": "y",
-    "password": "abcd"
-  },
-  {
-    "id": 3,
-    "name": "Mary",
-    "class": "EC1",
-    "sem": "3",
-    "roomno": "102",
-    "email": "mary@abc.com",
-    "fees": "y",
-    "password": "abcd"
-  },
-  {
-    "id": 3,
-    "name": "Mary",
-    "class": "EC1",
-    "sem": "3",
-    "roomno": "102",
-    "email": "mary@abc.com",
-    "fees": "y",
-    "password": "abcd"
+    "password": "abcd",
+    "StPhn": "123456325",
+    "address": "a,ad,ade",
+    "localg": "wonderwoman",
+    "locphn": "987650987"
   }
 ]

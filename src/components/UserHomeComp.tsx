@@ -1,11 +1,85 @@
 import React from "react";
 import { FaEdit } from "react-icons/fa";
+import { useState } from "react";
+import Toast from "./Toast";
+import { useEffect } from "react";
+import { IoClose } from "react-icons/io5";
 
 const UserHomeComp = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [showEditToast, setShowEditToast] = useState(false);
+  const [isBlurry, setBlurry] = useState(false);
+
+  const handleSave = () => {
+    //alert("Details saved!");
+    setModalOpen(false);
+    setShowEditToast(true);
+  };
+
+  useEffect(() => {
+    if (isModalOpen) {
+      setBlurry(true);
+    } else {
+      setBlurry(false);
+    }
+  }, [isModalOpen]);
+
   return (
     <div className="w-full flex justify-center ">
-      {" "}
-      <div className="flex flex-col justify-center space-y-10 m-10 w-full  ">
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
+            <div className="flex justify-between">
+              <h2 className="text-xl font-semibold ">Edit Details</h2>
+              <button onClick={() => setModalOpen(false)}>
+                <IoClose size={26} className="hover:bg-red-300 rounded-md" />
+              </button>
+            </div>
+            <div className="flex justify-center flex-col p-5  space-y-3 mt-2">
+              <div className="flex flex-row text-lg">
+                {" "}
+                <p className="font-semibold ">Students Phone : </p>
+                <p className="ml-4"> 8937273628</p>
+              </div>
+              <div className="flex flex-row text-lg">
+                {" "}
+                <p className="font-semibold ">Address : </p>
+                <p className="ml-4">dk,dowkdow,kdowo</p>
+              </div>
+              <div className="flex flex-row text-lg">
+                {" "}
+                <p className=" font-semibold">Local Guardian : </p>
+                <p className="ml-4"> Mother Teresa</p>
+              </div>
+              <div className="flex flex-row text-lg">
+                {" "}
+                <p className=" font-semibold">Phone : </p>
+                <p className="ml-4"> 8937273628</p>
+              </div>
+            </div>
+            <button
+              onClick={handleSave}
+              className="bg-blue-500 text-white px-4 py-2 rounded mt-2 hover:bg-blue-400"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      )}{" "}
+      {showEditToast && (
+        <>
+          <Toast
+            message="Details updated successfully."
+            type="success"
+            onClose={() => setShowEditToast(false)}
+          />
+        </>
+      )}
+      <div
+        className={`flex flex-col justify-center space-y-10 m-10 w-full  ${
+          isBlurry ? "blur" : ""
+        }`}
+      >
         <div className="font-semibold text-3xl">
           Welcome&nbsp;Back&nbsp;Abcd!
         </div>
@@ -18,38 +92,41 @@ const UserHomeComp = () => {
                   className="h-44 w-40 flex justify-center border border-2 p-2 border-black  rounded-lg shadow-lg"
                 ></img>
               </div>
-              <div className="w-1/2  h-full rounded-md flex  text-right flex-col space-y-3 font-semibold p-4">
-                <p className="text-7xl">302</p>
+              <div className="w-1/2  h-full rounded-md flex  text-right flex-col space-y-3  p-4">
+                <p className="text-7xl font-semibold">302</p>
                 <p className="text-3xl">Abcd Abcdabcd</p>
               </div>
             </div>
           </div>
           <div className="w-full md:w-1/2 h-64 md:h-64 bg-gradient-to-b from-blue-600 to-slate-300 rounded-3xl relative pb-4 pl-4 transition-transform duration-300 hover:scale-105">
             <div className="absolute top-5 right-5">
-              <button className=" hover:bg-white  text-black p-1  rounded-md">
+              <button
+                onClick={() => setModalOpen(true)}
+                className=" hover:bg-white  text-black p-1  rounded-md"
+              >
                 {" "}
                 <FaEdit size={24} />
               </button>
             </div>
-            <div className="flex justify-center flex-col p-5 font-semibold space-y-3 mt-10">
+            <div className="flex justify-center flex-col p-5  space-y-3 mt-10">
               <div className="flex flex-row text-lg">
                 {" "}
-                <p className=" ">Students Phone : </p>
+                <p className="font-semibold ">Students Phone : </p>
                 <p className="ml-4"> 8937273628</p>
               </div>
               <div className="flex flex-row text-lg">
                 {" "}
-                <p className=" ">Address : </p>
+                <p className="font-semibold ">Address : </p>
                 <p className="ml-4">dk,dowkdow,kdowo</p>
               </div>
               <div className="flex flex-row text-lg">
                 {" "}
-                <p className=" ">Local Guardian : </p>
+                <p className=" font-semibold">Local Guardian : </p>
                 <p className="ml-4"> Mother Teresa</p>
               </div>
               <div className="flex flex-row text-lg">
                 {" "}
-                <p className=" ">Phone : </p>
+                <p className=" font-semibold">Phone : </p>
                 <p className="ml-4"> 8937273628</p>
               </div>
             </div>
