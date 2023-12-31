@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import StudentData from "../data/StudentDetails.json";
 import EditStudents from "./EditStudents/[id]";
 import StudentsListComp from "@/components/StudentsListComp";
-
+import "./../app/globals.css";
 interface SidebarProps {
   isOpen: boolean;
 }
@@ -101,7 +101,7 @@ const StudentsList: React.FC = () => {
         <TopBar onSidebarToggle={handleSidebarToggle} />
         <div className="flex">
           <div
-            className={`md:block md:w-1/6 bg-white h-screen shadow-lg ${
+            className={`md:block md:w-1/6 bg-white h-screen  ${
               isSidebarOpen ? "block" : "hidden"
             }`}
           >
