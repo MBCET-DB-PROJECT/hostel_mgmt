@@ -58,12 +58,6 @@ const UserNotifComp = () => {
     setModalOpen(true);
   };
 
-  const handleDeleteNotif = (notif: Notif) => {
-    // Filter out the notification that matches the clicked notification's nid
-    const updatedNotifs = notifsList.filter((n) => n.nid !== notif.nid);
-    setNotifsList(updatedNotifs);
-    setModalOpen(false); // Close the modal after deletion (if desired)
-  };
   useEffect(() => {
     //to set background to blur when modal is open
     if (isModalOpen) {
