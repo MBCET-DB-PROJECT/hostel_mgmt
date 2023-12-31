@@ -4,11 +4,13 @@ import { useState } from "react";
 import Toast from "./Toast";
 import { useEffect } from "react";
 import { IoClose } from "react-icons/io5";
+import studentData from "./../data/StudentDetails.json";
 
 const UserHomeComp = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [showEditToast, setShowEditToast] = useState(false);
   const [isBlurry, setBlurry] = useState(false);
+  const student = studentData[0];
 
   const handleSave = () => {
     //alert("Details saved!");
@@ -39,22 +41,22 @@ const UserHomeComp = () => {
               <div className="flex flex-row text-lg">
                 {" "}
                 <p className="font-semibold ">Students Phone : </p>
-                <p className="ml-4"> 8937273628</p>
+                <p className="ml-4"> {student.stphn}</p>
               </div>
               <div className="flex flex-row text-lg">
                 {" "}
                 <p className="font-semibold ">Address : </p>
-                <p className="ml-4">dk,dowkdow,kdowo</p>
+                <p className="ml-4">{student.address}</p>
               </div>
               <div className="flex flex-row text-lg">
                 {" "}
                 <p className=" font-semibold">Local Guardian : </p>
-                <p className="ml-4"> Mother Teresa</p>
+                <p className="ml-4">{student.localg}</p>
               </div>
               <div className="flex flex-row text-lg">
                 {" "}
                 <p className=" font-semibold">Phone : </p>
-                <p className="ml-4"> 8937273628</p>
+                <p className="ml-4">{student.locphn}</p>
               </div>
             </div>
             <button
@@ -93,8 +95,8 @@ const UserHomeComp = () => {
                 ></img>
               </div>
               <div className="w-1/2  h-full rounded-md flex  text-right flex-col space-y-3  p-4">
-                <p className="text-7xl font-semibold">302</p>
-                <p className="text-3xl">Abcd Abcdabcd</p>
+                <p className="text-7xl font-semibold">{student.roomno}</p>
+                <p className="text-3xl">{student.name}</p>
               </div>
             </div>
           </div>
@@ -112,22 +114,22 @@ const UserHomeComp = () => {
               <div className="flex flex-row text-lg">
                 {" "}
                 <p className="font-semibold ">Students Phone : </p>
-                <p className="ml-4"> 8937273628</p>
+                <p className="ml-4">{student.stphn}</p>
               </div>
               <div className="flex flex-row text-lg">
                 {" "}
                 <p className="font-semibold ">Address : </p>
-                <p className="ml-4">dk,dowkdow,kdowo</p>
+                <p className="ml-4">{student.address}o</p>
               </div>
               <div className="flex flex-row text-lg">
                 {" "}
                 <p className=" font-semibold">Local Guardian : </p>
-                <p className="ml-4"> Mother Teresa</p>
+                <p className="ml-4">{student.localg}</p>
               </div>
               <div className="flex flex-row text-lg">
                 {" "}
                 <p className=" font-semibold">Phone : </p>
-                <p className="ml-4"> 8937273628</p>
+                <p className="ml-4">{student.locphn}</p>
               </div>
             </div>
           </div>
@@ -139,7 +141,7 @@ const UserHomeComp = () => {
                 <div className="flex justify-center items-center text-center">
                   <div className="flex flex-col space-y-2 justify-center items-center ">
                     <p className="text-8xl flex justify-center items-center">
-                      S3
+                      {student.sem}
                     </p>
                     <p className="text-2xl text-gray-300">Semester</p>
                   </div>
@@ -150,7 +152,7 @@ const UserHomeComp = () => {
                 <div className="flex justify-center items-center text-center">
                   <div className="flex flex-col space-y-2 justify-center items-center ">
                     <p className="text-8xl flex justify-center items-center">
-                      CS1
+                      {student.class}
                     </p>
                     <p className="text-2xl text-gray-300">Class</p>
                   </div>
