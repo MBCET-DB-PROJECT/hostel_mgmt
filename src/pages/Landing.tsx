@@ -15,6 +15,7 @@ import {
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
+import LoginComponent from "@/components/Slider/LoginComponent";
 
 export default function Home() {
   const controls = useAnimation();
@@ -62,7 +63,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={controls}
           transition={{ duration: 0.3 }}
-          className="fixed w-full"
+          className="fixed w-full z-50"
         >
           <div className="z-10 flex justify-center w-full h-full text-black items-center">
             <div className="md:w-[80%] w-[95%] h-full bg-white m-2 z-2 rounded-full shadow-md text-slate-800 font-semibold">
@@ -324,18 +325,15 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div>
-        <div className="flex flex-col items-center justify-center h-screen w-screen bg-purple-200">
-          <Head>
-            <title>Slider Login / Signup</title>
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
-
-          {/*<LoginPage />*/}
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+        <div>
+          <link rel="icon" href="/favicon.ico" />
         </div>
+
+        <LoginComponent />
       </div>
       <footer className="bg-white rounded-lg shadow ">
-        <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+        <div className="w-full max-w-screen-xl mx-auto p-4 md:py-6">
           <span className="block text-sm text-gray-500 sm:text-center">
             © 2024{" "}
             <a href="https://flowbite.com/" className="hover:underline">
