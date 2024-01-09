@@ -1,4 +1,36 @@
 [
+
+  /*
+    {
+      "tid": 1,
+      "name": "Kettle",
+      "students": [
+        {
+          "sid": 1,
+          "name": "Student Name 1",
+          "roomno": "101"
+        },
+        {
+          "sid": 2,
+          "name": "Student Name 2",
+          "roomno": "102"
+        }
+      ]
+    },
+    {
+      "tid": 2,
+      "name": "Soap",
+      "students": [
+        {
+          "sid": 3,
+          "name": "Student Name 3",
+          "roomno": "103"
+        }
+      ]
+    }
+  ]
+  */
+
   {
     "tid": 1,
     "name": "Kettle",
@@ -27,3 +59,4 @@
     ]
   }
 ]
+

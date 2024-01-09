@@ -49,4 +49,8 @@ const EditTicketsComp = () => {
   );
 };
 
+
 export default EditTicketsComp;
+
+//export default EditTicketsComp;
+
