@@ -10,7 +10,9 @@ import { useEffect } from "react";
 import StudentData from "../data/StudentDetails.json";
 import { MdEditNotifications } from "react-icons/md";
 import NotifData from "../data/Notifications.json";
+import { MdDelete } from "react-icons/md";
 import CreateNotifications from "./../pages/CreateNotifications";
+
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import app from "@/app/firebase";
 
@@ -88,34 +90,92 @@ return (
 const NotifsCard: React.FC<NotifCardProps> = ({data,notifId}) => {
  
 
-  const [isSidebarOpen, setSidebarOpen] = useState(false); //to check whether sidebar is open in responsive view
-  const [isModalOpen, setModalOpen] = useState(false); //to check whether the student details modal is open
-  const [isBlurry, setBlurry] = useState(false); //to blur background when modal is open
+
+
+/*interface SidebarProps {
+  isOpen: boolean;
+}
+interface Student {
+  id: number;
+  name: string;
+  class: string;
+  sem: string;
+  roomno: string;
+  email: string;
+  fees: string;
+  password: string;
+}
+interface Notif {
+  nid: number;
+  content: string;
+  date: string;
+}
+
+const AdminNotifComp = () => {
+  const students = StudentData;
+ */
+
+
+  const [isSidebarOpen, setSidebarOpen] = useState(false); 
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [isBlurry, setBlurry] = useState(false); 
+
   const [loadingData,setLoadingData] = React.useState(true);
  
   const [notifsList, setNotifsList] = useState<Notification[]>([]);
   const [selectedNotif, setSelectedNotif] = useState<any>(null);
 
 
+
+      {/*      
+ const [selectedStudent, setSelectedStudent] = useState<any>(null);
+  const [studentsList, setStudentsList] = useState<Student[]>(StudentData); //to map student list
+  const [notifsList, setNotifsList] = useState<Notif[]>(NotifData);
+  const [selectedNotif, setSelectedNotif] = useState<any>(null);
+     */}
+
   const handleSidebarToggle = () => {
     //handles sidebar open or not in mobile view
     setSidebarOpen(!isSidebarOpen);
   };
-/*
+
+
+
+  
+  
+    {/*
   const handleStudentClick = (student: any) => {
-    //to select particular student to show details of in student details modal
     setSelectedStudent(student);
     setModalOpen(true);
   };
-  */
-  const handleNotifClick = (notif: any) => {
-    //to select particular student to show details of in student details modal
+  */}
+  
+  
+  
+  
+      
+  {/*  const handleNotifClick = (notif: any) => {
+  const handleNotifClick = (notif: Notif) => {
     setSelectedNotif(notif);
     setModalOpen(true);
   };
+*/}
+
+
+   { /* const handleDeleteNotif = (notif: Notif) => {
+    // Filter out the notification that matches the clicked notification's nid
+    const updatedNotifs = notifsList.filter((n) => n.nid !== notif.nid);
+    setNotifsList(updatedNotifs);
+    setModalOpen(false); // Close the modal after deletion (if desired)
+  };
+        */ }
+  
+  
+  
+  
 
   useEffect(() => {
-    //to set background to blur when modal is open
+   
     if (isModalOpen) {
       setBlurry(true);
     } else {
@@ -126,13 +186,17 @@ const NotifsCard: React.FC<NotifCardProps> = ({data,notifId}) => {
   return (
     <div>
       {isModalOpen && selectedNotif && (
-        //modal for student details
+       
         <div className="md:w-1/6 md:block shadow-lg">
           <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="bg-white md:p-8 p-4  rounded-lg md:w-1/2 w-2/3 shadow-md">
               <div className="flex justify-between">
                 <h2 className="text-xl font-semibold">
+
                   Notification {data.notifId}
+
+                  {/* Notification {selectedNotif.nid} */}
+
                 </h2>
                 <button
                   onClick={() => setModalOpen(false)}
@@ -141,28 +205,59 @@ const NotifsCard: React.FC<NotifCardProps> = ({data,notifId}) => {
                   <IoClose size={24} />
                 </button>
               </div>
+
               <p className="mt-4">{data.content}</p>
+
+          
+        /*<div className="flex justify-between">
+                <p className="mt-4">{selectedNotif.content}</p>
+                <button
+                  className="mt-4 hover:bg-red-300 p-2 rounded-md"
+                  onClick={() => handleDeleteNotif(selectedNotif)}
+                >
+                  <MdDelete size={20} />
+                </button>
+              </div>
+        */
+
             </div>
           </div>
         </div>
       )}
       <div className="flex ">
         <div className="flex bg-slate-200 w-full">
+
           <div className={'m-auto w-full ${isBlurry ? "blur" : ""}'}>
             
               <div key={data.notifId} onClick={() => handleNotifClick(data)}>
+
+                {/*     <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
+            {notifsList.map((notif) => (
+              <div key={notif.nid} onClick={() => handleNotifClick(notif)}>
+              */}
+
                 <form>
                   <div className="mt-5 bg-white rounded-md shadow-lg mx-4 text-center items-center">
                     <div className="px-5 pb-5 w-full">
                       <div className="flex justify-between py-2">
+
                         <div>{data.content}</div>
                         <div>{data.timestamp}</div>
+
+        {/*    <div>{notif.content}</div>
+                        <div>{notif.date}</div>
+                        */}
+
                       </div>
                     </div>
                   </div>
                 </form>
               </div>
+
           
+
+            {/*     ))} */}
+
           </div>
         </div>
       </div>
@@ -170,4 +265,8 @@ const NotifsCard: React.FC<NotifCardProps> = ({data,notifId}) => {
   );
 };
 
+
 export default NotifDetails;
+
+//export default AdminNotifComp;
+

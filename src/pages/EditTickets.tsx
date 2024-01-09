@@ -1,10 +1,15 @@
 import Sidebar from "@/components/SideBar";
 import TopBar from "@/components/TopBar";
+
 import React, { useEffect, useState } from "react";
+
+//import React, { useState } from "react";
+
 import "tailwindcss/tailwind.css";
 import { FaPlus } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import EditTicketsComp from "@/components/EditTicketsComp";
+
 import {
   addDoc,
   collection,
@@ -17,9 +22,12 @@ import app from "@/app/firebase";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
+
+
 interface SidebarProps {
   isOpen: boolean;
 }
+
 
 interface Tickets {
   content: string;
@@ -30,11 +38,13 @@ interface StudentDetails {
   content: boolean;
 }
 
+
 const EditTickets: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [newTicket, setNewTicket] = useState("");
   const [tickets, setTickets] = useState(["Kettle", "Soap", "Towel"]);
   //function to handle user button click
+
 
   const [formData, setFormData] = useState<Tickets>({
     content: "",
@@ -107,6 +117,7 @@ const EditTickets: React.FC = () => {
     }));
   };
 
+
   const handleSidebarToggle = () => {
     setSidebarOpen(!isSidebarOpen);
   };
@@ -119,6 +130,7 @@ const EditTickets: React.FC = () => {
     );
     setTickets(updatedTickets);
   };
+
 
   const handleAddTicket = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -161,6 +173,18 @@ const EditTickets: React.FC = () => {
       )}
        {isAdmin && (
         <>
+
+          {/*
+          const handleAddTicket = () => {
+    if (newTicket.trim() !== "") {
+      setTickets([...tickets, newTicket.trim()]);
+      setNewTicket("");
+    }
+  };
+  return (
+    <div>
+    */}
+
       <TopBar onSidebarToggle={handleSidebarToggle} />
       <div className="flex">
         <div
@@ -193,6 +217,7 @@ const EditTickets: React.FC = () => {
                 </button>
               </div>
            ))}*/}
+
             <form onSubmit={handleAddTicket}>
               <div className="flex justify-center items-center w-1/6">
                 <input
@@ -216,6 +241,28 @@ const EditTickets: React.FC = () => {
       </div>
       </>
        )}
+
+        {/*
+            <div className="flex justify-center items-center w-1/6">
+              <input
+                type="text"
+                value={newTicket}
+                onChange={handleInputChange}
+                placeholder="Enter new ticket"
+                className="p-2 border rounded-md"
+              />
+            </div>
+            <button
+              onClick={handleAddTicket}
+              className="ml-2 p-2 bg-gray-300 rounded-md font-semibold hover:bg-gray-400 flex"
+            >
+              <FaPlus className="mr-2 mt-1" /> Add
+            </button>
+          </div>
+        </div>
+      </div>
+      */}
+
     </div>
   );
 };

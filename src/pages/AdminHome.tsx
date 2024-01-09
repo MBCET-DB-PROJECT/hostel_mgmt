@@ -5,8 +5,12 @@ import React, { useEffect, useState } from "react";
 import { auth } from "@/app/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "tailwindcss/tailwind.css";
+
 import { getAuth } from "firebase/auth";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
+
+import AdminHomeComp from "@/components/AdminHomeComp";
+
 interface SidebarProps {
   isOpen: boolean;
 }
@@ -87,8 +91,8 @@ const AdminHome: React.FC = () => {
         >
           <Sidebar isOpen={isSidebarOpen} />
         </div>
-        <div className="md:block md:w-5/6 bg-gray-200 h-screen w-full ">
-          AdminHome
+        <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
+        <AdminHomeComp/>
         </div>
       </div>
       </>

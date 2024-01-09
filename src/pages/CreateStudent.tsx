@@ -15,6 +15,8 @@ import { FaPlus } from "react-icons/fa";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Toast from "@/components/Toast";
+import "./../app/globals.css";
+
 import { collection, doc, getDoc, getDocs, getFirestore, serverTimestamp, setDoc } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -35,6 +37,12 @@ interface User {
   role: string;
 }
 
+/*import CreateStudentComp from "@/components/CreateStudentComp";
+
+//import { useEffect } from "react";
+        */
+
+
 const CreateStudent: React.FC = () => {
   const [formData, setFormData] = useState<StudentDetails>({
     name: "",
@@ -51,6 +59,7 @@ const CreateStudent: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false); //to check sidebar open or not in mobile view
   const [showCreateToast, setShowCreateToast] = useState(false); //to show user created toast
   const [image, setImage] = useState<string | null>(null); //used for image insertion and preview
+
   const [error, setError] = useState<string | null>(null);
   const [isChecked, setIsChecked] = useState(false);
  
@@ -114,6 +123,9 @@ const CreateStudent: React.FC = () => {
       [name]: value,
     }));
   };
+
+    {/* const [isScrollDisabled, setScrollDisabled] = useState(false); */}
+
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
@@ -220,9 +232,17 @@ const CreateStudent: React.FC = () => {
   const handleCreateClick = () => {
     setShowCreateToast(true);
   };
+  useEffect(() => {
+    if (isScrollDisabled) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  }, [isScrollDisabled]);
 
 
   return (
+
     <div>
    {!isAdmin && (
       <div>
@@ -233,6 +253,9 @@ const CreateStudent: React.FC = () => {
     {isAdmin && (
 
    <>
+
+          {/*  <div style={{ maxHeight: "100vh", overflow: "hidden" }}> */}
+
       <TopBar onSidebarToggle={handleSidebarToggle} />
       <div className="flex">
         <div
@@ -242,11 +265,20 @@ const CreateStudent: React.FC = () => {
         >
           <Sidebar isOpen={isSidebarOpen} />
         </div>
-        <div className="md:block md:w-5/6 bg-gray-100 h-screen w-full ">
+        <div
+          className={`md:block md:w-5/6 bg-slate-200 h-screen w-full ${
+            isScrollDisabled ? "overflow-y-auto" : ""
+          }`}
+          //style={{ maxHeight: "calc(100vh - 60px)" }}
+        >
           <div className="flex justify-center text-center">
             <h1 className=" mt-6 font-semibold text-3xl">Add Students</h1>
           </div>
-          <div className="flex bg-gray-100">
+          {/* Apply .no-scroll class conditionally */}
+          <div className={isScrollDisabled ? "no-scroll" : ""}>
+            <CreateStudentComp />
+            {/*<div className="flex bg-slate-200">
+
             <div className="m-auto">
               <div>
                 <form onSubmit={handleSubmit}>
@@ -362,7 +394,7 @@ const CreateStudent: React.FC = () => {
                           id="imageInput"
                           accept="image/*"
                           onChange={handleImageChange}
-                          className="w-full p-2 border border-2 border-gray-300 rounded-lg"
+                          className="w-full p-2  border-2 border-gray-300 rounded-lg"
                         />
                       </div>
                       {image && (
@@ -400,6 +432,7 @@ const CreateStudent: React.FC = () => {
                 </form>
               </div>
             </div>
+                      </div>*/}
           </div>
         </div>
       </div>

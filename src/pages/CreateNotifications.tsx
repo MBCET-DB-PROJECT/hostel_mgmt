@@ -8,11 +8,14 @@ import NotifData from "../data/Notifications.json";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import Link from "next/link";
 import AdminNotifications from "./AdminNotifications";
+
 import { MdAdd } from "react-icons/md";
 import { collection, doc, getDocs, getFirestore, setDoc } from "firebase/firestore";
 import app from "@/app/firebase";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+
+
 
 interface SidebarProps {
   isOpen: boolean;
@@ -204,12 +207,20 @@ const CreateNotifications: React.FC = () => {
                 <h1 className="text-3xl font-semibold mb-4 flex-1">
                   Create New Notification
                 </h1>
-                <Link
+
+                {/*      <Link */}
+
+                {/*<Link
+
                   href="/AdminNotifications"
                   className="bg-black hover:bg-gray-800 text-white font-bold px-2 py-1 rounded flex mr-2 mt-2"
                 >
                   <IoMdArrowRoundBack size={20} className="mt-1 mr-2" /> Back
+
                 </Link>
+=======
+        </Link>*/}
+
               </div>
           <form onSubmit={handleSubmit} >
               <div className="mb-4">
@@ -225,9 +236,16 @@ const CreateNotifications: React.FC = () => {
                   value={formData.content}
                   id="notificationContent"
                   placeholder="Enter notification content..."
+
                 
                   onChange={handleChange}
                   className="shadow appearance-none border rounded w-2/3 md:w-2/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+
+        {/*          value={notificationContent}
+                  onChange={handleInputChange}
+                  className="shadow appearance-none border rounded w-2/3 md:w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  */}
+
                 />
               </div>
 

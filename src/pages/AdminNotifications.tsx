@@ -12,11 +12,14 @@ import { MdEditNotifications } from "react-icons/md";
 import NotifData from "../data/Notifications.json";
 import CreateNotifications from "./CreateNotifications";
 import AdminNotifComp from "@/components/AdminNotifComp";
+
 import NotifDetails from "@/components/AdminNotifComp";
 import { getAuth } from "firebase/auth";
 import app from "@/app/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
+
+
 
 interface SidebarProps {
   isOpen: boolean;
@@ -121,7 +124,7 @@ const AdminNotifications: React.FC = () => {
 
   return (
     <div>
-     
+
       {/*} {isModalOpen && selectedNotif && (
         //modal for student details
         <div className="md:w-1/6 md:block shadow-lg">
@@ -168,9 +171,15 @@ const AdminNotifications: React.FC = () => {
                 <MdEditNotifications size={30} />
               </Link>
             </div>
+
             <NotifDetails notifId=""  />
             {/*<div className="flex bg-slate-200">
               <div className={m-auto w-full ${isBlurry ? "blur" : ""}}>
+
+            <AdminNotifComp />
+            {/*<div className="flex bg-slate-200">
+              <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
+
                 {notifsList.map((notif) => (
                   <div key={notif.nid} onClick={() => handleNotifClick(notif)}>
                     <form>

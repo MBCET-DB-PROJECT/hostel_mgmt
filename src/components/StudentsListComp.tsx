@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
 import { BsPersonFillAdd } from "react-icons/bs";
 import Link from "next/link";
+
 import CreateStudent from "../pages/CreateStudent";
 import { IoClose } from "react-icons/io5";
 import { useEffect } from "react";
@@ -145,6 +146,42 @@ const StudentsCard: React.FC<StudentCardProps> = ({ data, stdId }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<any>(null);
   const [isBlurry, setBlurry] = useState(false); //to blur background when modal is open
+
+  
+  //dxyaaa
+/*
+import CreateStudent from "./../pages/CreateStudent";
+import { IoClose } from "react-icons/io5";
+import { useEffect } from "react";
+import StudentData from "../data/StudentDetails.json";
+import EditStudents from "./../pages/EditStudents/[id]";
+
+interface SidebarProps {
+  isOpen: boolean;
+}
+interface Student {
+  id: number;
+  name: string;
+  class: string;
+  sem: string;
+  roomno: string;
+  email: string;
+  fees: string;
+  password: string;
+}
+*/
+  /*
+const StudentsListComp = () => {
+  const students = StudentData;
+  const [isSidebarOpen, setSidebarOpen] = useState(false); //to check whether sidebar is open in responsive view
+  const [isModalOpen, setModalOpen] = useState(false); //to check whether the student details modal is open
+  const [selectedStudent, setSelectedStudent] = useState<any>(null);
+  const [isBlurry, setBlurry] = useState(false); //to blur background when modal is open
+  const [studentsList, setStudentsList] = useState<Student[]>(StudentData); //to map student list
+*/
+
+  
+  
   const handleSidebarToggle = () => {
     //handles sidebar open or not in mobile view
     setSidebarOpen(!isSidebarOpen);
@@ -155,6 +192,7 @@ const StudentsCard: React.FC<StudentCardProps> = ({ data, stdId }) => {
     setSelectedStudent(student);
     setModalOpen(true);
   };
+
 
 
   const deleteStudent = async () => {
@@ -177,21 +215,46 @@ const StudentsCard: React.FC<StudentCardProps> = ({ data, stdId }) => {
     }
   };
   
-
+      {/*
   useEffect(() => {
     //to set background to blur when modal is open
     if (isModalOpen) {
       setBlurry(true);
     } else {
+    */}
+
+  useEffect(() => {
+    //to set background to blur when modal is open
+    if (isModalOpen) {
+      console.log("Setting to blurry");
+      setBlurry(true);
+    } else {
+      console.log("Setting to not blurry");
+
       setBlurry(false);
     }
   }, [isModalOpen]);
+
 
   return (
     <>
       {isModalOpen && selectedStudent && (
         //modal for student details
         <div className="md:w-1/6  md:block shadow-lg">
+          
+        {/*
+        const deleteStudent = (id: number) => {
+    //to map the deleted students
+    const updatedList = studentsList.filter((student) => student.id !== id);
+    setStudentsList(updatedList);
+  };
+  return (
+    <div>
+      {isModalOpen && selectedStudent && (
+        //modal for student details
+        <div className="md:w-1/6 md:block shadow-lg">
+        */}
+
           <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="bg-white md:p-8 p-4  rounded-lg md:w-1/2 w-2/3 shadow-md">
               <div className="flex justify-between">
@@ -203,6 +266,7 @@ const StudentsCard: React.FC<StudentCardProps> = ({ data, stdId }) => {
                   <IoClose size={24} />
                 </button>
               </div>
+
               <p className="mt-4">Name: {data.name}</p>
               <p>Class: {data.stdclass}</p>
               <p>Sem: {data.semester}</p>
@@ -212,6 +276,18 @@ const StudentsCard: React.FC<StudentCardProps> = ({ data, stdId }) => {
                 <Link
                   href={`/EditStudents/[stdId]`}
                   as={`/EditStudents/${stdId}`}
+
+                  {/*
+              <p className="mt-4">Name: {selectedStudent.name}</p>
+              <p>Class: {selectedStudent.class}</p>
+              <p>Sem: {selectedStudent.sem}</p>
+              <p>Room: {selectedStudent.roomno}</p>
+             
+              <div className="mt-6">
+                <Link
+                  href={`/EditStudents/${selectedStudent.id}`}
+                */}  
+
                   className="mr-4 text-white py-2 px-2 bg-blue-500 rounded-md hover:bg-blue-400"
                 >
                   Edit
@@ -221,7 +297,11 @@ const StudentsCard: React.FC<StudentCardProps> = ({ data, stdId }) => {
                   className="text-white py-2 px-2 bg-red-500 rounded-md hover:bg-red-400"
                   onClick={(e) => {
                     console.log("delete clicked");
+
                     deleteStudent();
+
+             //       deleteStudent(selectedStudent.id);
+
                     setModalOpen(false);
                   }}
                 >
@@ -232,6 +312,7 @@ const StudentsCard: React.FC<StudentCardProps> = ({ data, stdId }) => {
           </div>
         </div>
       )}
+
      
      <div className="flex bg-slate-200">
     
@@ -274,3 +355,46 @@ const StudentsCard: React.FC<StudentCardProps> = ({ data, stdId }) => {
 };
 
 export default StdDetails;
+
+        {/* 
+        <div className={`${isBlurry ? "blur" : ""}`}>
+        <div className="flex bg-slate-200">
+          <div className="m-auto w-full">
+            {studentsList.map((student) => (
+              <div key={student.id} onClick={() => handleStudentClick(student)}>
+                <form>
+                  <div className="mt-5 bg-white rounded-md shadow-lg mx-4 text-center items-center">
+                    <div className="px-5 pb-5 w-full">
+                      <div className="flex justify-between py-2">
+                        <div>{student.name}</div>
+                        <div className="flex right-0 w-1/4 justify-between">
+                          <div className="hidden md:block">
+                            Class:{student.class}
+                          </div>
+                          <div className="hidden md:block">
+                            Sem:{student.sem}
+                          </div>
+                          <div
+                            className={`flex ${
+                              isSidebarOpen ? "hidden md:block truncate " : ""
+                            }`}
+                          >
+                            Room:{student.roomno}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default StudentsListComp;
+*/}
+
