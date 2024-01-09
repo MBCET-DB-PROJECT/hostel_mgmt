@@ -7,7 +7,11 @@ import Link from "next/link";
 import TicketDetails from "./../data/TicketDetails.json";
 import { useEffect } from "react";
 import EditTickets from "./EditTickets";
-import AdminTicketsComp from "@/components/AdminTicketsComp";
+
+import TicketsCard from "@/components/AdminTicketsComp";
+
+//import AdminTicketsComp from "@/components/AdminTicketsComp";
+
 
 interface SidebarProps {
   isOpen: boolean;
@@ -91,7 +95,11 @@ const AdminTicket: React.FC = () => {
               Edit Tickets
             </Link>
           </div>
-          <AdminTicketsComp />
+
+          <TicketsCard ticketId="" />
+
+          {/*    <AdminTicketsComp /> */}
+
           {/* <div className="flex bg-slate-200">
             <div className="m-auto w-full ">
               <div>
@@ -157,4 +165,8 @@ const AdminTicket: React.FC = () => {
   );
 };
 
+
 export default AdminTicket;
+
+//export default AdminTicket;
+

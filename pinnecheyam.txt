@@ -1,0 +1,64 @@
+ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!isAdmin) {
+      console.log("Access denied for non-admin users.");
+      return;
+    }    
+
+
+    const auth = getAuth(app);
+    const { name, email, password, roomno, stdclass,semester, feespaid, role, photo } = formData;
+
+    try {
+   
+     const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      const student = userCredential.user;
+
+      const db = getFirestore(app);
+      const storage = getStorage(app);
+
+      if (photo) {
+        const imageRef = ref(storage, `images/${formData.photo?.name}`);
+        await uploadBytes(imageRef, photo);
+        const imageUrl = await getDownloadURL(imageRef);
+        console.log("Image uploaded:", imageUrl);
+
+        const studentDocRef = doc(db, "student", student.uid);
+        const studentData = {
+          name,
+          roomno,
+          stdclass,
+          semester,
+          feespaid,
+          imageUrl,
+          role
+        };
+
+        await setDoc(studentDocRef, studentData);
+      } else {
+        console.error("No photo selected");
+      }
+
+      console.log("user created");
+
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        stdclass: "",
+        semester: "",
+        roomno: "",
+        feespaid: false,
+        photo: null,
+        role: "student",
+      });
+    } catch (error: any) {
+      console.error("error creating user", error.code, error.message);
+    }
+  };
