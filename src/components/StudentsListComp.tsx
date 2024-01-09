@@ -45,8 +45,10 @@ const StudentsListComp = () => {
   useEffect(() => {
     //to set background to blur when modal is open
     if (isModalOpen) {
+      console.log("Setting to blurry");
       setBlurry(true);
     } else {
+      console.log("Setting to not blurry");
       setBlurry(false);
     }
   }, [isModalOpen]);
@@ -99,34 +101,38 @@ const StudentsListComp = () => {
           </div>
         </div>
       )}
-      <div className="flex bg-slate-200">
-        <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
-          {studentsList.map((student) => (
-            <div key={student.id} onClick={() => handleStudentClick(student)}>
-              <form>
-                <div className="mt-5 bg-white rounded-md shadow-lg mx-4 text-center items-center">
-                  <div className="px-5 pb-5 w-full">
-                    <div className="flex justify-between py-2">
-                      <div>{student.name}</div>
-                      <div className="flex right-0 w-1/4 justify-between">
-                        <div className="hidden md:block">
-                          Class:{student.class}
-                        </div>
-                        <div className="hidden md:block">Sem:{student.sem}</div>
-                        <div
-                          className={`flex ${
-                            isSidebarOpen ? "hidden md:block truncate " : ""
-                          }`}
-                        >
-                          Room:{student.roomno}
+      <div className={`${isBlurry ? "blur" : ""}`}>
+        <div className="flex bg-slate-200">
+          <div className="m-auto w-full">
+            {studentsList.map((student) => (
+              <div key={student.id} onClick={() => handleStudentClick(student)}>
+                <form>
+                  <div className="mt-5 bg-white rounded-md shadow-lg mx-4 text-center items-center">
+                    <div className="px-5 pb-5 w-full">
+                      <div className="flex justify-between py-2">
+                        <div>{student.name}</div>
+                        <div className="flex right-0 w-1/4 justify-between">
+                          <div className="hidden md:block">
+                            Class:{student.class}
+                          </div>
+                          <div className="hidden md:block">
+                            Sem:{student.sem}
+                          </div>
+                          <div
+                            className={`flex ${
+                              isSidebarOpen ? "hidden md:block truncate " : ""
+                            }`}
+                          >
+                            Room:{student.roomno}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </form>
-            </div>
-          ))}
+                </form>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
