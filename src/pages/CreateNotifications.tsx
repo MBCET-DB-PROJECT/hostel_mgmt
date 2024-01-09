@@ -241,10 +241,10 @@ const CreateNotifications: React.FC = () => {
                   onChange={handleChange}
                   className="shadow appearance-none border rounded w-2/3 md:w-2/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 
-        {/*          value={notificationContent}
+        /*          value={notificationContent}
                   onChange={handleInputChange}
                   className="shadow appearance-none border rounded w-2/3 md:w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  */}
+                  */
 
                 />
               </div>

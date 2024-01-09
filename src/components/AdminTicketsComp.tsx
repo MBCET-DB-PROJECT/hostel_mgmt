@@ -9,8 +9,8 @@ import { FaEdit, FaChevronDown } from "react-icons/fa";
 import Link from "next/link";
 
 
-import { useEffect } from "react";
-import EditTickets from "@/pages/EditTickets";
+
+
 import { collection, doc, getDoc, getDocs, getFirestore } from "firebase/firestore";
 import app from "@/app/firebase";
 
@@ -132,7 +132,7 @@ const TicketsCard: React.FC<TicketDetailsProps> = ({ ticketId }) => {
 const AdminTicketsComp: React.FC<AdminTicketsCompProps> = ({ data, students }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState<string | null>(null);
-   const [ticketsList, setTicketsList] = useState(TicketDetails);
+   //const [ticketsList, setTicketsList] = useState(TicketDetails);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
    const [dropdownStates, setDropdownStates] = useState<{
     [key: string]: boolean;
@@ -142,11 +142,21 @@ const AdminTicketsComp: React.FC<AdminTicketsCompProps> = ({ data, students }) =
   };
     
     // ice-weasel
- /* const toggleDropdown = (
+  const toggleDropdown = (
     event: React.MouseEvent<HTMLButtonElement>,
     ticketId: string
-  */
-=======
+  ) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    setSelectedTicket((prevTicket) =>
+      prevTicket === ticketId ? null : ticketId
+    );
+
+    // Toggle the dropdown
+    setDropdownOpen((prevState) => !prevState);
+  };
+
 //import TicketDetails from "./../data/TicketDetails.json";
 
     
@@ -167,7 +177,7 @@ const AdminTicketsComp: React.FC<AdminTicketsCompProps> = ({ data, students }) =
     ticket: any
    */
  
- /*>>>>>>> main
+ /*
   ) => {
     event.preventDefault();
     event.stopPropagation();
@@ -180,15 +190,18 @@ const AdminTicketsComp: React.FC<AdminTicketsCompProps> = ({ data, students }) =
     // Toggle the dropdown
     setDropdownOpen((prevState) => !prevState);
   };
+    */  
 //ice-weasel
-  const handleTicketSelect = (ticketId: string) => {
-    console.log("Selecting ticket", ticketId);
-    setSelectedTicket(ticketId);
-  */  
 
- /* 
-  setSelectedTicket(ticket);
-
+const handleTicketSelect = (ticketId: string) => {
+  console.log("Selecting ticket", ticketId);
+  setSelectedTicket(ticketId);
+  
+  setDropdownOpen(false); // Close the dropdown when a ticket is selected
+};
+ 
+ // setSelectedTicket(ticketId);
+/*
     setDropdownStates((prevState) => ({
       ...prevState,
       [ticket.tid]: !prevState[ticket.tid],

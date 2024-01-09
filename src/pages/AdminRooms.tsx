@@ -98,7 +98,7 @@ if (isLoading) {
   
   const occupiedRooms = rooms.filter((room) => room.status === "occupied");
   const unoccupiedRooms = rooms.filter((room) => room.status === "unoccupied");
-  const [isScrollDisabled, setScrollDisabled] = useState(false);
+  //const [isScrollDisabled, setScrollDisabled] = useState(false);
 
     {/* dxyaaa
     useEffect(() => {
@@ -114,7 +114,7 @@ if (isLoading) {
   const handleSidebarToggle = () => {
     setSidebarOpen(!isSidebarOpen);
   };
-
+{/*
   useEffect(() => {
     if (isScrollDisabled) {
       document.body.classList.add("no-scroll");
@@ -122,6 +122,7 @@ if (isLoading) {
       document.body.classList.remove("no-scroll");
     }
   }, [isScrollDisabled]);
+  */ }
 
   return (
 
