@@ -2,6 +2,7 @@ import Sidebar from "@/components/SideBar";
 import TopBar from "@/components/TopBar";
 import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
+import AdminHomeComp from "@/components/AdminHomeComp";
 interface SidebarProps {
   isOpen: boolean;
 }
@@ -24,7 +25,7 @@ const AdminHome: React.FC = () => {
           <Sidebar isOpen={isSidebarOpen} />
         </div>
         <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
-          AdminHome
+        <AdminHomeComp/>
         </div>
       </div>
     </div>

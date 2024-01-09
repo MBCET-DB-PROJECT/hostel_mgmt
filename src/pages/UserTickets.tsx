@@ -81,8 +81,10 @@ const UserTickets: React.FC = () => {
               </div>
             )}
           </form>
+          {/* <div className="flex justify-end bg-slate-200 h-screen w-full">
+            <div className="p-4 h-60 w-1/4 bg-white">hi</div>
+                </div>*/}
         </div>
-        {/* raised and accepted tickets here */}
       </div>
     </div>
   );
