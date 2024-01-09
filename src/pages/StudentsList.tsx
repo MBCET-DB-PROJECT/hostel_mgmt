@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { BsPersonFillAdd } from "react-icons/bs";
 import "tailwindcss/tailwind.css";
 import StudentData from "../data/StudentDetails.json";
-import EditStudents from "./EditStudents/[id]";
+//import EditStudents from "./EditStudents/[id]";
 
 import StdDetails from "@/components/StudentsListComp";
 import { getAuth } from "firebase/auth";
@@ -26,7 +26,7 @@ const StudentsList: React.FC = () => {
       const [isModalOpen, setModalOpen] = useState(false); 
   const [selectedStudent, setSelectedStudent] = useState<any>(null);
   const [isBlurry, setBlurry] = useState(false); 
-  const [studentsList, setStudentsList] = useState<Student[]>(StudentData); 
+ // const [studentsList, setStudentsList] = useState<Student[]>(StudentData); 
 
   useEffect(() => {
     const fetchUserData = async () => {

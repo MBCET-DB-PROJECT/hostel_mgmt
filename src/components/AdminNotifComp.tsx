@@ -154,12 +154,12 @@ const AdminNotifComp = () => {
   
   
       
-  {/*  const handleNotifClick = (notif: any) => {
-  const handleNotifClick = (notif: Notif) => {
+   const handleNotifClick = (notif: any) => {
+  
     setSelectedNotif(notif);
     setModalOpen(true);
   };
-*/}
+
 
 
    { /* const handleDeleteNotif = (notif: Notif) => {
@@ -209,7 +209,7 @@ const AdminNotifComp = () => {
               <p className="mt-4">{data.content}</p>
 
           
-        /*<div className="flex justify-between">
+       { /*<div className="flex justify-between">
                 <p className="mt-4">{selectedNotif.content}</p>
                 <button
                   className="mt-4 hover:bg-red-300 p-2 rounded-md"
@@ -218,7 +218,7 @@ const AdminNotifComp = () => {
                   <MdDelete size={20} />
                 </button>
               </div>
-        */
+      */}
 
             </div>
           </div>

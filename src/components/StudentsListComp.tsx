@@ -277,7 +277,7 @@ const StudentsListComp = () => {
                   href={`/EditStudents/[stdId]`}
                   as={`/EditStudents/${stdId}`}
 
-                  {/*
+                /*
               <p className="mt-4">Name: {selectedStudent.name}</p>
               <p>Class: {selectedStudent.class}</p>
               <p>Sem: {selectedStudent.sem}</p>
@@ -286,7 +286,7 @@ const StudentsListComp = () => {
               <div className="mt-6">
                 <Link
                   href={`/EditStudents/${selectedStudent.id}`}
-                */}  
+                */ 
 
                   className="mr-4 text-white py-2 px-2 bg-blue-500 rounded-md hover:bg-blue-400"
                 >
