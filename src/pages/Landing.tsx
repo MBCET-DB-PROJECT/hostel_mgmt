@@ -1,6 +1,14 @@
 import { Span } from "next/dist/trace";
 import Image from "next/image";
 import "tailwindcss/tailwind.css";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+
+
 import {
   motion,
   useAnimation,
@@ -8,6 +16,7 @@ import {
   useScroll,
 } from "framer-motion";
 import { useEffect } from "react";
+
 
 export default function Home() {
   const controls = useAnimation();
@@ -88,6 +97,48 @@ export default function Home() {
           </div>
         </motion.div>
 
+
+</div>
+<div className='flex justify-between h-screen'>
+<div className='w-1/2 flex justify-center bg-gray-100'>
+
+<div className="flex justify-center items-center ">
+
+  <Swiper className="mySwiper flex w-full h-full max-w-[500px] max-h-[440px]  justify-center items-center"
+ 
+
+  autoplay={{
+    delay: 2500,
+    disableOnInteraction: false,
+  }}
+
+  pagination={{
+    dynamicBullets: true,
+    clickable: true,
+  }}
+  
+  navigation={true}
+
+  modules={[Autoplay, Pagination, Navigation]}
+  >
+    <SwiperSlide className="flex w-full h-full justify-center items-center  ">
+      <img src='https://img.freepik.com/free-photo/teen-couple-reading-library_23-2147860608.jpg?size=626&ext=jpg&ga=GA1.1.1161610126.1702110340&semt=ais' className='w-[400px] h-[400px] flex justify-center items-center  m-auto rounded-2xl' />
+      
+    </SwiperSlide>
+    <SwiperSlide className="flex w-full h-full justify-center items-center">
+      <img src='https://img.freepik.com/free-photo/young-friends-hostel_52683-121726.jpg?size=626&ext=jpg&ga=GA1.1.1161610126.1702110340&semt=ais' className='w-[400px] h-[400px] flex justify-center items-center m-auto rounded-2xl' />
+    </SwiperSlide>
+    <SwiperSlide className="flex w-full h-full justify-center items-center">
+      <img src='https://img.freepik.com/free-photo/architecture-sleep-window-relax-old_1253-605.jpg?size=626&ext=jpg&ga=GA1.1.1161610126.1702110340&semt=ais' className='w-[400px] h-[400px] flex justify-center items-center mx-auto my-auto rounded-2xl' />
+    </SwiperSlide>
+  </Swiper>
+
+
+       </div>
+
+
+</div>
+
         <div className="">
           <div className="flex justify-around items-center text-center h-screen">
             <div className="flex flex-col space-y-6">
@@ -105,6 +156,7 @@ export default function Home() {
         </div>
       </div>
 
+
       <div className="flex justify-between ">
         <motion.div className="w-1/2 flex justify-end bg-gray-100">
           <div className="flex items-center justify-center my-7 mx-10 mr-60 ">
@@ -115,6 +167,8 @@ export default function Home() {
           </div>
         </motion.div>
 
+
+
         <div 
         className="w-1/2 bg-gray-100">
           <motion.div 
@@ -123,6 +177,7 @@ export default function Home() {
             <div className="w-full bg-white rounded-lg shadow-sm md:mt-0 sm:max-w-md xl:p-0 dark:bg-white ">
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2x">
+
                   Log in to student account
                 </h1>
                 <form className="space-y-4 md:space-y-6">
@@ -185,6 +240,17 @@ export default function Home() {
           </motion.div>
         </div>
       </div>
+
+  </div>
+  </div>
+</div>
+
+<div>
+  hi
+</div>
+<div className='bg-gray-100'>
+
+
       <div className="flex justify-between h-screen">
         <motion.div 
      
@@ -193,6 +259,7 @@ export default function Home() {
             <div className="w-full bg-white rounded-lg shadow-sm md:mt-0 sm:max-w-md xl:p-0 dark:bg-white">
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2x">
+
                   Log in to admin account
                 </h1>
                 <form className="space-y-4 md:space-y-6">
@@ -271,6 +338,57 @@ export default function Home() {
           </div>
         </motion.div>
       </div>
-    </div>
-  );
+
+  </div>
+  </div>
+  <div className='flex justify-center h-screen bg-gray-100'>
+<div className='w-1/2 flex justify-center bg-gray-100 '>
+
+<div className="flex justify-center items-center mx-20 mr-35">
+
+<Swiper className="mySwiper flex w-full h-full max-w-[500px] max-h-[440px]  justify-center items-center"
+
+
+autoplay={{
+  delay: 2500,
+  disableOnInteraction: false,
+}}
+
+pagination={{
+  dynamicBullets: true,
+  clickable: true,
+}}
+
+navigation={true}
+
+modules={[Autoplay, Pagination, Navigation]}
+>
+  <SwiperSlide className="flex w-full h-full justify-center items-center  ">
+    <img src='https://img.freepik.com/premium-photo/detail-residential-house-turned-into-hostel_1048944-26070141.jpg?size=626&ext=jpg&ga=GA1.1.1161610126.1702110340&semt=sph' className='w-[400px] h-[400px] flex justify-center items-center  m-auto rounded-2xl' />
+    
+  </SwiperSlide>
+  <SwiperSlide className="flex w-full h-full justify-center items-center">
+    <img src='https://cdn.pixabay.com/photo/2013/06/30/19/07/bed-142516_1280.jpg' className='w-[400px] h-[400px] flex justify-center items-center m-auto rounded-2xl' />
+  </SwiperSlide>
+  <SwiperSlide className="flex w-full h-full justify-center items-center">
+    <img src='https://img.freepik.com/free-photo/sleeping-mattress-bright-hostel-background_1253-665.jpg?size=626&ext=jpg&ga=GA1.1.1161610126.1702110340&semt=sph' className='w-[400px] h-[400px] flex justify-center items-center mx-auto my-auto rounded-2xl' />
+  </SwiperSlide>
+</Swiper>
+
+</div>
+     </div>
+  </div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+  )
+
 }
