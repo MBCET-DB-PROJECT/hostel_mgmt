@@ -12,51 +12,72 @@ import { MdEditNotifications } from "react-icons/md";
 import NotifData from "../data/Notifications.json";
 import CreateNotifications from "./../pages/CreateNotifications";
 import { MdDelete } from "react-icons/md";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
+import app from "@/app/firebase";
 
 interface SidebarProps {
   isOpen: boolean;
 }
-interface Student {
-  id: number;
-  name: string;
-  class: string;
-  sem: string;
-  roomno: string;
-  email: string;
-  fees: string;
-  password: string;
-}
-interface Notif {
-  nid: number;
+
+interface Notification {
+  notifId: string;
   content: string;
-  date: string;
+  timestamp:any;
 }
 
-const UserNotifComp = () => {
+
+
+const UserNotifComp: React.FC= () => {
   const students = StudentData;
 
   const [isSidebarOpen, setSidebarOpen] = useState(false); //to check whether sidebar is open in responsive view
   const [isModalOpen, setModalOpen] = useState(false); //to check whether the student details modal is open
   const [isBlurry, setBlurry] = useState(false); //to blur background when modal is open
   const [selectedStudent, setSelectedStudent] = useState<any>(null);
-  const [studentsList, setStudentsList] = useState<Student[]>(StudentData); //to map student list
-  const [notifsList, setNotifsList] = useState<Notif[]>(NotifData);
+  //to map student list
+  const [notifsList, setNotifsList] = useState<Notification[]>([]);
   const [selectedNotif, setSelectedNotif] = useState<any>(null);
+  const [loadingData,setLoadingData] = React.useState(true);
 
   const handleSidebarToggle = () => {
     //handles sidebar open or not in mobile view
     setSidebarOpen(!isSidebarOpen);
   };
 
-  const handleStudentClick = (student: any) => {
-    //to select particular student to show details of in student details modal
-    setSelectedStudent(student);
-    setModalOpen(true);
+  const fetchNotifications = async () => {
+    try {
+      const db = getFirestore(app);
+      const notifsRef  = collection(db,"Notification");
+  
+      const notifSnapshot = await getDocs(notifsRef);
+  
+      const notifDetailsArray: Notification[] = [];
+  
+      notifSnapshot.forEach((notifDoc) => {
+        const notifData = notifDoc.data() as Notification;
+  
+        const notificationId = {...notifData,notifId: notifDoc.id}
+  
+        notifDetailsArray.push(notificationId);
+      
+      });
+        if(notifDetailsArray.length > 0) {
+          console.log("Notification data loaded",notifDetailsArray);
+          setNotifsList(notifDetailsArray);
+        } else {
+          console.log("No Notifications found");
+        }
+    } catch (error)
+    {
+      console.error("Error fetching notification details", error);
+    } finally {
+      setLoadingData(false);
+    };
   };
-  const handleNotifClick = (notif: Notif) => {
-    setSelectedNotif(notif);
-    setModalOpen(true);
-  };
+  
+  React.useEffect(() => {
+   fetchNotifications();
+  }, []);
 
   useEffect(() => {
     //to set background to blur when modal is open
@@ -67,6 +88,24 @@ const UserNotifComp = () => {
     }
   }, [isModalOpen]);
 
+  
+  if (loadingData) {
+    return <p>Loading...</p>;
+  }
+
+  const handleStudentClick = (student: any) => {
+    //to select particular student to show details of in student details modal
+    setSelectedStudent(student);
+    setModalOpen(true);
+  };
+  const handleNotifClick = (notif: any) => {
+  
+    setSelectedNotif(notif);
+    setModalOpen(true);
+  };
+
+
+  
   return (
     <div>
       {isModalOpen && selectedNotif && (
@@ -95,13 +134,13 @@ const UserNotifComp = () => {
         <div className="flex bg-slate-200 w-full">
           <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
             {notifsList.map((notif) => (
-              <div key={notif.nid} onClick={() => handleNotifClick(notif)}>
+              <div key={notif.notifId} onClick={() => handleNotifClick(notif)}>
                 <form>
                   <div className="mt-5 bg-white rounded-md shadow-lg mx-4 text-center items-center">
                     <div className="px-5 pb-5 w-full">
                       <div className="flex justify-between py-2">
                         <div>{notif.content}</div>
-                        <div>{notif.date}</div>
+                        <div>{notif.timestamp}</div>
                       </div>
                     </div>
                   </div>

@@ -7,7 +7,10 @@ import {
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import app from "@/app/firebase";
+import { FirebaseError } from "firebase/app";
 
 export default function Home() {
   const controls = useAnimation();
@@ -15,6 +18,8 @@ export default function Home() {
   const stdforms = useAnimation();
   const { scrollY } = useScroll();
   const image = useAnimation();
+
+
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (scrollY.get() > 800) {
@@ -42,7 +47,62 @@ export default function Home() {
       scrollY.clearListeners();
     };
   }, [scrollY, controls, stdforms,adminforms, image])
-  
+
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+
+  const handleStudLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    console.log("handlelogin function called");
+
+    const { email, password } = formData;
+
+    try {
+      const auth = getAuth(app);
+      await signInWithEmailAndPassword(auth, email, password);
+      setError(null);
+      window.location.href = "/UserHome";
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        console.log(error);
+      }
+    }
+  };
+
+
+  const handleAdminLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    console.log("handlelogin function called");
+
+    const { email, password } = formData;
+
+    try {
+      const auth = getAuth(app);
+      await signInWithEmailAndPassword(auth, email, password);
+      setError(null);
+      window.location.href = "/AdminHome";
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        console.log(error);
+      }
+    }
+  };
 
 
   return (
@@ -134,6 +194,11 @@ export default function Home() {
                       Your email
                     </label>
                     <input
+                     type="email"
+                     name="email"
+                     id="email"
+                     value={formData.email}
+                     onChange={handleChange}
                       className="bg-gray-100 border border-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:placeholder-gray-500"
                       placeholder="name@company.com"
                     />
@@ -146,6 +211,11 @@ export default function Home() {
                       Password
                     </label>
                     <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    value={formData.password}
+                    onChange={handleChange}
                       className="bg-gray-100 border border-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:placeholder-gray-500"
                       placeholder=".........."
                     />
@@ -175,6 +245,7 @@ export default function Home() {
                   </div>
                   <button
                     type="submit"
+                    onClick={handleStudLogin}
                     className="text-black bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-black font-medium rounded-lg text-xs px-10 py-4 dark:bg-gray-300 dark:hover:bg-gray-400 dark:focus:ring-black border border-gray-700 max-w-xs mx-auto block"
                   >
                     Log in
@@ -204,6 +275,11 @@ export default function Home() {
                       Your email
                     </label>
                     <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    value={formData.email}
+                    onChange={handleChange}
                       className="bg-gray-100 border border-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:placeholder-gray-500"
                       placeholder="name@company.com"
                     />
@@ -216,6 +292,11 @@ export default function Home() {
                       Password
                     </label>
                     <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    value={formData.password}
+                    onChange={handleChange}
                       className="bg-gray-100 border border-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:placeholder-gray-500"
                       placeholder=".........."
                     />
@@ -245,6 +326,7 @@ export default function Home() {
                   </div>
                   <button
                     type="submit"
+                    onClick={handleAdminLogin}
                     className="text-black bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-black font-medium rounded-lg text-xs px-10 py-4 dark:bg-gray-300 dark:hover:bg-gray-400 dark:focus:ring-black border border-gray-700 max-w-xs mx-auto block"
                   >
                     Sign in
