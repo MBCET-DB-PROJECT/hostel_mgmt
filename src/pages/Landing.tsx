@@ -11,6 +11,7 @@ import { Canvas } from "@react-three/fiber";
 import Blob from "../components/Blob";
 import Head from "next/head";
 import { FaCircle } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 //import { LoginPage } from "../components";
 import MyIcosahedronGeometry from "../components/Blob/MyIcosahedronGeometry";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -57,8 +58,8 @@ export default function Home() {
   return (
     <div>
       <div
-        className=" bg-cover bg-center bg-no-repeat min-h-screen "
-        /*style={{
+
+      /*style={{
           backgroundImage:
             "url(https://hostel-gentileza.hoteis-em-goias.com/data/Images/OriginalPhoto/12056/1205674/1205674189/image-alto-paraiso-de-goias-hostel-gentileza-13.JPEG)",
         }}*/
@@ -95,16 +96,16 @@ export default function Home() {
             </div>
           </div>
         </motion.div>
-        <div>
-          <div className="flex justify-center   text-center">
-            <div className="flex flex-col space-y-6 mt-10">
-              <span className=" text-xl  text-black">
+
+        <div className="flex justify-center   ">
+          <div className="flex flex-col  mt-20">
+            {/*<span className=" text-xl  text-black">
                 Your home away from home!
-              </span>
-              <span className=" text-5xl font-extrabold md:text-5xl lg:text-6xl text-black ">
-                RightHere
-              </span>
-              <a
+              </span>*/}
+            <span className="text-9xl font-extrabold text-black ">
+              RightHere
+            </span>
+            {/*<a
                 href="#_"
                 className=" flex justify-center items-center px-4 py-2 bg-black text-white font-semibold relative  overflow-hidden    shadow-inner group"
               >
@@ -116,47 +117,64 @@ export default function Home() {
                 <span className="relative transition-colors duration-300 delay-200 group-hover:text-white ease ">
                   Get Started
                 </span>
-              </a>
-            </div>
+              </a>*/}
           </div>
-          <div className="text-black text-lg flex justify-between items-center  px-10 justify-top">
-            <div
-              className="
-            flex flex-col space-y-3 font-bold w-1/4 justify-top"
-            >
-              {" "}
+        </div>
+        <div className="text-black text-lg flex justify-between items-center  px-10 justify-top">
+          <div
+            className="
+            flex flex-col  font-bold w-1/3 justify-top"
+          >
+            {" "}
+            <div className="space-y-3">
               <div className="border-t-2 border-black"></div>
-              <button className="flex">
+              <button className="flex w-full">
                 Home
-                <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
+                <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle " />
               </button>
               <div className="border-t-2 border-black"></div>
-              <button className="flex">
+              <button className="flex w-full">
                 About
                 <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
               </button>
               <div className="border-t-2 border-black"></div>
-              <button className="flex">
+              <button className="flex w-full">
                 Contact
                 <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
               </button>
               <div className="border-t-2 border-black"></div>
+              <button className="flex w-full">
+                Login
+                <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
+              </button>
+              <div className="border-t-2 border-black"></div>
             </div>
-            <div className="w-full  h-screen ">
-              <div className=" h-full flex ">
-                <Canvas camera={{ position: [0.0, 0.0, 8.0] }}>
-                  <Blob />
-                  <MyIcosahedronGeometry args={[2, 20]} />{" "}
-                </Canvas>
-              </div>
+            <div className="text-blue-600 w-full text-3xl mt-40 flex flex-col space-x-1">
+              <div>Your one-stop destination for all</div>
+              <div> hostel management activities.</div>
+              <div></div>
             </div>
-            <div className="flex flex-col space-y-4 justify-top">
+          </div>
+
+          <div className="w-full  h-screen ">
+            <div
+              className=" h-full flex "
+              onClick={() => console.log("clicked")}
+            >
+              <Canvas camera={{ position: [0.0, 0.0, 8.0] }}>
+                <Blob />
+                <MyIcosahedronGeometry args={[2, 20]} />{" "}
+              </Canvas>
+            </div>
+          </div>
+          <div className="flex flex-row space-x-2">
+            <div className="flex flex-col space-y-3 justify-top">
               <Image
                 alt="hostel sample img 1"
                 src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG9zdGVsfGVufDB8fDB8fHww"
-                width={300}
-                height={300}
-                className="rounded-md shadow-md  p-2  transition-filter duration-300 ease-in-out border-black relative  border-2 "
+                width={500}
+                height={500}
+                className=" aspect-w-1 aspect-h-1 object-cover rounded-lg  "
               />
               {/*<span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white opacity-0 transition-opacity duration-300 hover:opacity-100">
                 <div className="font-semibold text-blue-500 ">
@@ -165,11 +183,15 @@ export default function Home() {
               </span>*/}
               <Image
                 alt="hostel sample img 1"
-                src="https://images.unsplash.com/photo-1619810230359-b2c2f61c49cd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                width={300}
-                height={300}
-                className="rounded-md shadow-md  p-2  transition-filter duration-300 ease-in-out border-black relative  border-2"
+                src="https://www.thebrokebackpacker.com/wp-content/uploads/2021/08/Kex-Hostel.jpg"
+                width={500}
+                height={500}
+                className="aspect-w-1 aspect-h-1 object-cover rounded-lg  "
               />
+              <button className="w-full border-2 border-black p-1 rounded-lg text-black flex justify-center">
+                <FaPlus className="text-blue-600 mt-1 mr-1" />
+                See More
+              </button>
             </div>
           </div>
         </div>
