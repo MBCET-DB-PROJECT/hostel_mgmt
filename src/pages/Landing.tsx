@@ -57,7 +57,7 @@ export default function Home() {
     };
   }, [scrollY, controls, stdforms, adminforms, image]);
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <div
 
       /*style={{
@@ -75,12 +75,31 @@ export default function Home() {
           <div className="z-10 flex justify-center w-full h-full text-black items-center ">
             <div className="md:w-[90%] w-[95%] h-full bg-opacity-0.2 backdrop-filter backdrop-blur-3xl p-1  m-2 z-2 rounded-full shadow-xl text-slate-800 font-semibold">
               <div className="flex items-center relative justify-between">
-                <button
-                  title="Signup"
-                  className="bg-black py-3 ml-7 px-7 rounded-full text-white"
+                <a
+                  href="#_"
+                  className="relative inline-flex items-center justify-center p-2 ml-2 overflow-hidden font-medium text-black transition duration-300 ease-out border-2 border-black rounded-full shadow-md group"
                 >
-                  LOG IN
-                </button>
+                  <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-black group-hover:translate-x-0 ease">
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      ></path>
+                    </svg>
+                  </span>
+                  <span className="absolute flex items-center justify-center w-full h-full text-black  transition-all duration-300 transform group-hover:translate-x-full ease">
+                    LOGIN
+                  </span>
+                  <span className="relative invisible">Button Text</span>
+                </a>
 
                 <p className="md:flex hidden ml-7 text-3xl relative  text-center font-bold">
                   RightHere
@@ -88,9 +107,15 @@ export default function Home() {
 
                 <div className="gap-6 px-5">
                   <div className="flex gap-3 p-5">
-                    <label className="md:flex hidden">HOME</label>
-                    <label className="md:flex hidden">CONTACT</label>
-                    <label className="md:flex hidden">ABOUT</label>
+                    <label className="md:flex hidden hover:text-blue-600">
+                      HOME
+                    </label>
+                    <label className="md:flex hidden hover:text-blue-600">
+                      EXPLORE
+                    </label>
+                    <label className="md:flex hidden hover:text-blue-600">
+                      CONTACT
+                    </label>
                   </div>
                 </div>
               </div>
@@ -152,7 +177,7 @@ export default function Home() {
             </div>
             <div className="text-blue-600 w-full text-3xl mt-40 flex flex-col space-x-1">
               <div>Your one-stop destination for all</div>
-              <div> hostel management activities.</div>
+              <div> your hostel management activities.</div>
               <div></div>
             </div>
           </div>
@@ -243,7 +268,7 @@ export default function Home() {
                 <FaStarOfLife className="mt-1 mr-2" /> About
               </div>
               <div className="mt-5 text-5xl font-semibold bg-gradient-to-r from-purple-600 to-blue-600 inline-block text-transparent bg-clip-text">
-                One Stop Destination for hms
+                One Stop Destination
               </div>
               <div className="text-right mt-10">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
