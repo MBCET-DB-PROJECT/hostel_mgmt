@@ -62,10 +62,6 @@ export default function Home() {
           backgroundImage:
             "url(https://hostel-gentileza.hoteis-em-goias.com/data/Images/OriginalPhoto/12056/1205674/1205674189/image-alto-paraiso-de-goias-hostel-gentileza-13.JPEG)",
         }}*/
-        style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1523633589114-88eaf4b4f1a8?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGJsdWUlMjB3YXRlcnxlbnwwfHwwfHx8MA%3D%3D)",
-        }}
       >
         <motion.div
           style={{ opacity: 0 }}
@@ -102,15 +98,15 @@ export default function Home() {
         <div>
           <div className="flex justify-center   text-center">
             <div className="flex flex-col space-y-6 mt-10">
-              <span className=" text-xl  text-white">
+              <span className=" text-xl  text-black">
                 Your home away from home!
               </span>
-              <span className=" text-5xl font-extrabold md:text-5xl lg:text-6xl text-white ">
+              <span className=" text-5xl font-extrabold md:text-5xl lg:text-6xl text-black ">
                 RightHere
               </span>
               <a
                 href="#_"
-                className="w-1/3 flex justify-center items-center px-4 py-2 bg-white text-black font-semibold relative  overflow-hidden    shadow-inner group"
+                className=" flex justify-center items-center px-4 py-2 bg-white text-black font-semibold relative  overflow-hidden    shadow-inner group"
               >
                 <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-black group-hover:w-full ease"></span>
                 <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-black group-hover:w-full ease"></span>
@@ -121,39 +117,38 @@ export default function Home() {
                   Get Started
                 </span>
               </a>
-              <div>
-                {" "}
-                <div className="bg-red-100 h-screen w-screen">
-                  <Canvas camera={{ position: [0.0, 0.0, 8.0] }}>
-                    <Blob />
-                    <MyIcosahedronGeometry args={[2, 20]} />{" "}
-                  </Canvas>
-                </div>
-              </div>
             </div>
           </div>
-          <div className="text-white text-lg flex justify-between items-center  px-5 ">
+          <div className="text-black text-lg flex justify-between items-center  px-5 ">
             <div
               className="
             flex flex-col space-y-4 font-bold w-1/5 "
             >
               {" "}
-              <div className="border-t-4 border-white"></div>
+              <div className="border-t-2 border-black"></div>
               <button className="flex">
                 Home
                 <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
               </button>
-              <div className="border-t-4 border-white"></div>
+              <div className="border-t-2 border-black"></div>
               <button className="flex">
                 About
                 <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
               </button>
-              <div className="border-t-4 border-white"></div>
+              <div className="border-t-2 border-black"></div>
               <button className="flex">
                 Contact
                 <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
               </button>
-              <div className="border-t-4 border-white"></div>
+              <div className="border-t-2 border-black"></div>
+            </div>
+            <div className="w-full h-screen ">
+              <div className=" h-full">
+                <Canvas camera={{ position: [0.0, 0.0, 8.0] }}>
+                  <Blob />
+                  <MyIcosahedronGeometry args={[2, 20]} />{" "}
+                </Canvas>
+              </div>
             </div>
             <div className="flex flex-col space-y-4">
               <Image
@@ -161,7 +156,7 @@ export default function Home() {
                 src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG9zdGVsfGVufDB8fDB8fHww"
                 width={300}
                 height={300}
-                className="rounded-md shadow-md  p-2  transition-filter duration-300 ease-in-out border-white relative  border-4 "
+                className="rounded-md shadow-md  p-2  transition-filter duration-300 ease-in-out border-black relative  border-2 "
               />
               {/*<span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white opacity-0 transition-opacity duration-300 hover:opacity-100">
                 <div className="font-semibold text-blue-500 ">
@@ -173,7 +168,7 @@ export default function Home() {
                 src="https://images.unsplash.com/photo-1619810230359-b2c2f61c49cd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 width={300}
                 height={300}
-                className="rounded-md shadow-md  p-2  transition-filter duration-300 ease-in-out border-white relative  border-4"
+                className="rounded-md shadow-md  p-2  transition-filter duration-300 ease-in-out border-black relative  border-2"
               />
             </div>
           </div>
