@@ -106,23 +106,23 @@ export default function Home() {
               </span>
               <a
                 href="#_"
-                className=" flex justify-center items-center px-4 py-2 bg-white text-black font-semibold relative  overflow-hidden    shadow-inner group"
+                className=" flex justify-center items-center px-4 py-2 bg-black text-white font-semibold relative  overflow-hidden    shadow-inner group"
               >
                 <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-black group-hover:w-full ease"></span>
                 <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-black group-hover:w-full ease"></span>
-                <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-black group-hover:h-full ease"></span>
-                <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-black group-hover:h-full ease"></span>
-                <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-black opacity-0 group-hover:opacity-100"></span>
-                <span className="relative transition-colors duration-300 delay-200 group-hover:text-white ease border-black">
+                <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-blue-500 group-hover:h-full ease"></span>
+                <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-blue-500 group-hover:h-full ease"></span>
+                <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-blue-500 opacity-0 group-hover:opacity-100"></span>
+                <span className="relative transition-colors duration-300 delay-200 group-hover:text-white ease ">
                   Get Started
                 </span>
               </a>
             </div>
           </div>
-          <div className="text-black text-lg flex justify-between items-center  px-5 ">
+          <div className="text-black text-lg flex justify-between items-center  px-10 justify-top">
             <div
               className="
-            flex flex-col space-y-4 font-bold w-1/5 "
+            flex flex-col space-y-3 font-bold w-1/4 justify-top"
             >
               {" "}
               <div className="border-t-2 border-black"></div>
@@ -142,15 +142,15 @@ export default function Home() {
               </button>
               <div className="border-t-2 border-black"></div>
             </div>
-            <div className="w-full h-screen ">
-              <div className=" h-full">
+            <div className="w-full  h-screen ">
+              <div className=" h-full flex ">
                 <Canvas camera={{ position: [0.0, 0.0, 8.0] }}>
                   <Blob />
                   <MyIcosahedronGeometry args={[2, 20]} />{" "}
                 </Canvas>
               </div>
             </div>
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col space-y-4 justify-top">
               <Image
                 alt="hostel sample img 1"
                 src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG9zdGVsfGVufDB8fDB8fHww"

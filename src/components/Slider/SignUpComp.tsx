@@ -4,6 +4,7 @@ import { useState } from "react";
 const SignUpComp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   return (
     <div className="selection:bg-indigo-500 selection:text-white">
       <div className="flex justify-center items-center">

@@ -5,7 +5,8 @@ import LeftOverlayContent from "./LeftOverlayContent";
 import RightOverlayContent from "./RightOverlayContent";
 const LoginComponent = () => {
   const [isAnimated, setIsAnimated] = useState<boolean>(false);
-  const overlayBg = "bg-gradient-to-r from-gray-100 via-blue-600 to-blue-800";
+  const overlayBg =
+    "bg-gradient-to-r from-blue-700 via-purple-700 to-indigo-700";
   return (
     <div className="h-4/5 w-4/5 bg-white relative overflow-hidden rounded-xl shadow-lg">
       <div

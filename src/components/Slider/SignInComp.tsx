@@ -10,7 +10,7 @@ const SignInComp = () => {
         <div className="p-8 flex-1">
           <div className="mx-auto overflow-hidden">
             <div className="p-8">
-              <h1 className="text-5xl font-bold text-blue-600">
+              <h1 className="text-5xl font-bold text-indigo-600">
                 Welcome back!
               </h1>
 

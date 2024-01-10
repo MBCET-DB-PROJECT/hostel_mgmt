@@ -20,7 +20,10 @@ button:hover .blue-circle {
 .custom-hover:hover .rounded-md {
   filter: blur(1px);
 }
-
+.justify-top {
+  justify-content: flex-start;
+  margin-top: -80px;
+}
 /*
 .spcl-font {
   font-family: "Shadows Into Light", cursive;
