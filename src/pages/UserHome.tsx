@@ -1,7 +1,7 @@
 import "tailwindcss/tailwind.css";
 import React from "react";
 import UserSidebar from "@/components/UserSideBar";
-import TopBar from "@/components/TopBar";
+import TopBar from "@/components/AdminTopBar";
 import { useState } from "react";
 import "tailwindcss/tailwind.css";
 import UserHomeComp from "@/components/UserHomeComp";

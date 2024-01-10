@@ -1,5 +1,5 @@
 import Sidebar from "@/components/SideBar";
-import TopBar from "@/components/TopBar";
+import TopBar from "@/components/AdminTopBar";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { BsPersonFillAdd } from "react-icons/bs";

@@ -1,5 +1,5 @@
 import Sidebar from "@/components/SideBar";
-import TopBar from "@/components/TopBar";
+import TopBar from "@/components/AdminTopBar";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import EditTickets from "./../pages/EditTickets";
