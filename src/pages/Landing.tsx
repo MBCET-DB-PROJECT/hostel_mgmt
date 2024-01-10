@@ -7,9 +7,12 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { useEffect } from "react";
 import "./../app/globals.css";
+import { Canvas } from "@react-three/fiber";
+import Blob from "../components/Blob";
 import Head from "next/head";
 import { FaCircle } from "react-icons/fa";
 //import { LoginPage } from "../components";
+import MyIcosahedronGeometry from "../components/Blob/MyIcosahedronGeometry";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import {
   motion,
@@ -105,10 +108,9 @@ export default function Home() {
               <span className=" text-5xl font-extrabold md:text-5xl lg:text-6xl text-white ">
                 RightHere
               </span>
-
               <a
                 href="#_"
-                className="w-full flex justify-center items-center px-4 py-2 bg-white text-black font-semibold relative  overflow-hidden    shadow-inner group"
+                className="w-1/3 flex justify-center items-center px-4 py-2 bg-white text-black font-semibold relative  overflow-hidden    shadow-inner group"
               >
                 <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-black group-hover:w-full ease"></span>
                 <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-black group-hover:w-full ease"></span>
@@ -119,6 +121,15 @@ export default function Home() {
                   Get Started
                 </span>
               </a>
+              <div>
+                {" "}
+                <div className="bg-red-100 h-screen w-screen">
+                  <Canvas camera={{ position: [0.0, 0.0, 8.0] }}>
+                    <Blob />
+                    <MyIcosahedronGeometry args={[2, 20]} />{" "}
+                  </Canvas>
+                </div>
+              </div>
             </div>
           </div>
           <div className="text-white text-lg flex justify-between items-center  px-5 ">
