@@ -10,10 +10,10 @@ const SignInComp = () => {
         <div className="p-8 flex-1">
           <div className="mx-auto overflow-hidden">
             <div className="p-8">
+              User SignIn
               <h1 className="text-5xl font-bold text-indigo-600">
                 Welcome back!
               </h1>
-
               <form className="mt-12" action="" method="POST">
                 <div className="relative">
                   <input
@@ -52,13 +52,6 @@ const SignInComp = () => {
                   className="mt-20 px-8 py-4 uppercase rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-indigo-500 focus:ring-opacity-80 cursor-pointer"
                 />
               </form>
-              <a
-                href="#"
-                className="mt-4 block text-sm text-center font-medium text-indigo-600 hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              >
-                {" "}
-                Forgot your password?{" "}
-              </a>
             </div>
           </div>
         </div>

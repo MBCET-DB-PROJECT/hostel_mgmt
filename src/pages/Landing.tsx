@@ -13,6 +13,7 @@ import Head from "next/head";
 import { FaCircle } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 //import { LoginPage } from "../components";
+import { FaStarOfLife } from "react-icons/fa";
 import MyIcosahedronGeometry from "../components/Blob/MyIcosahedronGeometry";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import {
@@ -82,7 +83,7 @@ export default function Home() {
                 </button>
 
                 <p className="md:flex hidden ml-7 text-3xl relative  text-center font-bold">
-                  MyHostel
+                  RightHere
                 </p>
 
                 <div className="gap-6 px-5">
@@ -134,7 +135,7 @@ export default function Home() {
               </button>
               <div className="border-t-2 border-black"></div>
               <button className="flex w-full">
-                About
+                Explore
                 <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
               </button>
               <div className="border-t-2 border-black"></div>
@@ -201,9 +202,9 @@ export default function Home() {
         <div className="w-1/2 flex justify-center bg-gray-100">
           <div className="flex justify-center items-center ">
             <Swiper
-              className="mySwiper flex w-full h-full max-w-[500px] max-h-[440px]  justify-center items-center"
+              className="mySwiper flex w-full h-full max-w-[700px] max-h-[700px]  justify-center items-center"
               autoplay={{
-                delay: 2500,
+                delay: 2000,
                 disableOnInteraction: false,
               }}
               pagination={{
@@ -216,19 +217,19 @@ export default function Home() {
               <SwiperSlide className="flex w-full h-full justify-center items-center  ">
                 <img
                   src="https://img.freepik.com/free-photo/teen-couple-reading-library_23-2147860608.jpg?size=626&ext=jpg&ga=GA1.1.1161610126.1702110340&semt=ais"
-                  className="w-[400px] h-[400px] flex justify-center items-center  m-auto rounded-2xl"
+                  className="w-[600px] h-[600px] flex justify-center items-center  m-auto rounded-2xl"
                 />
               </SwiperSlide>
               <SwiperSlide className="flex w-full h-full justify-center items-center">
                 <img
                   src="https://img.freepik.com/free-photo/young-friends-hostel_52683-121726.jpg?size=626&ext=jpg&ga=GA1.1.1161610126.1702110340&semt=ais"
-                  className="w-[400px] h-[400px] flex justify-center items-center m-auto rounded-2xl"
+                  className="w-[600px] h-[600px] flex justify-center items-center m-auto rounded-2xl"
                 />
               </SwiperSlide>
               <SwiperSlide className="flex w-full h-full justify-center items-center">
                 <img
                   src="https://img.freepik.com/free-photo/architecture-sleep-window-relax-old_1253-605.jpg?size=626&ext=jpg&ga=GA1.1.1161610126.1702110340&semt=ais"
-                  className="w-[400px] h-[400px] flex justify-center items-center mx-auto my-auto rounded-2xl"
+                  className="w-[600px] h-[600px] flex justify-center items-center mx-auto my-auto rounded-2xl"
                 />
               </SwiperSlide>
             </Swiper>
@@ -236,67 +237,21 @@ export default function Home() {
         </div>
 
         <div className="w-1/2 bg-gray-100">
-          <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen min-h-screen lg:py-0">
-            <div className="w-full bg-white rounded-lg shadow-sm md:mt-0 sm:max-w-md xl:p-0 dark:bg-white ">
-              <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2x">
-                  Log in to student account
-                </h1>
-                <form className="space-y-4 md:space-y-6">
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block mb-2 text-sm font-medium text-gray-900 "
-                    >
-                      Your email
-                    </label>
-                    <input
-                      className="bg-gray-100 border border-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:placeholder-gray-500"
-                      placeholder="name@company.com"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="password"
-                      className="block mb-2 text-sm font-medium text-gray-900 "
-                    >
-                      Password
-                    </label>
-                    <input
-                      className="bg-gray-100 border border-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:placeholder-gray-500"
-                      placeholder=".........."
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-start">
-                      <div className="flex items-center h-5">
-                        <input
-                          id="remember"
-                          aria-describedby="remember"
-                          type="checkbox"
-                          className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                        />
-                      </div>
-                      <div className="ml-3 text-sm">
-                        <label htmlFor="remember" className="text-gray-700">
-                          Remember me
-                        </label>
-                      </div>
-                    </div>
-                    <a
-                      href="#"
-                      className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
-                    >
-                      Forgot password?
-                    </a>
-                  </div>
-                  <button
-                    type="submit"
-                    className="text-black bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-black font-medium rounded-lg text-xs px-10 py-4 dark:bg-gray-300 dark:hover:bg-gray-400 dark:focus:ring-black border border-gray-700 max-w-xs mx-auto block"
-                  >
-                    Log in
-                  </button>
-                </form>
+          <div className="flex flex-col  justify-center px-6 py-8 mx-auto md:h-screen min-h-screen ">
+            <div className="text-left flex flex-col ">
+              <div className="p-2 border-black border-2 rounded-full w-1/4 text-center flex justify-center font-semibold text-xl">
+                <FaStarOfLife className="mt-1 mr-2" /> About
+              </div>
+              <div className="mt-5 text-5xl font-semibold bg-gradient-to-r from-purple-600 to-blue-600 inline-block text-transparent bg-clip-text">
+                One Stop Destination for hms
+              </div>
+              <div className="text-right mt-10">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur.
               </div>
             </div>
           </div>
@@ -305,73 +260,21 @@ export default function Home() {
       <div className="bg-gray-100">
         <div className="flex justify-between h-screen">
           <div className="w-1/2 bg-gray-100">
-            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen min-h-screen lg:py-0">
-              <div className="w-full bg-white rounded-lg shadow-sm md:mt-0 sm:max-w-md xl:p-0 dark:bg-white">
-                <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                  <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2x">
-                    Log in to admin account
-                  </h1>
-                  <form className="space-y-4 md:space-y-6">
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block mb-2 text-sm font-medium text-gray-900 "
-                      >
-                        Your email
-                      </label>
-                      <input
-                        className="bg-gray-100 border border-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:placeholder-gray-500"
-                        placeholder="name@company.com"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="password"
-                        className="block mb-2 text-sm font-medium text-gray-900 "
-                      >
-                        Password
-                      </label>
-                      <input
-                        className="bg-gray-100 border border-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:placeholder-gray-500"
-                        placeholder=".........."
-                      />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-start">
-                        <div className="flex items-center h-5">
-                          <input
-                            id="remember"
-                            aria-describedby="remember"
-                            type="checkbox"
-                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                          />
-                        </div>
-                        <div className="ml-3 text-sm">
-                          <label htmlFor="remember" className="text-gray-700">
-                            Remember me
-                          </label>
-                        </div>
-                      </div>
-                      <a
-                        href="#"
-                        className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
-                      >
-                        Forgot password?
-                      </a>
-                    </div>
-                    <button
-                      type="submit"
-                      className="text-black bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-black font-medium rounded-lg text-xs px-10 py-4 dark:bg-gray-300 dark:hover:bg-gray-400 dark:focus:ring-black border border-gray-700 max-w-xs mx-auto block"
-                    >
-                      Sign in
-                    </button>
-                    <p className="text-sm font-light text-gray-700 ">
-                      Don’t have an account yet?{" "}
-                      <a className="font-medium text-gray-600 hover:underline">
-                        Sign up
-                      </a>
-                    </p>
-                  </form>
+            <div className="flex flex-col  justify-center px-6 py-8 mx-auto md:h-screen min-h-screen ">
+              <div className="text-left flex flex-col ">
+                <div className="p-2 border-black border-2 rounded-full w-1/4 text-center flex justify-center font-semibold text-xl">
+                  <FaStarOfLife className="mt-1 mr-2" /> Explore
+                </div>
+                <div className="mt-5 text-5xl font-semibold bg-gradient-to-r from-purple-600 to-blue-600 inline-block text-transparent bg-clip-text">
+                  Efficiecy,Reliability,Quality
+                </div>
+                <div className="text-right mt-10">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum
+                  dolore eu fugiat nulla pariatur.
                 </div>
               </div>
             </div>
@@ -380,9 +283,9 @@ export default function Home() {
             <div className="w-1/2 flex justify-center bg-gray-100 ">
               <div className="flex justify-center items-center mx-20 mr-35">
                 <Swiper
-                  className="mySwiper flex w-full h-full max-w-[500px] max-h-[440px]  justify-center items-center"
+                  className="mySwiper flex w-full h-full max-w-[700px] max-h-[700px]  justify-center items-center"
                   autoplay={{
-                    delay: 2500,
+                    delay: 2000,
                     disableOnInteraction: false,
                   }}
                   pagination={{
@@ -395,19 +298,19 @@ export default function Home() {
                   <SwiperSlide className="flex w-full h-full justify-center items-center  ">
                     <img
                       src="https://img.freepik.com/premium-photo/detail-residential-house-turned-into-hostel_1048944-26070141.jpg?size=626&ext=jpg&ga=GA1.1.1161610126.1702110340&semt=sph"
-                      className="w-[400px] h-[400px] flex justify-center items-center  m-auto rounded-2xl"
+                      className="w-[600px] h-[600px] flex justify-center items-center  m-auto rounded-2xl"
                     />
                   </SwiperSlide>
                   <SwiperSlide className="flex w-full h-full justify-center items-center">
                     <img
                       src="https://cdn.pixabay.com/photo/2013/06/30/19/07/bed-142516_1280.jpg"
-                      className="w-[400px] h-[400px] flex justify-center items-center m-auto rounded-2xl"
+                      className="w-[600px] h-[600px] flex justify-center items-center m-auto rounded-2xl"
                     />
                   </SwiperSlide>
                   <SwiperSlide className="flex w-full h-full justify-center items-center">
                     <img
                       src="https://img.freepik.com/free-photo/sleeping-mattress-bright-hostel-background_1253-665.jpg?size=626&ext=jpg&ga=GA1.1.1161610126.1702110340&semt=sph"
-                      className="w-[400px] h-[400px] flex justify-center items-center mx-auto my-auto rounded-2xl"
+                      className="w-[600px] h-[600px] flex justify-center items-center mx-auto my-auto rounded-2xl"
                     />
                   </SwiperSlide>
                 </Swiper>
