@@ -27,7 +27,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
     try {
       console.log("logged out")
       await auth.signOut();
-      window.location.href ="/"
+      window.location.href ="/Landing"
     } catch (error : any) {
       console.log("Error creating user",error.code,error.message);
     }
@@ -94,7 +94,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
       </h1>
       <div className="sticky bottom-4 text-center flex justify-center items-center">
         <Link
-          href="/"
+          href="/Landing"
 
           onClick={handleLogout}
           className="hover:bg-gray-200 p-3 text-red-700 w-full rounded-lg flex"

@@ -5,12 +5,15 @@ import TopBar from "@/components/TopBar";
 import { useState } from "react";
 import "tailwindcss/tailwind.css";
 import UserHomeComp from "@/components/UserHomeComp";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/app/firebase";
 
 interface SidebarProps {
   isOpen: boolean;
 }
 const UserHome: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [user,loading] = useAuthState(auth);
   //function to handle user button click
 
   const handleSidebarToggle = () => {
@@ -18,6 +21,9 @@ const UserHome: React.FC = () => {
   };
   return (
     <div className="h-screen">
+     {user ? (
+      <>
+      
       <TopBar onSidebarToggle={handleSidebarToggle} />
       <div className="flex">
         <div
@@ -31,6 +37,10 @@ const UserHome: React.FC = () => {
           <UserHomeComp />
         </div>
       </div>
+      </>
+     ) : (
+      <span>Not logged in</span>
+     )}
     </div>
   );
 };
