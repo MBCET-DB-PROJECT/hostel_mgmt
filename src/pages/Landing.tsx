@@ -16,6 +16,8 @@ import { FaPlus } from "react-icons/fa";
 import { FaStarOfLife } from "react-icons/fa";
 import MyIcosahedronGeometry from "../components/Blob/MyIcosahedronGeometry";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { FaGithub } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 import {
   motion,
   useAnimation,
@@ -77,7 +79,8 @@ export default function Home() {
               <div className="flex items-center relative justify-between">
                 <a
                   href="#_"
-                  className="relative inline-flex items-center justify-center p-2 ml-2 overflow-hidden font-medium text-black transition duration-300 ease-out border-2 border-black rounded-full shadow-md group"
+                  className="relative inline-flex items-center justify-center p-2 ml-2 
+                  overflow-hidden font-medium text-black transition duration-300 ease-out border-2 border-black rounded-full shadow-md group"
                 >
                   <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-black group-hover:translate-x-0 ease">
                     <svg
@@ -350,6 +353,145 @@ export default function Home() {
         </div>
 
         <LoginComponent />
+      </div>
+      <div className="bg-gray-100 flex justify-center text-center items-center ">
+        <div className="flex flex-col  w-full justify-center items-center">
+          <div className="p-2 border-black border-2 rounded-full w-1/4 text-center flex justify-center font-semibold text-xl">
+            <FaStarOfLife className="mt-1 mr-2" /> Meet the Team
+          </div>
+          <div className="mt-10 flex justify-between px-10">
+            <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow ">
+              <a href="#">
+                <img
+                  className="rounded-t-lg"
+                  src="https://subzfresh.com/wp-content/uploads/2022/04/apple_158989157.jpg"
+                  alt=""
+                />
+              </a>
+              <div className="p-5">
+                <a href="#">
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                    Abhishek Raman
+                  </h5>
+                </a>
+                <p className="mb-3 font-normal text-gray-700 flex flex-row  justify-around ">
+                  <a
+                    href="https://github.com/ice-weasel"
+                    className="hover:bg-gray-300 rounded-lg p-2"
+                  >
+                    {" "}
+                    <FaGithub size={26} className="" />
+                  </a>
+                  <a
+                    href="https://github.com/ice-weasel"
+                    className="hover:bg-gray-300 rounded-lg p-2"
+                  >
+                    {" "}
+                    <FaLinkedin size={26} />
+                  </a>
+                </p>
+              </div>
+            </div>
+
+            <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow ">
+              <a href="#">
+                <img
+                  className="rounded-t-lg"
+                  src="https://subzfresh.com/wp-content/uploads/2022/04/apple_158989157.jpg"
+                  alt=""
+                />
+              </a>
+              <div className="p-5">
+                <a href="#">
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                    Gayathri S
+                  </h5>
+                </a>
+                <p className="mb-3 font-normal text-gray-700 flex flex-row  justify-around ">
+                  <a
+                    href="https://github.com/ice-weasel"
+                    className="hover:bg-gray-300 rounded-lg p-2"
+                  >
+                    {" "}
+                    <FaGithub size={26} className="" />
+                  </a>
+                  <a
+                    href="https://github.com/ice-weasel"
+                    className="hover:bg-gray-300 rounded-lg p-2"
+                  >
+                    {" "}
+                    <FaLinkedin size={26} />
+                  </a>
+                </p>
+              </div>
+            </div>
+
+            <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow ">
+              <a href="#">
+                <img
+                  className="rounded-t-lg"
+                  src="https://subzfresh.com/wp-content/uploads/2022/04/apple_158989157.jpg"
+                  alt=""
+                />
+              </a>
+              <div className="p-5">
+                <a href="#">
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                    Adlu Rahman
+                  </h5>
+                </a>
+                <p className="mb-3 font-normal text-gray-700 flex flex-row  justify-around ">
+                  <a
+                    href="https://github.com/ice-weasel"
+                    className="hover:bg-gray-300 rounded-lg p-2"
+                  >
+                    {" "}
+                    <FaGithub size={26} className="" />
+                  </a>
+                  <a
+                    href="https://github.com/ice-weasel"
+                    className="hover:bg-gray-300 rounded-lg p-2"
+                  >
+                    {" "}
+                    <FaLinkedin size={26} />
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow ">
+              <a href="#">
+                <img
+                  className="rounded-t-lg"
+                  src="https://subzfresh.com/wp-content/uploads/2022/04/apple_158989157.jpg"
+                  alt=""
+                />
+              </a>
+              <div className="p-5">
+                <a href="#">
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                    Diya Sundeep
+                  </h5>
+                </a>
+                <p className="mb-3 font-normal text-gray-700 flex flex-row  justify-around ">
+                  <a
+                    href="https://github.com/ice-weasel"
+                    className="hover:bg-gray-300 rounded-lg p-2"
+                  >
+                    {" "}
+                    <FaGithub size={26} className="" />
+                  </a>
+                  <a
+                    href="https://github.com/ice-weasel"
+                    className="hover:bg-gray-300 rounded-lg p-2"
+                  >
+                    {" "}
+                    <FaLinkedin size={26} />
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <footer className="bg-white rounded-lg shadow ">
         <div className="w-full max-w-screen-xl mx-auto p-4 md:py-6">
