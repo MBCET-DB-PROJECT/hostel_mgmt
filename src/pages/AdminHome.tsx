@@ -1,16 +1,8 @@
-import app from "@/app/firebase";
 import Sidebar from "@/components/SideBar";
 import TopBar from "@/components/AdminTopBar";
-import React, { useEffect, useState } from "react";
-import { auth } from "@/app/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
-
-import { getAuth } from "firebase/auth";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
-
 import AdminHomeComp from "@/components/AdminHomeComp";
-
 interface SidebarProps {
   isOpen: boolean;
 }
@@ -21,67 +13,8 @@ const AdminHome: React.FC = () => {
   const handleSidebarToggle = () => {
     setSidebarOpen(!isSidebarOpen);
   };
-
-  const auth = getAuth(app);
-  const [user,loading] = useAuthState(auth)
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isLoading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const currentUser = auth.currentUser;
-  
-      if (currentUser) {
-        const db = getFirestore(app);
-        const adminCollectionRef = collection(db, 'admin');
-  
-        console.log('User UID:', currentUser.uid);
-  
-        try {
-          const querySnapshot = await getDocs(adminCollectionRef);
-    
-          querySnapshot.forEach((doc) => {
-            const adminData = doc.data();
-            
-            if (adminData && adminData.role && adminData.role.includes(currentUser.uid)) {
-              setIsAdmin(true);
-              setLoading(false);
-              console.log('User is an admin');
-              // If you want to break out of the loop when an admin is found, you can use 'return;'
-            } else {
-              setIsAdmin(false);
-              setLoading(false);
-              console.log('User is not an admin');
-            }
-          });
-        } catch (error) {
-          console.error('Error fetching admin data:', error);
-          setIsAdmin(false);
-          setLoading(false);
-        }
-      }
-    };
-  
-    fetchUserData();
-  }, [user]);
-  
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-
   return (
-  
     <div>
-      {!isAdmin && (
-      <div>
-        <p>Access denied for non-admin users.</p>
-        {/* You can add more UI elements or a redirect logic here */}
-      </div>
-    )}
-
-      {isAdmin && (
-        <>
       <TopBar onSidebarToggle={handleSidebarToggle} />
       <div className="flex">
         <div
@@ -92,14 +25,10 @@ const AdminHome: React.FC = () => {
           <Sidebar isOpen={isSidebarOpen} />
         </div>
         <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
-        <AdminHomeComp/>
+          <AdminHomeComp />
         </div>
       </div>
-      </>
-    
-    )}
     </div>
-
   );
 };
 
