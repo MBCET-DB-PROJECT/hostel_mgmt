@@ -7,11 +7,17 @@ interface SidebarProps {
   isOpen: boolean;
 }
 
-const TestPage: React.FC = () => {
+interface RoomDetails {
+  roomno: string;
+  isOccupied:boolean;
+}
+
+const AddRooms: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [minRoom, setMinRoom] = useState<number | undefined>(undefined);
   const [maxRoom, setMaxRoom] = useState<number | undefined>(undefined);
   const [maxStudents, setMaxStudents] = useState<number | undefined>(undefined);
+
 
   // Function to handle user button click
   const handleSidebarToggle = () => {
@@ -41,6 +47,9 @@ const TestPage: React.FC = () => {
       console.error("Max students in a room should not be greater than 10");
       return;
     }
+
+    const totalRooms = 30;
+
 
     // Continue with the submission logic
     console.log("submitted");
@@ -107,4 +116,4 @@ const TestPage: React.FC = () => {
   );
 };
 
-export default TestPage;
+export default AddRooms;
