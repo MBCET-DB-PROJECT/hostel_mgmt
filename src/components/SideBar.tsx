@@ -108,7 +108,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
           <h1 className="flex font-semibold text-lg">Logout</h1>
         </Link>
       </div>
-      {/* Add your sidebar links or components here */}
     </div>
   );
 };

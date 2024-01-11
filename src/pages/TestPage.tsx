@@ -1,32 +1,17 @@
-import Sidebar from "@/components/SideBar";
-import TopBar from "@/components/TopBar";
-import React, { useState } from "react";
-import "tailwindcss/tailwind.css";
-interface SidebarProps {
-  isOpen: boolean;
-}
-const TestPage: React.FC = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
-  //function to handle user button click
+// TestPage.tsx
+import React from "react";
+import { Canvas } from "@react-three/fiber";
+import Blob from "../components/Blob";
+import MyIcosahedronGeometry from "../components/Blob/MyIcosahedronGeometry"; // Import the updated component
 
-  const handleSidebarToggle = () => {
-    setSidebarOpen(!isSidebarOpen);
-  };
+const TestPage = () => {
   return (
-    <div>
-      <TopBar onSidebarToggle={handleSidebarToggle} />
-      <div className="flex">
-        <div
-          className={`md:block md:w-1/6 bg-white h-screen shadow-lg ${
-            isSidebarOpen ? "block" : "hidden"
-          }`}
-        >
-          <Sidebar isOpen={isSidebarOpen} />
-        </div>
-        <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
-          Make changes here
-        </div>
-      </div>
+    <div className="container">
+      <Canvas camera={{ position: [0.0, 0.0, 8.0] }}>
+        <Blob />
+        <MyIcosahedronGeometry args={[2, 20]} />{" "}
+        {/* Use the updated component */}
+      </Canvas>
     </div>
   );
 };

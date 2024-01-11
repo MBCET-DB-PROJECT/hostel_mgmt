@@ -54,9 +54,14 @@ const TopBar: React.FC<{ onSidebarToggle: () => void }> = ({
     <div className="">
       <nav className="bg-white shadow-lg border-10 border-black md:shadow-lg">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <a href="" className="flex items-center space-x-3 rtl:space-x-reverse">
-            <span className="self-center text-2xl text-black font-semibold whitespace-nowrap">
-              Logo
+
+          <a
+            href=""
+            className="flex items-center space-x-3 rtl:space-x-reverse"
+          >
+            <span className="self-center text-2xl bg-gradient-to-r from-purple-600 to-blue-600 inline-block text-transparent bg-clip-text font-bold whitespace-nowrap">
+              RightHere
+
             </span>
           </a>
           <div className="relative flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">

@@ -1,8 +1,14 @@
 import {
   motion,
+
+useAnimation,
   useMotionValue,
   useTransform,
+  useCycle,
 } from "framer-motion";
+
+import "./../app/globals.css";
+import SphereComp from "./SphereComp";
 import { useEffect, useState } from "react";
 import "./../app/globals.css";
 import { collection, doc, getDoc, getDocs, getFirestore } from "firebase/firestore";
@@ -42,9 +48,11 @@ interface StudentDetails {
   role: string;
 }
 
+
 const items = [0, 1, 2, 3, 4];
 const height = 70;
 const padding = 10;
+
 const size = 150; 
 
 export default function AdminHomeComp() {
@@ -198,6 +206,7 @@ export default function AdminHomeComp() {
           </p>
           <div className="flex justify-center items-center flex-col pt-30">
             <h1 className="p-4 text-lg font-semibold text-gray-400">
+
               Latest Notifications
             </h1>
             <motion.div
@@ -221,6 +230,7 @@ export default function AdminHomeComp() {
                 }}
                 className="p-4"
               >
+
                 {notifsList.map((notif, index) => (
                   <motion.div
                     style={{
@@ -237,6 +247,7 @@ export default function AdminHomeComp() {
                     {notif.content}
                   </motion.div>
                 ))}
+
               </motion.div>
             </motion.div>
             <motion.div
@@ -245,22 +256,30 @@ export default function AdminHomeComp() {
                 height: 6,
                 borderRadius: 3,
                 backgroundColor: "#fff",
+
                 bottom: 20,
                 left: 20,
               }}
               className="mt-5"
             />
           </div>
+
+          <h1 className="p-4 text-lg font-semibold text-gray-400 text-center">
+            Tickets
+          </h1>
+
           <div
             style={{
               width: "100%",
               overflowX: "scroll",
               display: "flex",
-              padding: "20px",
+
+              paddingBottom: "20px",
             }}
-            className="justify-top pt-40"
+            className=""
           >
-            {tickets.map((ticket, index) => (
+          {tickets.map((ticket, index) => (
+
               <motion.div
                 key={index}
                 style={{
@@ -277,17 +296,21 @@ export default function AdminHomeComp() {
                 }}
                 whileHover={{ scale: 1.1 }}
               >
+
                 {ticket.content}
+
               </motion.div>
             ))}
           </div>
         </div>
       </div>
 
+
       <div className="md:w-1/2 w-full bg-slate-200 md:pb-0 pb-4">
         <div className="flex justify-center md:space-x-20 md:flex-row flex-col items-center md:pt-10 space-y-10 md:space-y-0">
           <div className="w-48 h-48 bg-gradient-to-r from-purple-600  to-blue-600 rounded-full flex text-white justify-center items-center text-center flex-col space-y-2">
             <div className="text-6xl">{studentDetails.length}</div>{" "}
+
             <div className="uppercase font-semibold text-sm">Students</div>
           </div>
 
@@ -296,14 +319,19 @@ export default function AdminHomeComp() {
             <div className="uppercase font-semibold text-sm">Rooms</div>
           </div>
         </div>
+        <div className="flex justify-center">{/*smth here*/}</div>
       </div>
     </div>
   );
 }
 
+
 function getHeight(items: number[]) {
+
   const totalHeight = items.length * height;
   const totalPadding = (items.length - 1) * padding;
   const totalScroll = totalHeight + totalPadding;
   return totalScroll;
+
 } 
+

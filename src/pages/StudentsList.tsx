@@ -76,6 +76,7 @@ const StudentsList: React.FC = () => {
   };
   return (
     <div>
+
        {!isAdmin && (
       <div>
         <p>Access denied for non-admin users.</p>
@@ -86,6 +87,7 @@ const StudentsList: React.FC = () => {
 
 <>
 <div className={` ${isModalOpen ? "blur" : ""}`}>
+
         <TopBar onSidebarToggle={handleSidebarToggle} />
         <div className="flex">
           <div
@@ -117,7 +119,9 @@ const StudentsList: React.FC = () => {
                 <BsPersonFillAdd size={32} />
               </Link>
             </div>
+
             <StudentsCard />
+
           </div>
         </div>
       </div>
