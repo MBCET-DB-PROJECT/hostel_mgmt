@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { useEffect } from "react";
 import "./../app/globals.css";
 import { Canvas } from "@react-three/fiber";
 import Blob from "../components/Blob";
