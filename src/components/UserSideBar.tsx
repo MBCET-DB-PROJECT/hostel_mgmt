@@ -49,7 +49,7 @@ const UserSidebar: React.FC<SidebarProps> = ({ isOpen }) => {
           <h1 className="flex">Notifications</h1>
         </Link>
       </h1>
-      <div className=" text-center flex justify-center items-center">
+      <div className="sticky bottom-4 text-center flex justify-center items-center">
         <Link
           href="/"
           className="hover:bg-red-100 p-3 text-red-700 w-full rounded-lg flex"
@@ -60,7 +60,6 @@ const UserSidebar: React.FC<SidebarProps> = ({ isOpen }) => {
           <h1 className="flex font-semibold text-lg">Logout</h1>
         </Link>
       </div>
-      {/* Add your sidebar links or components here */}
     </div>
   );
 };

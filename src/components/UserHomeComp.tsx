@@ -58,7 +58,7 @@ const UserHomeComp = () => {
                       })
                     }
                   />
-                  {/*ignore the error above,the thingy works fine...until it doesnt but anyways,*/}
+                  {/*ignore the error above,the thingy works fine...until it doesnt but anyways,...build error here*/}
                 </p>
               </div>
               <div className="flex flex-row text-lg">
@@ -129,7 +129,7 @@ const UserHomeComp = () => {
         </>
       )}
       <div
-        className={`flex flex-col justify-center space-y-10 m-10 w-full  ${
+        className={`flex flex-col justify-center space-y-10 md:p-10 p-5 w-full  ${
           isBlurry ? "blur" : ""
         }`}
       >

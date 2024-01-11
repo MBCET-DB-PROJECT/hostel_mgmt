@@ -8,6 +8,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      opacity: {
+        "0.2": "0.002",
+        "1": "0.01",
+      },
+
       backgroundImage: {},
     },
   },
