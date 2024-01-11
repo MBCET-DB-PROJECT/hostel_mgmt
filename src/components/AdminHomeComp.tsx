@@ -6,13 +6,14 @@ import {
   useCycle,
 } from "framer-motion";
 import { useEffect } from "react";
+import "./../app/globals.css";
+import SphereComp from "./SphereComp";
 
 const items = [0, 1, 2, 3, 4];
 const height = 70;
 const padding = 10;
 const size = 150;
 const pages = [1, 2, 3, 4, 5];
-const itemstickets = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"];
 
 export default function AdminHomeComp() {
   const scrollY = useMotionValue(0);
@@ -24,11 +25,16 @@ export default function AdminHomeComp() {
   );
 
   return (
-    <div className="flex jusify-between w-full">
-      <div className=" min-h-screen w-1/2 ">
-        <div className=" md:p-10 p-5 min-h-screen ">
-          <p className="text-5xl text-black font-semibold">Welcome Back!</p>
-          <div className="flex justify-center items-center flex-col  pt-20 ">
+    <div className="flex jusify-between w-full md:flex-row flex-col">
+      <div className=" min-h-screen md:w-1/2 w-full ">
+        <div className=" md:p-10 p-5 min-h-screen flex flex-col space-y-10">
+          <p className="text-5xl text-black font-semibold md:p-0 p-2">
+            Welcome Back!
+          </p>
+          <div className="flex justify-center items-center flex-col  pt-30">
+            <h1 className="p-4 text-lg font-semibold text-gray-400 md:mb-6">
+              Latest Notifications
+            </h1>
             <motion.div
               style={{
                 width: 400,
@@ -48,6 +54,7 @@ export default function AdminHomeComp() {
                   top: -getHeight(items) + size,
                   bottom: 0,
                 }}
+                className="p-4"
               >
                 {items.map((index) => {
                   return (
@@ -69,7 +76,6 @@ export default function AdminHomeComp() {
                 })}
               </motion.div>
             </motion.div>
-
             <motion.div
               style={{
                 width: width,
@@ -83,29 +89,34 @@ export default function AdminHomeComp() {
               className="mt-5"
             />
           </div>
+          <h1 className="p-4 text-lg font-semibold text-gray-400 text-center">
+            Tickets
+          </h1>
           <div
             style={{
               width: "100%",
               overflowX: "scroll",
               display: "flex",
-              padding: "20px",
+              paddingBottom: "20px",
             }}
+            className=""
           >
             {items.map((item, index) => (
               <motion.div
                 key={index}
                 style={{
-                  minWidth: "200px", // Adjust the width of each item as needed
-                  flexShrink: 0, // Prevent items from shrinking when container is too small
-                  marginRight: "10px", // Adjust the margin between items
-                  backgroundColor: "#3498db", // Set background color
-                  color: "#fff", // Set text color
-                  padding: "10px", // Set padding
-                  borderRadius: "8px", // Set border radius
-                  userSelect: "none", // Disable text selection
-                  cursor: "pointer", // Set cursor to pointer
+                  minWidth: "150px",
+                  minHeight: "70px",
+                  flexShrink: 0,
+                  marginRight: "10px",
+                  backgroundColor: "#4F46E5",
+                  color: "#fff",
+                  padding: "10px",
+                  borderRadius: "8px",
+                  userSelect: "none",
+                  cursor: "pointer",
                 }}
-                whileHover={{ scale: 1.1 }} // Add a scaling effect on hover
+                whileHover={{ scale: 1.1 }}
               >
                 {item}
               </motion.div>
@@ -114,8 +125,8 @@ export default function AdminHomeComp() {
         </div>
       </div>
 
-      <div className="w-1/2  ">
-        <div className="flex  justify-center space-x-20 flex-row pt-10">
+      <div className="md:w-1/2 w-full  bg-slate-200 md:pb-0 pb-4  space-y-40">
+        <div className="flex  justify-center md:space-x-20 md:flex-row flex-col items-center md:pt-10 space-y-10 md:space-y-0">
           <div className="w-48 h-48 bg-gradient-to-r from-purple-600  to-blue-600 rounded-full flex text-white justify-center items-center text-center flex-col space-y-2">
             <div className="text-6xl">12</div>{" "}
             <div className="uppercase font-semibold text-sm">Students</div>
@@ -126,11 +137,12 @@ export default function AdminHomeComp() {
             <div className="uppercase font-semibold text-sm">Rooms</div>
           </div>
         </div>
+        <div className="flex justify-center">{/*smth here*/}</div>
       </div>
     </div>
   );
 }
-function getHeight(items) {
+function getHeight(items: any) {
   const totalHeight = items.length * height;
   const totalPadding = (items.length - 1) * padding;
   const totalScroll = totalHeight + totalPadding;
