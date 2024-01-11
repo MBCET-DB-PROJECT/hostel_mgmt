@@ -27,7 +27,14 @@ import {
   useInView,
   useIsPresent,
 } from "framer-motion";
+
+import { useEffect, useState } from "react";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import app from "@/app/firebase";
+import { FirebaseError } from "firebase/app";
+
 import LoginComponent from "@/components/Slider/LoginComponent";
+
 
 export default function Home() {
   const controls = useAnimation();
@@ -35,6 +42,8 @@ export default function Home() {
   const stdforms = useAnimation();
   const { scrollY } = useScroll();
   const image = useAnimation();
+
+
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (scrollY.get() > 800) {
@@ -60,7 +69,67 @@ export default function Home() {
     return () => {
       scrollY.clearListeners();
     };
-  }, [scrollY, controls, stdforms, adminforms, image]);
+
+  }, [scrollY, controls, stdforms,adminforms, image])
+
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+
+  const handleStudLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    console.log("handlelogin function called");
+
+    const { email, password } = formData;
+
+    try {
+      const auth = getAuth(app);
+      await signInWithEmailAndPassword(auth, email, password);
+      setError(null);
+      window.location.href = "/UserHome";
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        console.log(error);
+      }
+    }
+  };
+
+
+  const handleAdminLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    console.log("handlelogin function called");
+
+    const { email, password } = formData;
+
+    try {
+      const auth = getAuth(app);
+      await signInWithEmailAndPassword(auth, email, password);
+      setError(null);
+      window.location.href = "/AdminHome";
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        console.log(error);
+      }
+    }
+  };
+
+
+
   return (
     <div className="overflow-x-hidden">
       <div
@@ -509,6 +578,8 @@ export default function Home() {
                       href="https://github.com/ice-weasel"
                       className="hover:bg-gray-300 rounded-lg p-2"
                     >
+
+
                       {" "}
                       <FaGithub size={26} className="" />
                     </a>
@@ -538,6 +609,7 @@ export default function Home() {
                     </h5>
                   </a>
                   <p className="mb-3 font-normal text-gray-700 flex flex-row  justify-around ">
+
                     <a
                       href="https://github.com/gaxatri"
                       className="hover:bg-gray-300 rounded-lg p-2"
@@ -545,6 +617,7 @@ export default function Home() {
                       {" "}
                       <FaGithub size={26} className="" />
                     </a>
+
                     <a
                       href="https://www.linkedin.com/in/gayathri-s-52351a230/"
                       className="hover:bg-gray-300 rounded-lg p-2"
@@ -554,6 +627,7 @@ export default function Home() {
                     </a>
                   </p>
                 </div>
+
               </div>
 
               <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow ">
@@ -575,6 +649,7 @@ export default function Home() {
                       href="https://github.com/fRidge69"
                       className="hover:bg-gray-300 rounded-lg p-2"
                     >
+
                       {" "}
                       <FaGithub size={26} className="" />
                     </a>
@@ -603,6 +678,7 @@ export default function Home() {
                     </h5>
                   </a>
                   <p className="mb-3 font-normal text-gray-700 flex flex-row  justify-around ">
+
                     <a
                       href="https://github.com/dxyaa"
                       className="hover:bg-gray-300 rounded-lg p-2"
@@ -610,12 +686,15 @@ export default function Home() {
                       {" "}
                       <FaGithub size={26} className="" />
                     </a>
+
+
                     <a
                       href="https://www.linkedin.com/in/diya-sundeep/"
                       className="hover:bg-gray-300 rounded-lg p-2"
                     >
                       {" "}
                       <FaLinkedin size={26} />
+
                     </a>
                   </p>
                 </div>

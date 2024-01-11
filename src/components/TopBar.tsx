@@ -1,30 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CgProfile } from "react-icons/cg";
-
 import Sidebar from "./SideBar";
+import { useAuthState } from "react-firebase-hooks/auth";
+import app, { auth } from "@/app/firebase";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 interface TopBarProps {
   onSidebarToggle: () => void;
 }
 
+interface Admin {
+  name: string;
+  role: string;
+}
+
 const TopBar: React.FC<{ onSidebarToggle: () => void }> = ({
   onSidebarToggle,
 }) => {
+  const [user, loading] = useAuthState(auth);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [adminData, setAdminData] = useState<Admin | null>(null);
 
   const handleClick = () => {
     setDropdownVisible(!isDropdownVisible);
   };
+
+  const fetchAdminData = async (adminId: string) => {
+    const db = getFirestore(app);
+    const adminRef = doc(db, `admin/${adminId}`);
+    const adminSnapshot = await getDoc(adminRef);
+
+    if (adminSnapshot.exists()) {
+      const fetchedAdminData = adminSnapshot.data() as Admin;
+      setAdminData(fetchedAdminData);
+    } else {
+      console.log("Admin details not found");
+      setAdminData(null);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      // Assuming you have a field like 'adminId' in your user data
+      const name = user?.uid;
+      if (name) {
+        fetchAdminData(name);
+        console.log("name: ",name)
+      }
+    }
+  }, [user]);
+
   return (
     <div className="">
-      <nav className="bg-white  shadow-lg border-10 border-black md:shadow-lg  ">
+      <nav className="bg-white shadow-lg border-10 border-black md:shadow-lg">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+
           <a
             href=""
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <span className="self-center text-2xl bg-gradient-to-r from-purple-600 to-blue-600 inline-block text-transparent bg-clip-text font-bold whitespace-nowrap">
               RightHere
+
             </span>
           </a>
           <div className="relative flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -44,10 +81,10 @@ const TopBar: React.FC<{ onSidebarToggle: () => void }> = ({
               >
                 <div className="px-4 py-3">
                   <span className="block text-sm text-gray-900 font-bold">
-                    Kewl User
+                    {adminData?.name}
                   </span>
                   <span className="block text-sm text-gray-500 truncate">
-                    KewlUser@KewlWebsite.com
+                    {user?.email}
                   </span>
                 </div>
               </div>

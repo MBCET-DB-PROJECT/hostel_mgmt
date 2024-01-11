@@ -1,62 +1,93 @@
 import Sidebar from "@/components/SideBar";
 import TopBar from "@/components/TopBar";
-import React, { useState } from "react";
-import "tailwindcss/tailwind.css";
-import { BsPersonFillAdd } from "react-icons/bs";
 import Link from "next/link";
-import CreateStudent from "./CreateStudent";
-import { IoClose } from "react-icons/io5";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { BsPersonFillAdd } from "react-icons/bs";
+import "tailwindcss/tailwind.css";
 import StudentData from "../data/StudentDetails.json";
-import EditStudents from "./EditStudents/[id]";
-import StudentsListComp from "@/components/StudentsListComp";
-import "./../app/globals.css";
+//import EditStudents from "./EditStudents/[id]";
+
+import StudentsCard from "@/components/StudentsListComp";
+import { getAuth } from "firebase/auth";
+import app from "@/app/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
+
 interface SidebarProps {
   isOpen: boolean;
 }
-interface Student {
-  id: number;
-  name: string;
-  class: string;
-  sem: string;
-  roomno: string;
-  email: string;
-  fees: string;
-  password: string;
-}
 const StudentsList: React.FC = () => {
-  const students = StudentData;
-  const [isSidebarOpen, setSidebarOpen] = useState(false); //to check whether sidebar is open in responsive view
-  const [isModalOpen, setModalOpen] = useState(false); //to check whether the student details modal is open
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+ 
+  const auth = getAuth(app);
+  const [user,loading] = useAuthState(auth)
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+      const [isModalOpen, setModalOpen] = useState(false); 
   const [selectedStudent, setSelectedStudent] = useState<any>(null);
-  const [isBlurry, setBlurry] = useState(false); //to blur background when modal is open
-  const [studentsList, setStudentsList] = useState<Student[]>(StudentData); //to map student list
-  const handleSidebarToggle = () => {
-    //handles sidebar open or not in mobile view
-    setSidebarOpen(!isSidebarOpen);
-  };
-  const handleStudentClick = (student: any) => {
-    //to select particular student to show details of in student details modal
-    setSelectedStudent(student);
-    setModalOpen(true);
-  };
+  const [isBlurry, setBlurry] = useState(false); 
+ // const [studentsList, setStudentsList] = useState<Student[]>(StudentData); 
+
   useEffect(() => {
-    //to set background to blur when modal is open
-    if (isModalOpen) {
-      setBlurry(true);
-    } else {
-      setBlurry(false);
-    }
-  }, [isModalOpen]);
-  const deleteStudent = (id: number) => {
-    //to map the deleted students
-    const updatedList = studentsList.filter((student) => student.id !== id);
-    setStudentsList(updatedList);
+    const fetchUserData = async () => {
+      const currentUser = auth.currentUser;
+  
+      if (currentUser) {
+        const db = getFirestore(app);
+        const adminCollectionRef = collection(db, 'admin');
+  
+        console.log('User UID:', currentUser.uid);
+  
+        try {
+          const querySnapshot = await getDocs(adminCollectionRef);
+    
+          querySnapshot.forEach((doc) => {
+            const adminData = doc.data();
+            
+            if (adminData && adminData.role && adminData.role.includes(currentUser.uid)) {
+              setIsAdmin(true);
+              setLoading(false);
+              console.log('User is an admin');
+              // If you want to break out of the loop when an admin is found, you can use 'return;'
+            } else {
+              setIsAdmin(false);
+              setLoading(false);
+              console.log('User is not an admin');
+            }
+          });
+        } catch (error) {
+          console.error('Error fetching admin data:', error);
+          setIsAdmin(false);
+          setLoading(false);
+        }
+      }
+    };
+  
+    fetchUserData();
+  }, [user]);
+  
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+
+  const handleSidebarToggle = () => {
+    setSidebarOpen(!isSidebarOpen);
   };
   return (
     <div>
-      {/*<div className={` ${isBlurry ? "blur" : ""}`}>*/}
-      <div className={` ${isModalOpen ? "blur" : ""}`}>
+
+       {!isAdmin && (
+      <div>
+        <p>Access denied for non-admin users.</p>
+        {/* You can add more UI elements or a redirect logic here */}
+      </div>
+    )}
+     {isAdmin && (
+
+<>
+<div className={` ${isModalOpen ? "blur" : ""}`}>
+
         <TopBar onSidebarToggle={handleSidebarToggle} />
         <div className="flex">
           <div
@@ -88,10 +119,14 @@ const StudentsList: React.FC = () => {
                 <BsPersonFillAdd size={32} />
               </Link>
             </div>
-            <StudentsListComp />
+
+            <StudentsCard />
+
           </div>
         </div>
       </div>
+      </>
+     )}
     </div>
   );
 };
