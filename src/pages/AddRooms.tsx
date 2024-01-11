@@ -1,5 +1,5 @@
 import Sidebar from "@/components/SideBar";
-import TopBar from "@/components/AdminTopBar";
+import TopBar from "@/components/TopBar";
 import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
 

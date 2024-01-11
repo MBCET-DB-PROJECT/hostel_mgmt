@@ -1,7 +1,7 @@
 import "tailwindcss/tailwind.css";
 import React, { useEffect } from "react";
 import UserSidebar from "@/components/UserSideBar";
-import TopBar from "@/components/AdminTopBar";
+import TopBar from "@/components/TopBar";
 import { useState } from "react";
 import "tailwindcss/tailwind.css";
 import { BiUpArrowAlt } from "react-icons/bi";
