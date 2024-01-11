@@ -14,7 +14,7 @@ const AdminHome: React.FC = () => {
     setSidebarOpen(!isSidebarOpen);
   };
   return (
-    <div>
+    <div style={{ maxHeight: "100vh", overflow: "hidden" }}>
       <TopBar onSidebarToggle={handleSidebarToggle} />
       <div className="flex">
         <div
@@ -25,7 +25,7 @@ const AdminHome: React.FC = () => {
           <Sidebar isOpen={isSidebarOpen} />
         </div>
         <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
-        <AdminHomeComp/>
+          <AdminHomeComp />
         </div>
       </div>
     </div>

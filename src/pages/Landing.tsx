@@ -18,11 +18,14 @@ import MyIcosahedronGeometry from "../components/Blob/MyIcosahedronGeometry";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
+import { useRef } from "react";
 import {
   motion,
   useAnimation,
   useMotionValueEvent,
   useScroll,
+  useInView,
+  useIsPresent,
 } from "framer-motion";
 import LoginComponent from "@/components/Slider/LoginComponent";
 
@@ -126,64 +129,92 @@ export default function Home() {
           </div>
         </motion.div>
 
-        <div className="flex justify-center   ">
-          <div className="flex flex-col  mt-20">
-            {/*<span className=" text-xl  text-black">
+        <motion.div
+          variants={{
+            hidden: { opacity: 0, y: 70 },
+            visible: { opacity: 1, y: 0 },
+          }}
+          initial="hidden"
+          animate="visible"
+          transition={{ duration: 0.5, delay: 0.25 }}
+        >
+          <div className="flex justify-center   ">
+            <div className="flex flex-col  mt-20">
+              {/*<span className=" text-xl  text-black">
                 Your home away from home!
               </span>*/}
-            <span className="text-9xl font-extrabold text-black ">
-              RightHere
-            </span>
-            {/*<a
-                href="#_"
-                className=" flex justify-center items-center px-4 py-2 bg-black text-white font-semibold relative  overflow-hidden    shadow-inner group"
-              >
-                <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-black group-hover:w-full ease"></span>
-                <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-black group-hover:w-full ease"></span>
-                <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-blue-500 group-hover:h-full ease"></span>
-                <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-blue-500 group-hover:h-full ease"></span>
-                <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-blue-500 opacity-0 group-hover:opacity-100"></span>
-                <span className="relative transition-colors duration-300 delay-200 group-hover:text-white ease ">
-                  Get Started
-                </span>
-              </a>*/}
+              <span className="text-9xl font-extrabold text-black ">
+                RightHere
+              </span>
+            </div>
           </div>
-        </div>
+        </motion.div>
         <div className="text-black text-lg flex justify-between items-center  px-10 justify-top">
           <div
             className="
             flex flex-col  font-bold w-1/3 justify-top"
           >
             {" "}
-            <div className="space-y-3">
-              <div className="border-t-2 border-black"></div>
-              <button className="flex w-full">
-                Home
-                <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle " />
-              </button>
-              <div className="border-t-2 border-black"></div>
-              <button className="flex w-full">
-                Explore
-                <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
-              </button>
-              <div className="border-t-2 border-black"></div>
-              <button className="flex w-full">
-                Contact
-                <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
-              </button>
-              <div className="border-t-2 border-black"></div>
-              <button className="flex w-full">
-                Login
-                <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
-              </button>
-              <div className="border-t-2 border-black"></div>
-            </div>
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 70 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <div className="space-y-3">
+                <div className="border-t-2 border-black"></div>
+                <button className="flex w-full">
+                  Home
+                  <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle " />
+                </button>
+                <div className="border-t-2 border-black"></div>
+                <button className="flex w-full">
+                  Explore
+                  <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
+                </button>
+                <div className="border-t-2 border-black"></div>
+                <button className="flex w-full">
+                  Contact
+                  <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
+                </button>
+                <div className="border-t-2 border-black"></div>
+                <button className="flex w-full">
+                  Login
+                  <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
+                </button>
+                <div className="border-t-2 border-black"></div>
+              </div>
+            </motion.div>
             <div className="text-blue-600 w-full text-3xl mt-40 flex flex-col space-x-1">
-              <div>Your one-stop destination for all</div>
-              <div> your hostel management activities.</div>
-              <button className="bg-purple-500 text-white font-semibold text-lg rounded-full w-1/2 mt-5 p-2 hover:bg-blue-600">
-                Get Started!
-              </button>
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 70 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                initial="hidden"
+                animate="visible"
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
+                <div>Your one-stop destination for all</div>
+                <div> your hostel management activities.</div>
+              </motion.div>
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 70 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                initial="hidden"
+                animate="visible"
+                transition={{ duration: 0.5, delay: 0.6 }}
+              >
+                {" "}
+                <button className="bg-purple-500 text-white font-semibold text-lg rounded-full w-1/2 mt-5 p-2 hover:bg-blue-600">
+                  Get Started!
+                </button>
+              </motion.div>
               <div></div>
             </div>
           </div>
@@ -201,29 +232,59 @@ export default function Home() {
           </div>
           <div className="flex flex-row space-x-2">
             <div className="flex flex-col space-y-3 justify-top">
-              <Image
-                alt="hostel sample img 1"
-                src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG9zdGVsfGVufDB8fDB8fHww"
-                width={500}
-                height={500}
-                className=" aspect-w-1 aspect-h-1 object-cover rounded-lg  "
-              />
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 70 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                initial="hidden"
+                animate="visible"
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                <Image
+                  alt="hostel sample img 1"
+                  src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG9zdGVsfGVufDB8fDB8fHww"
+                  width={500}
+                  height={500}
+                  className=" aspect-w-1 aspect-h-1 object-cover rounded-lg  "
+                />
+              </motion.div>
               {/*<span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white opacity-0 transition-opacity duration-300 hover:opacity-100">
                 <div className="font-semibold text-blue-500 ">
                   Abc hostel, Kenya
                 </div>
               </span>*/}
-              <Image
-                alt="hostel sample img 1"
-                src="https://www.thebrokebackpacker.com/wp-content/uploads/2021/08/Kex-Hostel.jpg"
-                width={500}
-                height={500}
-                className="aspect-w-1 aspect-h-1 object-cover rounded-lg  "
-              />
-              <button className="w-full border-2 border-black p-1 rounded-lg text-black flex justify-center">
-                <FaPlus className="text-blue-600 mt-1 mr-1" />
-                See More
-              </button>
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 70 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                initial="hidden"
+                animate="visible"
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
+                <Image
+                  alt="hostel sample img 1"
+                  src="https://www.thebrokebackpacker.com/wp-content/uploads/2021/08/Kex-Hostel.jpg"
+                  width={500}
+                  height={500}
+                  className="aspect-w-1 aspect-h-1 object-cover rounded-lg  "
+                />
+              </motion.div>
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 70 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                initial="hidden"
+                animate="visible"
+                transition={{ duration: 0.5, delay: 0.6 }}
+              >
+                <button className="w-full border-2 border-black p-1 rounded-lg text-black flex justify-center">
+                  <FaPlus className="text-blue-600 mt-1 mr-1" />
+                  See More
+                </button>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -296,7 +357,7 @@ export default function Home() {
                   <FaStarOfLife className="mt-1 mr-2" /> Explore
                 </div>
                 <div className="mt-5 text-5xl font-semibold bg-gradient-to-r from-purple-600 to-blue-600 inline-block text-transparent bg-clip-text">
-                  Efficiecy,Reliability,Quality
+                  Efficiency,Reliability,Quality
                 </div>
                 <div className="text-right mt-10">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
@@ -452,7 +513,7 @@ export default function Home() {
                       <FaGithub size={26} className="" />
                     </a>
                     <a
-                      href="https://github.com/ice-weasel"
+                      href="https://www.linkedin.com/in/abhishek-raman-18b283227/"
                       className="hover:bg-gray-300 rounded-lg p-2"
                     >
                       {" "}
@@ -485,7 +546,7 @@ export default function Home() {
                       <FaGithub size={26} className="" />
                     </a>
                     <a
-                      href="https://github.com/ice-weasel"
+                      href="https://www.linkedin.com/in/gayathri-s-52351a230/"
                       className="hover:bg-gray-300 rounded-lg p-2"
                     >
                       {" "}
@@ -518,7 +579,7 @@ export default function Home() {
                       <FaGithub size={26} className="" />
                     </a>
                     <a
-                      href="https://github.com/ice-weasel"
+                      href="https://www.linkedin.com/in/adlu-rahman-m/"
                       className="hover:bg-gray-300 rounded-lg p-2"
                     >
                       {" "}
