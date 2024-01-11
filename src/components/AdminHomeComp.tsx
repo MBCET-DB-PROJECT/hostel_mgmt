@@ -11,15 +11,17 @@ export default function AdminHomeComp() {
   return (
     <div>
       <div className="flex flex-col min-h-screen">
-        <div className="mt-14 flex flex-col">
-          <p className="text-7xl text-red-300">Welcome Admin</p>
+        <div className="flex flex-col p-10">
+          <p className="text-5xl text-black font-semibold">Welcome Back!</p>
           <div className="flex justify-end ">
             <div className="flex flex-col space-y-16 mr-5">
-              <div className="w-48 h-48 bg-blue-600 rounded-full flex text-white justify-center items-center text-center">
-                ess
+              <div className="w-48 h-48 bg-gradient-to-r from-purple-600  to-blue-600 rounded-full flex text-white justify-center items-center text-center flex-col space-y-2">
+                <div className="text-6xl">500</div>{" "}
+                <div className="uppercase font-semibold text-sm">Students</div>
               </div>
-              <div className="w-48 h-48 bg-blue-600 rounded-full flex text-white justify-center items-center text-center">
-                ess
+              <div className="w-48 h-48 bg-gradient-to-r from-blue-600  to-purple-600 rounded-full flex text-white justify-center items-center text-center flex-col space-y-2">
+                <div className="text-6xl">100</div>{" "}
+                <div className="uppercase font-semibold text-sm">Rooms</div>
               </div>
             </div>
           </div>
