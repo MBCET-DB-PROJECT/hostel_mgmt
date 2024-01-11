@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import studentdata from "../../data/StudentDetails.json";
 import "tailwindcss/tailwind.css";
 import Sidebar from "@/components/SideBar";
-import TopBar from "@/components/AdminTopBar";
+import TopBar from "@/components/TopBar";
 import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
 //import { showToast } from "@/components/Toast";
