@@ -1,5 +1,5 @@
 import Sidebar from "@/components/SideBar";
-import TopBar from "@/components/TopBar";
+import TopBar from "@/components/AdminTopBar";
 import { FirebaseError } from "firebase/app";
 import {
   createUserWithEmailAndPassword,

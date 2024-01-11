@@ -2,7 +2,7 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CreateStudent from "@/pages/CreateStudent";
-import TopBar from "@/components/TopBar";
+import TopBar from "@/components/AdminTopBar";
 import Sidebar from "@/components/SideBar";
 
 import AdminHome from "@/pages/AdminHome";

@@ -1,5 +1,5 @@
 import Sidebar from "@/components/SideBar";
-import TopBar from "@/components/TopBar";
+import TopBar from "@/components/AdminTopBar";
 import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
 import { BsPersonFillAdd } from "react-icons/bs";
@@ -172,7 +172,7 @@ const AdminNotifications: React.FC = () => {
               </Link>
             </div>
 
-            <NotifDetails notifId=""  />
+           <AdminNotifComp/>
             {/*<div className="flex bg-slate-200">
               <div className={m-auto w-full ${isBlurry ? "blur" : ""}}>
 

@@ -1,6 +1,6 @@
 import app from "@/app/firebase";
 import Sidebar from "@/components/SideBar";
-import TopBar from "@/components/TopBar";
+import TopBar from "@/components/AdminTopBar";
 import React, { useEffect, useState } from "react";
 import { auth } from "@/app/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";

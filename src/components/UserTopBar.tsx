@@ -2,14 +2,20 @@ import React, { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 
 import Sidebar from "./SideBar";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/app/firebase";
 
 interface TopBarProps {
   onSidebarToggle: () => void;
 }
 
+
 const TopBar: React.FC<{ onSidebarToggle: () => void }> = ({
   onSidebarToggle,
 }) => {
+
+  const [user,loading] = useAuthState(auth);
+
   const [isDropdownVisible, setDropdownVisible] = useState(false);
 
   const handleClick = () => {
@@ -47,7 +53,7 @@ const TopBar: React.FC<{ onSidebarToggle: () => void }> = ({
                     Kewl User
                   </span>
                   <span className="block text-sm text-gray-500 truncate">
-                    KewlUser@KewlWebsite.com
+                  {user?.email}
                   </span>
                 </div>
               </div>
