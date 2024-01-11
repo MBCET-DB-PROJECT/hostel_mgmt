@@ -190,7 +190,7 @@ export default function Home() {
 
           <div className="w-full  h-screen ">
             <div
-              className=" h-full flex "
+              className=" h-full flex  z-50"
               onClick={() => console.log("clicked")}
             >
               <Canvas camera={{ position: [0.0, 0.0, 8.0] }}>
@@ -228,11 +228,11 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex justify-between h-screen">
+      <div className="flex md:justify-between md:flex-row flex-col h-screen">
         <div className="w-1/2 flex justify-center bg-gray-100">
           <div className="flex justify-center items-center ">
             <Swiper
-              className="mySwiper flex w-full h-full max-w-[700px] max-h-[700px]  justify-center items-center"
+              className="mySwiper flex w-full h-full md:max-w-[700px] md:max-h-[700px] max-w-[400px] max-h-[400px] justify-center items-center"
               autoplay={{
                 delay: 2000,
                 disableOnInteraction: false,
@@ -267,9 +267,9 @@ export default function Home() {
         </div>
 
         <div className="w-1/2 bg-gray-100">
-          <div className="flex flex-col  justify-center px-6 py-8 mx-auto md:h-screen min-h-screen ">
+          <div className="flex flex-col  justify-center md:px-6 md:py-8 mx-auto md:h-screen min-h-screen ">
             <div className="text-left flex flex-col ">
-              <div className="p-2 border-black border-2 rounded-full w-1/4 text-center flex justify-center font-semibold text-xl">
+              <div className="p-2 border-black border-2 rounded-full md:w-1/4 w-1/2 text-center flex justify-center font-semibold md:text-xl text-base">
                 <FaStarOfLife className="mt-1 mr-2" /> About
               </div>
               <div className="mt-5 text-5xl font-semibold bg-gradient-to-r from-purple-600 to-blue-600 inline-block text-transparent bg-clip-text">
@@ -356,14 +356,14 @@ export default function Home() {
 
         <LoginComponent />
       </div>
-      <section className="bg-gray-50 ">
+      <div className="bg-gray-100 h-screen">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <div className="w-full bg-white rounded-lg  md:mt-0 sm:max-w-md xl:p-0 shadow-lg">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                 Get Started (with) RightHere!
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#">
+              <form className="space-y-4 md:space-y-6">
                 <div>
                   <label
                     htmlFor="email"
@@ -409,51 +409,20 @@ export default function Home() {
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                   />
                 </div>
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="terms"
-                      aria-describedby="terms"
-                      type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 "
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label
-                      htmlFor="terms"
-                      className="font-light text-gray-500 "
-                    >
-                      I accept the{" "}
-                      <a
-                        className="font-medium text-primary-600 hover:underline "
-                        href="#"
-                      >
-                        Terms and Conditions
-                      </a>
-                    </label>
-                  </div>
-                </div>
+
                 <button
                   type="submit"
-                  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                  className="w-full text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 >
                   Create an account
                 </button>
-                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                  Already have an account?{" "}
-                  <a
-                    href="#"
-                    className="font-medium text-primary-600 hover:underline "
-                  >
-                    Login here
-                  </a>
-                </p>
               </form>
             </div>
           </div>
         </div>
-      </section>
-      <div className="flex justify-center items-center h-screen">
+      </div>
+
+      <div className="flex justify-center items-center h-screen bg-gray-100">
         <div className="bg-gray-100 ">
           <div className="flex flex-col  w-full justify-center items-center">
             <div className="p-2 border-black border-2 rounded-full w-1/4 text-center flex justify-center font-semibold text-xl">
@@ -509,7 +478,7 @@ export default function Home() {
                   </a>
                   <p className="mb-3 font-normal text-gray-700 flex flex-row  justify-around ">
                     <a
-                      href="https://github.com/ice-weasel"
+                      href="https://github.com/gaxatri"
                       className="hover:bg-gray-300 rounded-lg p-2"
                     >
                       {" "}
@@ -542,7 +511,7 @@ export default function Home() {
                   </a>
                   <p className="mb-3 font-normal text-gray-700 flex flex-row  justify-around ">
                     <a
-                      href="https://github.com/ice-weasel"
+                      href="https://github.com/fRidge69"
                       className="hover:bg-gray-300 rounded-lg p-2"
                     >
                       {" "}
@@ -574,14 +543,14 @@ export default function Home() {
                   </a>
                   <p className="mb-3 font-normal text-gray-700 flex flex-row  justify-around ">
                     <a
-                      href="https://github.com/ice-weasel"
+                      href="https://github.com/dxyaa"
                       className="hover:bg-gray-300 rounded-lg p-2"
                     >
                       {" "}
                       <FaGithub size={26} className="" />
                     </a>
                     <a
-                      href="https://github.com/ice-weasel"
+                      href="https://www.linkedin.com/in/diya-sundeep/"
                       className="hover:bg-gray-300 rounded-lg p-2"
                     >
                       {" "}
