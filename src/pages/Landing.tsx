@@ -18,6 +18,7 @@ import MyIcosahedronGeometry from "../components/Blob/MyIcosahedronGeometry";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 import { useRef } from "react";
 import {
   motion,
@@ -173,15 +174,23 @@ export default function Home() {
 
                 <div className="gap-6 px-5">
                   <div className="flex gap-3 p-5">
-                    <label className="md:flex hidden hover:text-blue-600">
-                      HOME
-                    </label>
-                    <label className="md:flex hidden hover:text-blue-600">
-                      EXPLORE
-                    </label>
-                    <label className="md:flex hidden hover:text-blue-600">
-                      CONTACT
-                    </label>
+                    <Link href="#">
+                      {" "}
+                      <label className="md:flex hidden hover:text-blue-600">
+                        HOME
+                      </label>
+                    </Link>
+                    <Link href="#explore">
+                      {" "}
+                      <label className="md:flex hidden hover:text-blue-600">
+                        EXPLORE
+                      </label>
+                    </Link>
+                    <Link href="#team">
+                      <label className="md:flex hidden hover:text-blue-600">
+                        CONTACT
+                      </label>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -246,16 +255,16 @@ export default function Home() {
                 <div className="border-t-2 border-black"></div>
                 <div>
                   {" "}
-                  <Link href="#">
+                  <Link href="#team">
                     <button className="flex w-full">
-                      Contact
+                      Team
                       <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
                     </button>
                   </Link>
                 </div>
                 <div className="border-t-2 border-black"></div>
                 <div>
-                  <Link href="#">
+                  <Link href="#login">
                     <button className="flex w-full">
                       Login
                       <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
@@ -288,9 +297,20 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: 0.6 }}
               >
                 {" "}
-                <button className="bg-purple-500 text-white font-semibold text-lg rounded-full w-1/2 mt-5 p-2 hover:bg-blue-600">
-                  Get Started!
-                </button>
+                <a
+                  href="#_"
+                  className="mt-5 ml-28 relative inline-flex items-center justify-center inline-block p-4 px-5 py-3 overflow-hidden font-medium text-indigo-600 rounded-lg shadow-2xl group"
+                >
+                  <span className="absolute top-0 left-0 w-40 h-40 -mt-10 -ml-3 transition-all duration-700 bg-indigo-600 rounded-full blur-md ease"></span>
+                  <span className="absolute inset-0 w-full h-full transition duration-700 group-hover:rotate-180 ease">
+                    <span className="absolute bottom-0 left-0 w-24 h-24 -ml-10 bg-purple-500 rounded-full blur-md"></span>
+                    <span className="absolute bottom-0 right-0 w-24 h-24 -mr-10 bg-blue-600 rounded-full blur-md"></span>
+                  </span>
+                  <span className="relative text-white text-base flex">
+                    Get Started!
+                    <FaArrowRight className="mt-1 ml-1" />
+                  </span>
+                </a>
               </motion.div>
               <div></div>
             </div>
@@ -386,7 +406,7 @@ export default function Home() {
             >
               <SwiperSlide className="flex w-full h-full justify-center items-center  ">
                 <img
-                  src="https://img.freepik.com/free-photo/teen-couple-reading-library_23-2147860608.jpg?size=626&ext=jpg&ga=GA1.1.1161610126.1702110340&semt=ais"
+                  src="https://cdn.pixabay.com/photo/2013/06/30/19/07/bed-142516_1280.jpg"
                   className="w-[600px] h-[600px] flex justify-center items-center  m-auto rounded-2xl"
                 />
               </SwiperSlide>
@@ -418,13 +438,16 @@ export default function Home() {
               <div className="mt-5 text-5xl font-semibold bg-gradient-to-r from-purple-600 to-blue-600 inline-block text-transparent bg-clip-text">
                 One Stop Destination
               </div>
-              <div className="text-right mt-10">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.
+              <div className="text-right mt-10 ">
+                Welcome to a world of cozy rooms, shared laughter, and the
+                buzzing camaraderie of hostel life! Our hostel management system
+                simplifies tasks and streamlines operations, saving time and
+                ensuring accuracy. From room allocations to raising tickets,
+                we've got you covered. With our system, you can bid farewell to
+                the chaos and embrace the serenity of efficient hostel
+                management.Its so effective that even Hogwarts wants to upgrade
+                - turns out managing magical dormitories isnt as enchanting as
+                it seems!
               </div>
             </div>
           </div>
@@ -442,12 +465,14 @@ export default function Home() {
                   Efficiency,Reliability,Quality
                 </div>
                 <div className="text-right mt-10">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur.
+                  Our website is like the Swiss Army knife of hostel management.
+                  It doesn't just stop at login screens and notifications; it's
+                  a symphony of features designed to make your life easier. From
+                  the sleek admin dashboard where you can effortlessly steer the
+                  ship, to the user login that feels like a welcome mat, we've
+                  crafted an experience that's smoother than a jazz saxophone
+                  solo. Security is our superhero – your data is guarded more
+                  fiercely than a dragon guards its treasure.
                 </div>
               </div>
             </div>
@@ -492,7 +517,10 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+      <div
+        id="login"
+        className="flex flex-col items-center justify-center h-screen bg-gray-100"
+      >
         <div>
           <link rel="icon" href="/favicon.ico" />
         </div>
@@ -508,46 +536,31 @@ export default function Home() {
               </h1>
               <form className="space-y-4 md:space-y-6">
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Your email
                   </label>
                   <input
                     type="email"
-                    name="email"
-                    id="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                     placeholder="name@company.com"
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Password
                   </label>
                   <input
                     type="password"
-                    name="password"
-                    id="password"
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="confirm-password"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Confirm password
                   </label>
                   <input
-                    type="confirm-password"
-                    name="confirm-password"
-                    id="confirm-password"
+                    type="password"
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                   />
@@ -566,7 +579,7 @@ export default function Home() {
       </div>
 
       <div className="flex justify-center items-center h-screen bg-gray-100">
-        <div className="bg-gray-100 ">
+        <div id="team" className="bg-gray-100 ">
           <div className="flex flex-col  w-full justify-center items-center">
             <div className="p-2 border-black border-2 rounded-full w-1/4 text-center flex justify-center font-semibold text-xl">
               <FaStarOfLife className="mt-1 mr-2" /> Meet the Team
