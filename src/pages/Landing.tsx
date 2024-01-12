@@ -173,15 +173,23 @@ export default function Home() {
 
                 <div className="gap-6 px-5">
                   <div className="flex gap-3 p-5">
-                    <label className="md:flex hidden hover:text-blue-600">
-                      HOME
-                    </label>
-                    <label className="md:flex hidden hover:text-blue-600">
-                      EXPLORE
-                    </label>
-                    <label className="md:flex hidden hover:text-blue-600">
-                      CONTACT
-                    </label>
+                    <Link href="#">
+                      {" "}
+                      <label className="md:flex hidden hover:text-blue-600">
+                        HOME
+                      </label>
+                    </Link>
+                    <Link href="#explore">
+                      {" "}
+                      <label className="md:flex hidden hover:text-blue-600">
+                        EXPLORE
+                      </label>
+                    </Link>
+                    <Link href="#team">
+                      <label className="md:flex hidden hover:text-blue-600">
+                        CONTACT
+                      </label>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -246,16 +254,16 @@ export default function Home() {
                 <div className="border-t-2 border-black"></div>
                 <div>
                   {" "}
-                  <Link href="#">
+                  <Link href="#team">
                     <button className="flex w-full">
-                      Contact
+                      Team
                       <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
                     </button>
                   </Link>
                 </div>
                 <div className="border-t-2 border-black"></div>
                 <div>
-                  <Link href="#">
+                  <Link href="#login">
                     <button className="flex w-full">
                       Login
                       <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
@@ -492,7 +500,10 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+      <div
+        id="login"
+        className="flex flex-col items-center justify-center h-screen bg-gray-100"
+      >
         <div>
           <link rel="icon" href="/favicon.ico" />
         </div>
@@ -508,46 +519,31 @@ export default function Home() {
               </h1>
               <form className="space-y-4 md:space-y-6">
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Your email
                   </label>
                   <input
                     type="email"
-                    name="email"
-                    id="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                     placeholder="name@company.com"
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Password
                   </label>
                   <input
                     type="password"
-                    name="password"
-                    id="password"
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="confirm-password"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Confirm password
                   </label>
                   <input
-                    type="confirm-password"
-                    name="confirm-password"
-                    id="confirm-password"
+                    type="password"
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                   />
@@ -566,7 +562,7 @@ export default function Home() {
       </div>
 
       <div className="flex justify-center items-center h-screen bg-gray-100">
-        <div className="bg-gray-100 ">
+        <div id="team" className="bg-gray-100 ">
           <div className="flex flex-col  w-full justify-center items-center">
             <div className="p-2 border-black border-2 rounded-full w-1/4 text-center flex justify-center font-semibold text-xl">
               <FaStarOfLife className="mt-1 mr-2" /> Meet the Team

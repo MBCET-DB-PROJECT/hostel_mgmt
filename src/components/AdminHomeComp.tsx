@@ -242,7 +242,7 @@ export default function AdminHomeComp() {
                       top: (height + padding) * index,
                     }}
                     key={notif.notifId}
-                    className="flex justify-center"
+                    className="flex justify-center items-center "
                   >
                     {notif.content}
                   </motion.div>
