@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
+import Link from "next/link";
 import "./../app/globals.css";
 import { Canvas } from "@react-three/fiber";
 import Blob from "../components/Blob";
@@ -226,25 +226,42 @@ export default function Home() {
             >
               <div className="space-y-3">
                 <div className="border-t-2 border-black"></div>
-                <button className="flex w-full">
-                  Home
-                  <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle " />
-                </button>
+                <div>
+                  <Link href="#">
+                    <button className="flex w-full">
+                      Home
+                      <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle " />
+                    </button>
+                  </Link>
+                </div>
                 <div className="border-t-2 border-black"></div>
-                <button className="flex w-full">
-                  Explore
-                  <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
-                </button>
+                <div>
+                  <Link href="#explore">
+                    <button className="flex w-full">
+                      Explore
+                      <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
+                    </button>
+                  </Link>
+                </div>
                 <div className="border-t-2 border-black"></div>
-                <button className="flex w-full">
-                  Contact
-                  <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
-                </button>
+                <div>
+                  {" "}
+                  <Link href="#">
+                    <button className="flex w-full">
+                      Contact
+                      <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
+                    </button>
+                  </Link>
+                </div>
                 <div className="border-t-2 border-black"></div>
-                <button className="flex w-full">
-                  Login
-                  <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
-                </button>
+                <div>
+                  <Link href="#">
+                    <button className="flex w-full">
+                      Login
+                      <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
+                    </button>
+                  </Link>
+                </div>
                 <div className="border-t-2 border-black"></div>
               </div>
             </motion.div>
@@ -340,10 +357,12 @@ export default function Home() {
                 animate="visible"
                 transition={{ duration: 0.5, delay: 0.6 }}
               >
-                <button className="w-full border-2 border-black p-1 rounded-lg text-black flex justify-center">
-                  <FaPlus className="text-blue-600 mt-1 mr-1" />
-                  See More
-                </button>
+                <Link href="#about">
+                  <button className="w-full border-2 border-black p-1 rounded-lg text-black flex justify-center  hover:font-semibold">
+                    <FaPlus className="text-blue-600 mt-1 mr-1" />
+                    See More
+                  </button>
+                </Link>
               </motion.div>
             </div>
           </div>
@@ -388,7 +407,10 @@ export default function Home() {
         </div>
 
         <div className="w-1/2 bg-gray-100">
-          <div className="flex flex-col  justify-center md:px-6 md:py-8 mx-auto md:h-screen min-h-screen ">
+          <div
+            id="about"
+            className="flex flex-col  justify-center md:px-6 md:py-8 mx-auto md:h-screen min-h-screen "
+          >
             <div className="text-left flex flex-col ">
               <div className="p-2 border-black border-2 rounded-full md:w-1/4 w-1/2 text-center flex justify-center font-semibold md:text-xl text-base">
                 <FaStarOfLife className="mt-1 mr-2" /> About
@@ -409,7 +431,7 @@ export default function Home() {
         </div>
       </div>
       <div className="bg-gray-100">
-        <div className="flex justify-between h-screen">
+        <div id="explore" className="flex justify-between h-screen">
           <div className="w-1/2 bg-gray-100">
             <div className="flex flex-col  justify-center px-6 py-8 mx-auto md:h-screen min-h-screen ">
               <div className="text-left flex flex-col ">
