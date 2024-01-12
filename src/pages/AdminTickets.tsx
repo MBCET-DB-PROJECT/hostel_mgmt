@@ -8,7 +8,10 @@ import TicketDetails from "./../data/TicketDetails.json";
 import { useEffect } from "react";
 import EditTickets from "./EditTickets";
 
-import TicketsCard from "@/components/AdminTicketsComp";
+import AdminTicketsComp from "@/components/AdminTicketsComp";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
+import app, { auth } from "@/app/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 //import AdminTicketsComp from "@/components/AdminTicketsComp";
 
@@ -33,6 +36,9 @@ const AdminTicket: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState<any>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+  const [user, loading] = useAuthState(auth);
 
   const handleSidebarToggle = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -63,6 +69,46 @@ const AdminTicket: React.FC = () => {
     }
   };
 
+  const checkAdminStatus = async (uid: string) => {
+    const db = getFirestore(app);
+    const adminCollectionRef = collection(db, 'admin');
+
+    try {
+      const querySnapshot = await getDocs(adminCollectionRef);
+
+      let isAdmin = false;
+
+      querySnapshot.forEach((doc) => {
+        const adminData = doc.data();
+
+        if (adminData && adminData.roles && adminData.roles.includes(uid)) {
+          isAdmin = true;
+          console.log('User is an admin in document:', doc.id);
+        }
+      });
+
+      setIsAdmin(isAdmin);
+      setLoading(false);
+
+      if (!isAdmin) {
+        console.log('User is not an admin');
+      }
+    } catch (error) {
+      console.error('Error fetching admin data:', error);
+      setIsAdmin(false);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      checkAdminStatus(user.uid);
+    } else {
+      setLoading(false);
+    }
+  }, [user]);
+
+ 
   useEffect(() => {
     window.addEventListener("click", handleOutsideClick);
 
@@ -70,9 +116,31 @@ const AdminTicket: React.FC = () => {
       window.removeEventListener("click", handleOutsideClick);
     };
   }, [isDropdownOpen]);
+  
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+
+  if (!isAdmin) {
+    return (
+      <div>
+        <p>Access denied for non-admin users.</p>
+      </div>
+    );
+  }
+  
 
   return (
     <div>
+      {!isAdmin &&  (
+      <div>
+        <p>Access denied for non-admin users.</p>
+        {/* You can add more UI elements or a redirect logic here */}
+      </div>
+    )}
+      {isAdmin && ( 
+        <>
       <TopBar onSidebarToggle={handleSidebarToggle} />
       <div className="flex">
         <div
@@ -96,71 +164,13 @@ const AdminTicket: React.FC = () => {
             </Link>
           </div>
 
-          <TicketsCard ticketId="" />
+          <AdminTicketsComp ticketId=""/>
 
-          {/*    <AdminTicketsComp /> */}
-
-          {/* <div className="flex bg-slate-200">
-            <div className="m-auto w-full ">
-              <div>
-                <form className="w-full">
-                  {ticketsList.map((ticket) => {
-                    const studentCount = ticket.students.length;
-
-                    return (
-                      <div
-                        key={ticket.tid}
-                        onClick={() => handleTicketSelect(ticket)}
-                        className="cursor-pointer mt-5 bg-white rounded-md shadow-lg mx-4 text-center items-center"
-                      >
-                        <div className="px-5 pb-5 ">
-                          <div className="flex justify-between py-2">
-                            <div>{ticket.name}</div>
-                            <div className="flex flex-row space-x-5">
-                              <div>Students raised: {studentCount}</div>
-                              <button
-                                className="p-1 bg-gray-300 rounded-md hover:bg-gray-200"
-                                onClick={(e) => toggleDropdown(e, ticket)}
-                              >
-                                <FaChevronDown size={20} />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                  {isDropdownOpen && selectedTicket && (
-                    <div
-                      className="mt-3 mx-4 dropdown-content bg-white rounded-md shadow-lg p-1 "
-                      ref={(node) =>
-                        node &&
-                        node.addEventListener("click", (e) =>
-                          e.stopPropagation()
-                        )
-                      }
-                    >
-                      <div className="mt-2 flex w-full ">
-                        <div className="w-full">
-                          {selectedTicket.students.map((student: any) => (
-                            <div
-                              key={student.sid}
-                              className="flex  justify-between border-b p-3 border-black "
-                            >
-                              <div>{student.name} </div>
-                              <div>Room No: {student.roomno} </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </form>
-              </div>
-            </div>
-                          </div>*/}
+          
         </div>
       </div>
+      </>    
+      )}   
     </div>
   );
 };

@@ -27,59 +27,62 @@ interface Room {
 
 const AdminRooms: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  //function to handle user button click
+  const [rooms, setRooms] = useState<Room[]>([]);
+  const auth = getAuth(app);
+  const [user, loading] = useAuthState(auth);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
-  const [rooms, setRooms] = useState<Room[]>([]); // Use the Room interface here
+  const checkAdminStatus = async (uid: string) => {
+    const db = getFirestore(app);
+    const adminCollectionRef = collection(db, 'admin');
 
+    try {
+      const querySnapshot = await getDocs(adminCollectionRef);
 
-const auth = getAuth(app);
-const [user,loading] = useAuthState(auth)
-const [isAdmin, setIsAdmin] = useState(false);
-const [isLoading, setLoading] = useState(true);
+      let isAdmin = false;
 
-useEffect(() => {
-  const fetchUserData = async () => {
-    const currentUser = auth.currentUser;
+      querySnapshot.forEach((doc) => {
+        const adminData = doc.data();
 
-    if (currentUser) {
-      const db = getFirestore(app);
-      const adminCollectionRef = collection(db, 'admin');
+        if (adminData && adminData.roles && adminData.roles.includes(uid)) {
+          isAdmin = true;
+          console.log('User is an admin in document:', doc.id);
+        }
+      });
 
-      console.log('User UID:', currentUser.uid);
+      setIsAdmin(isAdmin);
+      setLoading(false);
 
-      try {
-        const querySnapshot = await getDocs(adminCollectionRef);
-  
-        querySnapshot.forEach((doc) => {
-          const adminData = doc.data();
-          
-          if (adminData && adminData.role && adminData.role.includes(currentUser.uid)) {
-            setIsAdmin(true);
-            setLoading(false);
-            console.log('User is an admin');
-            // If you want to break out of the loop when an admin is found, you can use 'return;'
-          } else {
-            setIsAdmin(false);
-            setLoading(false);
-            console.log('User is not an admin');
-          }
-        });
-      } catch (error) {
-        console.error('Error fetching admin data:', error);
-        setIsAdmin(false);
-        setLoading(false);
+      if (!isAdmin) {
+        console.log('User is not an admin');
       }
+    } catch (error) {
+      console.error('Error fetching admin data:', error);
+      setIsAdmin(false);
+      setLoading(false);
     }
   };
 
-  fetchUserData();
-}, [user]);
+  useEffect(() => {
+    if (user) {
+      checkAdminStatus(user.uid);
+    } else {
+      setLoading(false);
+    }
+  }, [user]);
 
-if (isLoading) {
-  return <div>Loading...</div>;
-}
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-
+  if (!isAdmin) {
+    return (
+      <div>
+        <p>Access denied for non-admin users.</p>
+      </div>
+    );
+  }
 
   
   const occupiedRooms = rooms.filter((room) => room.status === "occupied");
@@ -99,13 +102,13 @@ if (isLoading) {
 
     <div>
 
-{!isAdmin && (
+{!isAdmin &&  (
       <div>
         <p>Access denied for non-admin users.</p>
         {/* You can add more UI elements or a redirect logic here */}
       </div>
     )}
-  {isAdmin && (
+  {isAdmin && ( 
         <>
 
         
