@@ -443,11 +443,11 @@ export default function Home() {
                 buzzing camaraderie of hostel life! Our hostel management system
                 simplifies tasks and streamlines operations, saving time and
                 ensuring accuracy. From room allocations to raising tickets,
-                we've got you covered. With our system, you can bid farewell to
-                the chaos and embrace the serenity of efficient hostel
-                management.Its so effective that even Hogwarts wants to upgrade
-                - turns out managing magical dormitories isnt as enchanting as
-                it seems!
+                we&apos;ve got you covered. With our system, you can bid
+                farewell to the chaos and embrace the serenity of efficient
+                hostel management.Its so effective that even Hogwarts wants to
+                upgrade - turns out managing magical dormitories isnt as
+                enchanting as it seems!
               </div>
             </div>
           </div>
@@ -466,13 +466,14 @@ export default function Home() {
                 </div>
                 <div className="text-right mt-10">
                   Our website is like the Swiss Army knife of hostel management.
-                  It doesn't just stop at login screens and notifications; it's
-                  a symphony of features designed to make your life easier. From
-                  the sleek admin dashboard where you can effortlessly steer the
-                  ship, to the user login that feels like a welcome mat, we've
-                  crafted an experience that's smoother than a jazz saxophone
-                  solo. Security is our superhero – your data is guarded more
-                  fiercely than a dragon guards its treasure.
+                  It doesn&apos;t just stop at login screens and notifications;
+                  it&apos;s a symphony of features designed to make your life
+                  easier. From the sleek admin dashboard where you can
+                  effortlessly steer the ship, to the user login that feels like
+                  a welcome mat, we&apos;ve crafted an experience that&apos;s
+                  smoother than a jazz saxophone solo. Security is our superhero
+                  - your data is guarded more fiercely than a dragon guards its
+                  treasure.
                 </div>
               </div>
             </div>
