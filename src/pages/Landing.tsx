@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+
 import "./../app/globals.css";
 import { Canvas } from "@react-three/fiber";
 import Blob from "../components/Blob";
@@ -34,15 +35,12 @@ import { FirebaseError } from "firebase/app";
 
 import LoginComponent from "@/components/Slider/LoginComponent";
 
-
 export default function Home() {
   const controls = useAnimation();
   const adminforms = useAnimation();
   const stdforms = useAnimation();
   const { scrollY } = useScroll();
   const image = useAnimation();
-
-
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (scrollY.get() > 800) {
@@ -68,9 +66,7 @@ export default function Home() {
     return () => {
       scrollY.clearListeners();
     };
-
-  }, [scrollY, controls, stdforms,adminforms, image])
-
+  }, [scrollY, controls, stdforms, adminforms, image]);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -86,7 +82,6 @@ export default function Home() {
       [name]: value,
     }));
   };
-
 
   const handleStudLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -107,7 +102,6 @@ export default function Home() {
     }
   };
 
-
   const handleAdminLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -126,8 +120,6 @@ export default function Home() {
       }
     }
   };
-
-
 
   return (
     <div className="overflow-x-hidden">
@@ -577,8 +569,6 @@ export default function Home() {
                       href="https://github.com/ice-weasel"
                       className="hover:bg-gray-300 rounded-lg p-2"
                     >
-
-
                       {" "}
                       <FaGithub size={26} className="" />
                     </a>
@@ -608,7 +598,6 @@ export default function Home() {
                     </h5>
                   </a>
                   <p className="mb-3 font-normal text-gray-700 flex flex-row  justify-around ">
-
                     <a
                       href="https://github.com/gaxatri"
                       className="hover:bg-gray-300 rounded-lg p-2"
@@ -626,7 +615,6 @@ export default function Home() {
                     </a>
                   </p>
                 </div>
-
               </div>
 
               <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow ">
@@ -648,7 +636,6 @@ export default function Home() {
                       href="https://github.com/fRidge69"
                       className="hover:bg-gray-300 rounded-lg p-2"
                     >
-
                       {" "}
                       <FaGithub size={26} className="" />
                     </a>
@@ -677,7 +664,6 @@ export default function Home() {
                     </h5>
                   </a>
                   <p className="mb-3 font-normal text-gray-700 flex flex-row  justify-around ">
-
                     <a
                       href="https://github.com/dxyaa"
                       className="hover:bg-gray-300 rounded-lg p-2"
@@ -686,14 +672,12 @@ export default function Home() {
                       <FaGithub size={26} className="" />
                     </a>
 
-
                     <a
                       href="https://www.linkedin.com/in/diya-sundeep/"
                       className="hover:bg-gray-300 rounded-lg p-2"
                     >
                       {" "}
                       <FaLinkedin size={26} />
-
                     </a>
                   </p>
                 </div>
