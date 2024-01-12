@@ -62,42 +62,45 @@ const AdminNotifications: React.FC = () => {
     } else {
       setBlurry(false);
     }
-    const fetchUserData = async () => {
-      const currentUser = auth.currentUser;
+    const checkAdminStatus = async (uid: string) => {
+      const db = getFirestore(app);
+      const adminCollectionRef = collection(db, 'admin');
   
-      if (currentUser) {
-        const db = getFirestore(app);
-        const adminCollectionRef = collection(db, 'admin');
+      try {
+        const querySnapshot = await getDocs(adminCollectionRef);
   
-        console.log('User UID:', currentUser.uid);
+        let isAdmin = false;
   
-        try {
-          const querySnapshot = await getDocs(adminCollectionRef);
-    
-          querySnapshot.forEach((doc) => {
-            const adminData = doc.data();
-            
-            if (adminData && adminData.role && adminData.role.includes(currentUser.uid)) {
-              setIsAdmin(true);
-              setLoading(false);
-              console.log('User is an admin');
-              // If you want to break out of the loop when an admin is found, you can use 'return;'
-            } else {
-              setIsAdmin(false);
-              setLoading(false);
-              console.log('User is not an admin');
-            }
-          });
-        } catch (error) {
-          console.error('Error fetching admin data:', error);
-          setIsAdmin(false);
-          setLoading(false);
+        querySnapshot.forEach((doc) => {
+          const adminData = doc.data();
+  
+          if (adminData && adminData.roles && adminData.roles.includes(uid)) {
+            isAdmin = true;
+            console.log('User is an admin in document:', doc.id);
+          }
+        });
+  
+        setIsAdmin(isAdmin);
+        setLoading(false);
+  
+        if (!isAdmin) {
+          console.log('User is not an admin');
         }
+      } catch (error) {
+        console.error('Error fetching admin data:', error);
+        setIsAdmin(false);
+        setLoading(false);
       }
     };
   
-    fetchUserData();
-  }, [user,isModalOpen]);
+
+    if (user) {
+      checkAdminStatus(user.uid);
+    } else {
+      setLoading(false);
+    }
+}, [user, isModalOpen]);
+
   
   if (isLoading) {
     return <div>Loading...</div>;
@@ -124,29 +127,15 @@ const AdminNotifications: React.FC = () => {
 
   return (
     <div>
+      {!isAdmin &&  (
+      <div>
+        <p>Access denied for non-admin users.</p>
+        {/* You can add more UI elements or a redirect logic here */}
+      </div>
+    )}
+     {isAdmin && ( 
+        <>
 
-      {/*} {isModalOpen && selectedNotif && (
-        //modal for student details
-        <div className="md:w-1/6 md:block shadow-lg">
-          <div className="fixed inset-0 flex items-center justify-center z-50">
-            <div className="bg-white md:p-8 p-4  rounded-lg md:w-1/2 w-2/3 shadow-md">
-              <div className="flex justify-between">
-                <h2 className="text-xl font-semibold">
-                  Notification {selectedNotif.nid}
-                </h2>
-                <button
-                  onClick={() => setModalOpen(false)}
-                  className="hover:bg-gray-200 px-1 py-1 rounded-lg"
-                >
-                  <IoClose size={24} />
-                </button>
-              </div>
-              <p className="mt-4">{selectedNotif.content}</p>
-             
-            </div>
-          </div>
-        </div>
-     )}*/}
       <div className={` ${isBlurry ? "blur" : ""}`}>
         <TopBar onSidebarToggle={handleSidebarToggle} />
         <div className="flex">
@@ -173,32 +162,12 @@ const AdminNotifications: React.FC = () => {
             </div>
 
            <AdminNotifComp/>
-            {/*<div className="flex bg-slate-200">
-              <div className={m-auto w-full ${isBlurry ? "blur" : ""}}>
-
-            <AdminNotifComp />
-            {/*<div className="flex bg-slate-200">
-              <div className={`m-auto w-full ${isBlurry ? "blur" : ""}`}>
-
-                {notifsList.map((notif) => (
-                  <div key={notif.nid} onClick={() => handleNotifClick(notif)}>
-                    <form>
-                      <div className="mt-5 bg-white rounded-md shadow-lg mx-4 text-center items-center">
-                        <div className="px-5 pb-5 w-full">
-                          <div className="flex justify-between py-2">
-                            <div>{notif.content}</div>
-                            <div>{notif.date}</div>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                ))}
-              </div>
-                </div>*/}
+            
           </div>
         </div>
       </div>
+      </>
+     )}          
     </div>
   );
 };

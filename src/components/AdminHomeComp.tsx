@@ -8,7 +8,7 @@ import {
 import TimeComponent from "./Time";
 import DateComponent from "./Date";
 import "./../app/globals.css";
-//import SphereComp from "./SphereComp";
+
 import { useEffect, useState } from "react";
 import "./../app/globals.css";
 import {
