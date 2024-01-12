@@ -30,11 +30,22 @@ import {
 } from "framer-motion";
 
 import { useEffect, useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import app from "@/app/firebase";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import app, { auth } from "@/app/firebase";
 import { FirebaseError } from "firebase/app";
 
 import LoginComponent from "@/components/Slider/LoginComponent";
+
+import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+interface AdminSignup {
+  name : string;
+  role : string;
+  email: string;
+  password : string;
+}
+
 
 export default function Home() {
   const controls = useAnimation();
@@ -42,6 +53,7 @@ export default function Home() {
   const stdforms = useAnimation();
   const { scrollY } = useScroll();
   const image = useAnimation();
+  const user = useAuthState(auth);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (scrollY.get() > 800) {
@@ -69,9 +81,11 @@ export default function Home() {
     };
   }, [scrollY, controls, stdforms, adminforms, image]);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<AdminSignup>({
     email: "",
     password: "",
+    name: "",
+    role: "",
   });
 
   const [error, setError] = useState<string | null>(null);
@@ -121,6 +135,42 @@ export default function Home() {
       }
     }
   };
+
+
+  const handleAdminSignup = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  
+    const auth = getAuth(app);
+  
+    const { name, email, password } = formData;
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const admin = userCredential.user;
+  
+      console.log("Admin user ID:", admin.uid); // Log the admin user ID
+  
+      const db = getFirestore(app);
+      const adminDocRef = doc(db, "admin", admin.uid);
+      const adminData = {
+        name,
+        roles: admin.uid
+      };
+  
+      await setDoc(adminDocRef, adminData);
+  
+      console.log("User created and stored");
+      window.location.href = "/AdminHome";
+    } catch (error: any) {
+      console.error("Error creating user", error.code, error.message);
+    }
+  };
+  
+
+
 
   return (
     <div className="overflow-x-hidden">
@@ -535,13 +585,38 @@ export default function Home() {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                 Get Started (with) RightHere!
               </h1>
-              <form className="space-y-4 md:space-y-6">
+              <form 
+              onSubmit={handleAdminSignup}
+              className="space-y-4 md:space-y-6">
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
+                  >
+                    Your name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    onChange={handleChange}
+                    value={formData.name}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                    placeholder="name@company.com"
+                  />
+                </div>
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Your email
                   </label>
                   <input
                     type="email"
+
+                    name="email"
+                    id="email"
+                    onChange={handleChange}
+                    value={formData.email}
+
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                     placeholder="name@company.com"
                   />
@@ -552,6 +627,12 @@ export default function Home() {
                   </label>
                   <input
                     type="password"
+
+                    name="password"
+                    id="password"
+                    onChange={handleChange}
+                    value={formData.password}
+
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                   />

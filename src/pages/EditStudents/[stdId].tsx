@@ -12,10 +12,11 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import Link from "next/link";
 import StudentsList from "../../components/StudentsListComp";
 import Toast from "@/components/Toast";
-import { doc, getDoc, getFirestore, setDoc, updateDoc } from "firebase/firestore";
-import app from "@/app/firebase";
+import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from "firebase/firestore";
+import app, { auth } from "@/app/firebase";
 import { createUserWithEmailAndPassword, getAuth, updateCurrentUser } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 
 interface StudentDetails {
@@ -59,7 +60,43 @@ const EditStudent: React.FC = () => {
   const { stdId } = router.query;
   const [postDetails,setPostDetails] = useState<StudentDetails | null>(null);
   const [isChecked, setIsChecked] = useState(false);
-  
+  const [user, loading] = useAuthState(auth);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+
+
+  const checkAdminStatus = async (uid: string) => {
+    const db = getFirestore(app);
+    const adminCollectionRef = collection(db, 'admin');
+
+    try {
+      const querySnapshot = await getDocs(adminCollectionRef);
+
+      let isAdmin = false;
+
+      querySnapshot.forEach((doc) => {
+        const adminData = doc.data();
+
+        if (adminData && adminData.roles && adminData.roles.includes(uid)) {
+          isAdmin = true;
+          console.log('User is an admin in document:', doc.id);
+        }
+      });
+
+      setIsAdmin(isAdmin);
+      setLoading(false);
+
+      if (!isAdmin) {
+        console.log('User is not an admin');
+      }
+    } catch (error) {
+      console.error('Error fetching admin data:', error);
+      setIsAdmin(false);
+      setLoading(false);
+    }
+  };
+
+
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,6 +129,11 @@ const EditStudent: React.FC = () => {
   } 
 
   useEffect(() => {
+    if (user) {
+      checkAdminStatus(user.uid);
+    } else {
+      setLoading(false);
+    }
     const fetchData = async () => {
       try {
         if (stdId === undefined) {
@@ -135,13 +177,26 @@ const EditStudent: React.FC = () => {
     };
   
     fetchData();
-  }, [stdId, router.query]);
+  }, [stdId,user, router.query]);
   
 
   // Show a loading state until the stdId becomes available
   if (stdId === undefined || postDetails === null) {
     return <div>Loading...</div>;
   }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isAdmin) {
+    return (
+      <div>
+        <p>Access denied for non-admin users.</p>
+      </div>
+    );
+  }
+
 
 
 
