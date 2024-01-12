@@ -8,7 +8,7 @@ useAnimation,
 } from "framer-motion";
 
 import "./../app/globals.css";
-import SphereComp from "./SphereComp";
+
 import { useEffect, useState } from "react";
 import "./../app/globals.css";
 import { collection, doc, getDoc, getDocs, getFirestore } from "firebase/firestore";
