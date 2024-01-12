@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import Link from "next/link";
 import "./../app/globals.css";
 import { Canvas } from "@react-three/fiber";
 import Blob from "../components/Blob";
@@ -17,6 +18,7 @@ import MyIcosahedronGeometry from "../components/Blob/MyIcosahedronGeometry";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 import { useRef } from "react";
 import {
   motion,
@@ -33,6 +35,7 @@ import app, { auth } from "@/app/firebase";
 import { FirebaseError } from "firebase/app";
 
 import LoginComponent from "@/components/Slider/LoginComponent";
+
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -43,6 +46,7 @@ interface AdminSignup {
   password : string;
 }
 
+
 export default function Home() {
   const controls = useAnimation();
   const adminforms = useAnimation();
@@ -50,8 +54,6 @@ export default function Home() {
   const { scrollY } = useScroll();
   const image = useAnimation();
   const user = useAuthState(auth);
-
-
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (scrollY.get() > 800) {
@@ -77,9 +79,7 @@ export default function Home() {
     return () => {
       scrollY.clearListeners();
     };
-
-  }, [scrollY, controls, stdforms,adminforms, image])
-
+  }, [scrollY, controls, stdforms, adminforms, image]);
 
   const [formData, setFormData] = useState<AdminSignup>({
     email: "",
@@ -97,7 +97,6 @@ export default function Home() {
       [name]: value,
     }));
   };
-
 
   const handleStudLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -118,7 +117,6 @@ export default function Home() {
     }
   };
 
-
   const handleAdminLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -137,6 +135,7 @@ export default function Home() {
       }
     }
   };
+
 
   const handleAdminSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -170,6 +169,7 @@ export default function Home() {
     }
   };
   
+
 
 
   return (
@@ -224,15 +224,23 @@ export default function Home() {
 
                 <div className="gap-6 px-5">
                   <div className="flex gap-3 p-5">
-                    <label className="md:flex hidden hover:text-blue-600">
-                      HOME
-                    </label>
-                    <label className="md:flex hidden hover:text-blue-600">
-                      EXPLORE
-                    </label>
-                    <label className="md:flex hidden hover:text-blue-600">
-                      CONTACT
-                    </label>
+                    <Link href="#">
+                      {" "}
+                      <label className="md:flex hidden hover:text-blue-600">
+                        HOME
+                      </label>
+                    </Link>
+                    <Link href="#explore">
+                      {" "}
+                      <label className="md:flex hidden hover:text-blue-600">
+                        EXPLORE
+                      </label>
+                    </Link>
+                    <Link href="#team">
+                      <label className="md:flex hidden hover:text-blue-600">
+                        CONTACT
+                      </label>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -277,25 +285,42 @@ export default function Home() {
             >
               <div className="space-y-3">
                 <div className="border-t-2 border-black"></div>
-                <button className="flex w-full">
-                  Home
-                  <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle " />
-                </button>
+                <div>
+                  <Link href="#">
+                    <button className="flex w-full">
+                      Home
+                      <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle " />
+                    </button>
+                  </Link>
+                </div>
                 <div className="border-t-2 border-black"></div>
-                <button className="flex w-full">
-                  Explore
-                  <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
-                </button>
+                <div>
+                  <Link href="#explore">
+                    <button className="flex w-full">
+                      Explore
+                      <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
+                    </button>
+                  </Link>
+                </div>
                 <div className="border-t-2 border-black"></div>
-                <button className="flex w-full">
-                  Contact
-                  <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
-                </button>
+                <div>
+                  {" "}
+                  <Link href="#team">
+                    <button className="flex w-full">
+                      Team
+                      <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
+                    </button>
+                  </Link>
+                </div>
                 <div className="border-t-2 border-black"></div>
-                <button className="flex w-full">
-                  Login
-                  <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
-                </button>
+                <div>
+                  <Link href="#login">
+                    <button className="flex w-full">
+                      Login
+                      <FaCircle className="text-blue-500 mt-1.5 ml-2  blue-circle hidden" />
+                    </button>
+                  </Link>
+                </div>
                 <div className="border-t-2 border-black"></div>
               </div>
             </motion.div>
@@ -322,9 +347,20 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: 0.6 }}
               >
                 {" "}
-                <button className="bg-purple-500 text-white font-semibold text-lg rounded-full w-1/2 mt-5 p-2 hover:bg-blue-600">
-                  Get Started!
-                </button>
+                <a
+                  href="#_"
+                  className="mt-5 ml-28 relative inline-flex items-center justify-center inline-block p-4 px-5 py-3 overflow-hidden font-medium text-indigo-600 rounded-lg shadow-2xl group"
+                >
+                  <span className="absolute top-0 left-0 w-40 h-40 -mt-10 -ml-3 transition-all duration-700 bg-indigo-600 rounded-full blur-md ease"></span>
+                  <span className="absolute inset-0 w-full h-full transition duration-700 group-hover:rotate-180 ease">
+                    <span className="absolute bottom-0 left-0 w-24 h-24 -ml-10 bg-purple-500 rounded-full blur-md"></span>
+                    <span className="absolute bottom-0 right-0 w-24 h-24 -mr-10 bg-blue-600 rounded-full blur-md"></span>
+                  </span>
+                  <span className="relative text-white text-base flex">
+                    Get Started!
+                    <FaArrowRight className="mt-1 ml-1" />
+                  </span>
+                </a>
               </motion.div>
               <div></div>
             </div>
@@ -391,10 +427,12 @@ export default function Home() {
                 animate="visible"
                 transition={{ duration: 0.5, delay: 0.6 }}
               >
-                <button className="w-full border-2 border-black p-1 rounded-lg text-black flex justify-center">
-                  <FaPlus className="text-blue-600 mt-1 mr-1" />
-                  See More
-                </button>
+                <Link href="#about">
+                  <button className="w-full border-2 border-black p-1 rounded-lg text-black flex justify-center  hover:font-semibold">
+                    <FaPlus className="text-blue-600 mt-1 mr-1" />
+                    See More
+                  </button>
+                </Link>
               </motion.div>
             </div>
           </div>
@@ -418,7 +456,7 @@ export default function Home() {
             >
               <SwiperSlide className="flex w-full h-full justify-center items-center  ">
                 <img
-                  src="https://img.freepik.com/free-photo/teen-couple-reading-library_23-2147860608.jpg?size=626&ext=jpg&ga=GA1.1.1161610126.1702110340&semt=ais"
+                  src="https://cdn.pixabay.com/photo/2013/06/30/19/07/bed-142516_1280.jpg"
                   className="w-[600px] h-[600px] flex justify-center items-center  m-auto rounded-2xl"
                 />
               </SwiperSlide>
@@ -439,7 +477,10 @@ export default function Home() {
         </div>
 
         <div className="w-1/2 bg-gray-100">
-          <div className="flex flex-col  justify-center md:px-6 md:py-8 mx-auto md:h-screen min-h-screen ">
+          <div
+            id="about"
+            className="flex flex-col  justify-center md:px-6 md:py-8 mx-auto md:h-screen min-h-screen "
+          >
             <div className="text-left flex flex-col ">
               <div className="p-2 border-black border-2 rounded-full md:w-1/4 w-1/2 text-center flex justify-center font-semibold md:text-xl text-base">
                 <FaStarOfLife className="mt-1 mr-2" /> About
@@ -447,20 +488,23 @@ export default function Home() {
               <div className="mt-5 text-5xl font-semibold bg-gradient-to-r from-purple-600 to-blue-600 inline-block text-transparent bg-clip-text">
                 One Stop Destination
               </div>
-              <div className="text-right mt-10">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.
+              <div className="text-right mt-10 ">
+                Welcome to a world of cozy rooms, shared laughter, and the
+                buzzing camaraderie of hostel life! Our hostel management system
+                simplifies tasks and streamlines operations, saving time and
+                ensuring accuracy. From room allocations to raising tickets,
+                we&apos;ve got you covered. With our system, you can bid
+                farewell to the chaos and embrace the serenity of efficient
+                hostel management.Its so effective that even Hogwarts wants to
+                upgrade - turns out managing magical dormitories isnt as
+                enchanting as it seems!
               </div>
             </div>
           </div>
         </div>
       </div>
       <div className="bg-gray-100">
-        <div className="flex justify-between h-screen">
+        <div id="explore" className="flex justify-between h-screen">
           <div className="w-1/2 bg-gray-100">
             <div className="flex flex-col  justify-center px-6 py-8 mx-auto md:h-screen min-h-screen ">
               <div className="text-left flex flex-col ">
@@ -471,12 +515,15 @@ export default function Home() {
                   Efficiency,Reliability,Quality
                 </div>
                 <div className="text-right mt-10">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur.
+                  Our website is like the Swiss Army knife of hostel management.
+                  It doesn&apos;t just stop at login screens and notifications;
+                  it&apos;s a symphony of features designed to make your life
+                  easier. From the sleek admin dashboard where you can
+                  effortlessly steer the ship, to the user login that feels like
+                  a welcome mat, we&apos;ve crafted an experience that&apos;s
+                  smoother than a jazz saxophone solo. Security is our superhero
+                  - your data is guarded more fiercely than a dragon guards its
+                  treasure.
                 </div>
               </div>
             </div>
@@ -521,7 +568,10 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+      <div
+        id="login"
+        className="flex flex-col items-center justify-center h-screen bg-gray-100"
+      >
         <div>
           <link rel="icon" href="/favicon.ico" />
         </div>
@@ -556,50 +606,43 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Your email
                   </label>
                   <input
                     type="email"
+
                     name="email"
                     id="email"
                     onChange={handleChange}
                     value={formData.email}
+
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                     placeholder="name@company.com"
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Password
                   </label>
                   <input
                     type="password"
+
                     name="password"
                     id="password"
                     onChange={handleChange}
                     value={formData.password}
+
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="confirm-password"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Confirm password
                   </label>
                   <input
-                    type="confirm-password"
-                    name="confirm-password"
-                    id="confirm-password"
+                    type="password"
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                   />
@@ -618,7 +661,7 @@ export default function Home() {
       </div>
 
       <div className="flex justify-center items-center h-screen bg-gray-100">
-        <div className="bg-gray-100 ">
+        <div id="team" className="bg-gray-100 ">
           <div className="flex flex-col  w-full justify-center items-center">
             <div className="p-2 border-black border-2 rounded-full w-1/4 text-center flex justify-center font-semibold text-xl">
               <FaStarOfLife className="mt-1 mr-2" /> Meet the Team
@@ -643,8 +686,6 @@ export default function Home() {
                       href="https://github.com/ice-weasel"
                       className="hover:bg-gray-300 rounded-lg p-2"
                     >
-
-
                       {" "}
                       <FaGithub size={26} className="" />
                     </a>
@@ -674,7 +715,6 @@ export default function Home() {
                     </h5>
                   </a>
                   <p className="mb-3 font-normal text-gray-700 flex flex-row  justify-around ">
-
                     <a
                       href="https://github.com/gaxatri"
                       className="hover:bg-gray-300 rounded-lg p-2"
@@ -692,7 +732,6 @@ export default function Home() {
                     </a>
                   </p>
                 </div>
-
               </div>
 
               <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow ">
@@ -714,7 +753,6 @@ export default function Home() {
                       href="https://github.com/fRidge69"
                       className="hover:bg-gray-300 rounded-lg p-2"
                     >
-
                       {" "}
                       <FaGithub size={26} className="" />
                     </a>
@@ -743,7 +781,6 @@ export default function Home() {
                     </h5>
                   </a>
                   <p className="mb-3 font-normal text-gray-700 flex flex-row  justify-around ">
-
                     <a
                       href="https://github.com/dxyaa"
                       className="hover:bg-gray-300 rounded-lg p-2"
@@ -752,14 +789,12 @@ export default function Home() {
                       <FaGithub size={26} className="" />
                     </a>
 
-
                     <a
                       href="https://www.linkedin.com/in/diya-sundeep/"
                       className="hover:bg-gray-300 rounded-lg p-2"
                     >
                       {" "}
                       <FaLinkedin size={26} />
-
                     </a>
                   </p>
                 </div>

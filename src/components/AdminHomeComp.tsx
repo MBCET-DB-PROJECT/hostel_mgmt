@@ -1,7 +1,6 @@
 import {
   motion,
-
-useAnimation,
+  useAnimation,
   useMotionValue,
   useTransform,
   useCycle,
@@ -11,11 +10,16 @@ import "./../app/globals.css";
 
 import { useEffect, useState } from "react";
 import "./../app/globals.css";
-import { collection, doc, getDoc, getDocs, getFirestore } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+} from "firebase/firestore";
 import app, { auth } from "@/app/firebase";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-
 
 interface Admin {
   name: string;
@@ -48,23 +52,24 @@ interface StudentDetails {
   role: string;
 }
 
-
 const items = [0, 1, 2, 3, 4];
 const height = 70;
 const padding = 10;
 
-const size = 150; 
+const size = 150;
 
 export default function AdminHomeComp() {
   const scrollY = useMotionValue(0);
   const [adminData, setAdminData] = useState<Admin | null>(null);
   const [notifsList, setNotifsList] = useState<Notification[]>([]);
   const [tickets, setTickets] = useState<Tickets[]>([]);
-  const [studentDetails, setStudentDetails] = React.useState<StudentDetails[]>([]);
+  const [studentDetails, setStudentDetails] = React.useState<StudentDetails[]>(
+    []
+  );
   const [selectedStudent, setSelectedStudent] = useState<any>(null);
   const [selectedTicket, setSelectedTicket] = useState<string | null>(null);
   const [loadingData, setLoadingData] = useState(true);
-  const [user,loading] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   const width = useTransform(
     scrollY,
@@ -102,8 +107,6 @@ export default function AdminHomeComp() {
     }
   }, [user]);
 
-  
-
   const fetchNotifications = async () => {
     try {
       const db = getFirestore(app);
@@ -119,7 +122,6 @@ export default function AdminHomeComp() {
       });
 
       if (notifDetailsArray.length > 0) {
-        
         setNotifsList(notifDetailsArray);
       } else {
         console.log("No Notifications found");
@@ -202,11 +204,10 @@ export default function AdminHomeComp() {
       <div className="min-h-screen md:w-1/2 w-full">
         <div className="md:p-10 p-5 min-h-screen flex flex-col space-y-10">
           <p className="text-5xl text-black font-semibold md:p-0 p-2">
-            Welcome  {adminData?.name || "Admin"} !
+            Welcome {adminData?.name || "Admin"} !
           </p>
           <div className="flex justify-center items-center flex-col pt-30">
             <h1 className="p-4 text-lg font-semibold text-gray-400">
-
               Latest Notifications
             </h1>
             <motion.div
@@ -230,7 +231,6 @@ export default function AdminHomeComp() {
                 }}
                 className="p-4"
               >
-
                 {notifsList.map((notif, index) => (
                   <motion.div
                     style={{
@@ -242,12 +242,11 @@ export default function AdminHomeComp() {
                       top: (height + padding) * index,
                     }}
                     key={notif.notifId}
-                    className="flex justify-center"
+                    className="flex justify-center items-center "
                   >
                     {notif.content}
                   </motion.div>
                 ))}
-
               </motion.div>
             </motion.div>
             <motion.div
@@ -278,8 +277,7 @@ export default function AdminHomeComp() {
             }}
             className=""
           >
-          {tickets.map((ticket, index) => (
-
+            {tickets.map((ticket, index) => (
               <motion.div
                 key={index}
                 style={{
@@ -296,21 +294,17 @@ export default function AdminHomeComp() {
                 }}
                 whileHover={{ scale: 1.1 }}
               >
-
                 {ticket.content}
-
               </motion.div>
             ))}
           </div>
         </div>
       </div>
 
-
       <div className="md:w-1/2 w-full bg-slate-200 md:pb-0 pb-4">
         <div className="flex justify-center md:space-x-20 md:flex-row flex-col items-center md:pt-10 space-y-10 md:space-y-0">
           <div className="w-48 h-48 bg-gradient-to-r from-purple-600  to-blue-600 rounded-full flex text-white justify-center items-center text-center flex-col space-y-2">
             <div className="text-6xl">{studentDetails.length}</div>{" "}
-
             <div className="uppercase font-semibold text-sm">Students</div>
           </div>
 
@@ -325,13 +319,9 @@ export default function AdminHomeComp() {
   );
 }
 
-
 function getHeight(items: number[]) {
-
   const totalHeight = items.length * height;
   const totalPadding = (items.length - 1) * padding;
   const totalScroll = totalHeight + totalPadding;
   return totalScroll;
-
-} 
-
+}
