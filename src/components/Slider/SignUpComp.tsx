@@ -1,10 +1,56 @@
+import app from "@/app/firebase";
+import { FirebaseError } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import React from "react";
 import { useState } from "react";
+
+
+interface AdminLogin {
+ 
+  email: string;
+  password : string;
+}
+
 
 const SignUpComp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [formData, setFormData] = useState<AdminLogin>({
+    email: "",
+    password: "",
+    
+  });
+
+  const [error, setError] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleAdminLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    console.log("handlelogin function called");
+
+    const { email, password } = formData;
+
+    try {
+      const auth = getAuth(app);
+      await signInWithEmailAndPassword(auth, email, password);
+      setError(null);
+      window.location.href = "/AdminHome";
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        console.log(error);
+      }
+    }
+  };
+  
   return (
     <div className="selection:bg-indigo-500 selection:text-white">
       <div className="flex justify-center items-center">
@@ -21,6 +67,8 @@ const SignUpComp = () => {
                     id="signin-email"
                     name="email"
                     type="text"
+                    onChange={handleChange}
+                    value={formData.email}
                     className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-indigo-600"
                     placeholder="john@doe.com"
                   />
@@ -36,6 +84,8 @@ const SignUpComp = () => {
                     id="signin-password"
                     type="password"
                     name="password"
+                    onChange={handleChange}
+                    value={formData.password}
                     className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-indigo-600"
                     placeholder="Password"
                   />
