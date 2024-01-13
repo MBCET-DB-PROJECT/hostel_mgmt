@@ -20,6 +20,7 @@ import { FaLinkedin } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { useRef } from "react";
 import Diya from "./../../public/Diya.png";
+import Toast from "@/components/Toast";
 import {
   motion,
   useAnimation,
@@ -66,7 +67,7 @@ export default function Home() {
     }
     console.log("Page scroll: ", latest);
   });
-
+  const [showToast, setShowToast] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = scrollY.get();
@@ -140,9 +141,9 @@ export default function Home() {
   };
 
   const handleAdminSignup = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
     const auth = getAuth(app);
+
+    setShowToast(true);
 
     const { name, email, password } = formData;
     try {
@@ -203,7 +204,6 @@ export default function Home() {
   const renderPopup = (member: string, showPopup: boolean) => {
     let popupContent = "";
 
-    // Set different content for each member
     switch (member) {
       case "Abhishek":
         popupContent = "Whens GTA VI coming out again?";
@@ -248,7 +248,7 @@ export default function Home() {
             <div className="md:w-[90%] w-[95%] h-full bg-opacity-0.2 backdrop-filter backdrop-blur-3xl p-1  m-2 z-2 rounded-full shadow-xl text-slate-800 font-semibold">
               <div className="flex items-center relative justify-between">
                 <a
-                  href="#_"
+                  href="#login"
                   className="relative inline-flex items-center justify-center p-2 ml-2 
                   overflow-hidden font-medium text-black transition duration-300 ease-out border-2 border-black rounded-full shadow-md group"
                 >
@@ -401,7 +401,7 @@ export default function Home() {
               >
                 {" "}
                 <a
-                  href="#_"
+                  href="#adminsignup"
                   className="mt-5 ml-28 relative inline-flex items-center justify-center inline-block p-4 px-5 py-3 overflow-hidden font-medium text-indigo-600 rounded-lg shadow-2xl group"
                 >
                   <span className="absolute top-0 left-0 w-40 h-40 -mt-10 -ml-3 transition-all duration-700 bg-indigo-600 rounded-full blur-md ease"></span>
@@ -626,7 +626,7 @@ export default function Home() {
 
         <LoginComponent />
       </div>
-      <div className="bg-gray-100 ">
+      <div id="adminsignup" className="bg-gray-100 ">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <div className="w-full bg-white rounded-lg  md:mt-0 sm:max-w-md xl:p-0 shadow-lg">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -672,13 +672,16 @@ export default function Home() {
                   <label className="block mb-2 text-sm font-medium text-gray-900 ">
                     Password
                   </label>
+                  <p className="text-xs text-gray-400 ">
+                    (minimum pw length is 6 characters)
+                  </p>
                   <input
                     type="password"
                     name="password"
                     id="password"
                     onChange={handleChange}
                     value={formData.password}
-                    placeholder="••••••••"
+                    placeholder="••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                   />
                 </div>
@@ -688,7 +691,7 @@ export default function Home() {
                   </label>
                   <input
                     type="password"
-                    placeholder="••••••••"
+                    placeholder="••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                   />
                 </div>
@@ -700,6 +703,13 @@ export default function Home() {
                   Create an account
                 </button>
               </form>
+              {showToast && (
+                <Toast
+                  message="Account created successfully."
+                  type="success"
+                  onClose={() => setShowToast(false)}
+                />
+              )}
             </div>
           </div>
           <h1 className="text-sm mt-4 text-gray-500">
