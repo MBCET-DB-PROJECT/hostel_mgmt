@@ -7,14 +7,14 @@ import Link from "next/link";
 import TicketDetails from "./../data/TicketDetails.json";
 import { useEffect } from "react";
 import EditTickets from "./EditTickets";
-
+import { motion } from "framer-motion";
+import "./../app/globals.css";
 import AdminTicketsComp from "@/components/AdminTicketsComp";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import app, { auth } from "@/app/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 //import AdminTicketsComp from "@/components/AdminTicketsComp";
-
 
 interface SidebarProps {
   isOpen: boolean;
@@ -71,7 +71,7 @@ const AdminTicket: React.FC = () => {
 
   const checkAdminStatus = async (uid: string) => {
     const db = getFirestore(app);
-    const adminCollectionRef = collection(db, 'admin');
+    const adminCollectionRef = collection(db, "admin");
 
     try {
       const querySnapshot = await getDocs(adminCollectionRef);
@@ -83,7 +83,7 @@ const AdminTicket: React.FC = () => {
 
         if (adminData && adminData.roles && adminData.roles.includes(uid)) {
           isAdmin = true;
-          console.log('User is an admin in document:', doc.id);
+          console.log("User is an admin in document:", doc.id);
         }
       });
 
@@ -91,10 +91,10 @@ const AdminTicket: React.FC = () => {
       setLoading(false);
 
       if (!isAdmin) {
-        console.log('User is not an admin');
+        console.log("User is not an admin");
       }
     } catch (error) {
-      console.error('Error fetching admin data:', error);
+      console.error("Error fetching admin data:", error);
       setIsAdmin(false);
       setLoading(false);
     }
@@ -108,7 +108,6 @@ const AdminTicket: React.FC = () => {
     }
   }, [user]);
 
- 
   useEffect(() => {
     window.addEventListener("click", handleOutsideClick);
 
@@ -116,67 +115,85 @@ const AdminTicket: React.FC = () => {
       window.removeEventListener("click", handleOutsideClick);
     };
   }, [isDropdownOpen]);
-  
+
   if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-
-  if (!isAdmin) {
     return (
-      <div>
-        <p>Access denied for non-admin users.</p>
+      <div className="flex justify-center items-center h-screen flex-col">
+        <motion.div
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 30,
+            backgroundColor: "#8e24aa",
+          }}
+          animate={{ rotate: 360 }}
+          transition={{ ease: "linear", duration: 2, repeat: Infinity }}
+        />
+        <div className="p-8 font-semibold">Loading</div>
       </div>
     );
   }
-  
+
+  if (!isAdmin) {
+    return (
+      <div className="flex justify-center items-center h-screen flex-col">
+        <motion.div
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 30,
+            backgroundColor: "#8e24aa",
+          }}
+          animate={{ rotate: 360 }}
+          transition={{ ease: "linear", duration: 2, repeat: Infinity }}
+        />
+        <div className="p-8 font-semibold">Checking access</div>
+      </div>
+    );
+  }
 
   return (
     <div>
-      {!isAdmin &&  (
-      <div>
-        <p>Access denied for non-admin users.</p>
-        {/* You can add more UI elements or a redirect logic here */}
-      </div>
-    )}
-      {isAdmin && ( 
-        <>
-      <TopBar onSidebarToggle={handleSidebarToggle} />
-      <div className="flex">
-        <div
-          className={`md:block md:w-1/6 bg-white h-screen shadow-lg ${
-            isSidebarOpen ? "block" : "hidden"
-          }`}
-        >
-          <Sidebar isOpen={isSidebarOpen} />
+      {!isAdmin && (
+        <div>
+          <p>Access denied for non-admin users.</p>
+          {/* You can add more UI elements or a redirect logic here */}
         </div>
-        <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
-          <div className="flex justify-between text-center">
-            <h1 className="mt-6 font-semibold text-3xl flex-1">Tickets</h1>
-            <Link
-              href="/EditTickets"
-              className={`mt-6 mr-4 px-2 py-2 bg-gray-400 rounded-lg hover:bg-gray-300 flex ${
-                isSidebarOpen ? "hidden md:block" : ""
+      )}
+      {isAdmin && (
+        <>
+          <TopBar onSidebarToggle={handleSidebarToggle} />
+          <div className="flex">
+            <div
+              className={`md:block md:w-1/6 bg-white h-screen shadow-lg ${
+                isSidebarOpen ? "block" : "hidden"
               }`}
             >
-              <FaEdit size={22} className="mr-1" />
-              Edit Tickets
-            </Link>
+              <Sidebar isOpen={isSidebarOpen} />
+            </div>
+            <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
+              <div className="flex justify-between text-center">
+                <h1 className="mt-6 font-semibold text-3xl flex-1">Tickets</h1>
+                <Link
+                  href="/EditTickets"
+                  className={`mt-6 mr-4 px-2 py-2 bg-gray-400 rounded-lg hover:bg-gray-300 flex ${
+                    isSidebarOpen ? "hidden md:block" : ""
+                  }`}
+                >
+                  <FaEdit size={22} className="mr-1" />
+                  Edit Tickets
+                </Link>
+              </div>
+
+              <AdminTicketsComp ticketId="" />
+            </div>
           </div>
-
-          <AdminTicketsComp ticketId=""/>
-
-          
-        </div>
-      </div>
-      </>    
-      )}   
+        </>
+      )}
     </div>
   );
 };
 
-
 export default AdminTicket;
 
 //export default AdminTicket;
-

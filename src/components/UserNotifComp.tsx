@@ -14,6 +14,8 @@ import CreateNotifications from "./../pages/CreateNotifications";
 import { MdDelete } from "react-icons/md";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import app from "@/app/firebase";
+import { motion } from "framer-motion";
+import "./../app/globals.css";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -22,12 +24,10 @@ interface SidebarProps {
 interface Notification {
   notifId: string;
   content: string;
-  timestamp:any;
+  timestamp: any;
 }
 
-
-
-const UserNotifComp: React.FC= () => {
+const UserNotifComp: React.FC = () => {
   const students = StudentData;
 
   const [isSidebarOpen, setSidebarOpen] = useState(false); //to check whether sidebar is open in responsive view
@@ -37,7 +37,7 @@ const UserNotifComp: React.FC= () => {
   //to map student list
   const [notifsList, setNotifsList] = useState<Notification[]>([]);
   const [selectedNotif, setSelectedNotif] = useState<any>(null);
-  const [loadingData,setLoadingData] = React.useState(true);
+  const [loadingData, setLoadingData] = React.useState(true);
 
   const handleSidebarToggle = () => {
     //handles sidebar open or not in mobile view
@@ -47,36 +47,34 @@ const UserNotifComp: React.FC= () => {
   const fetchNotifications = async () => {
     try {
       const db = getFirestore(app);
-      const notifsRef  = collection(db,"Notification");
-  
+      const notifsRef = collection(db, "Notification");
+
       const notifSnapshot = await getDocs(notifsRef);
-  
+
       const notifDetailsArray: Notification[] = [];
-  
+
       notifSnapshot.forEach((notifDoc) => {
         const notifData = notifDoc.data() as Notification;
-  
-        const notificationId = {...notifData,notifId: notifDoc.id}
-  
+
+        const notificationId = { ...notifData, notifId: notifDoc.id };
+
         notifDetailsArray.push(notificationId);
-      
       });
-        if(notifDetailsArray.length > 0) {
-          console.log("Notification data loaded",notifDetailsArray);
-          setNotifsList(notifDetailsArray);
-        } else {
-          console.log("No Notifications found");
-        }
-    } catch (error)
-    {
+      if (notifDetailsArray.length > 0) {
+        console.log("Notification data loaded", notifDetailsArray);
+        setNotifsList(notifDetailsArray);
+      } else {
+        console.log("No Notifications found");
+      }
+    } catch (error) {
       console.error("Error fetching notification details", error);
     } finally {
       setLoadingData(false);
-    };
+    }
   };
-  
+
   React.useEffect(() => {
-   fetchNotifications();
+    fetchNotifications();
   }, []);
 
   useEffect(() => {
@@ -88,9 +86,22 @@ const UserNotifComp: React.FC= () => {
     }
   }, [isModalOpen]);
 
-  
   if (loadingData) {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex justify-center items-center h-screen flex-col">
+        <motion.div
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 30,
+            backgroundColor: "#8e24aa",
+          }}
+          animate={{ rotate: 360 }}
+          transition={{ ease: "linear", duration: 2, repeat: Infinity }}
+        />
+        <div className="p-8 font-semibold">Loading</div>
+      </div>
+    );
   }
 
   const handleStudentClick = (student: any) => {
@@ -99,13 +110,10 @@ const UserNotifComp: React.FC= () => {
     setModalOpen(true);
   };
   const handleNotifClick = (notif: any) => {
-  
     setSelectedNotif(notif);
     setModalOpen(true);
   };
 
-
-  
   return (
     <div>
       {isModalOpen && selectedNotif && (

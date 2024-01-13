@@ -8,7 +8,8 @@ import {
   getFirestore,
 } from "firebase/firestore";
 import app from "@/app/firebase";
-
+import { motion } from "framer-motion";
+import "./../app/globals.css";
 interface Tickets {
   content: string;
   ticketId: string;
@@ -121,7 +122,21 @@ const AdminTicketsComp: React.FC<{ ticketId: string }> = ({ ticketId }) => {
   }, []);
 
   if (loadingData) {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex justify-center items-center h-screen flex-col">
+        <motion.div
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 30,
+            backgroundColor: "#8e24aa",
+          }}
+          animate={{ rotate: 360 }}
+          transition={{ ease: "linear", duration: 2, repeat: Infinity }}
+        />
+        <div className="p-8 font-semibold">Loading</div>
+      </div>
+    );
   }
 
   return (
@@ -139,7 +154,9 @@ const AdminTicketsComp: React.FC<{ ticketId: string }> = ({ ticketId }) => {
                     <div className="flex justify-between py-2">
                       <div>{ticket.content}</div>
                       <div className="flex flex-row space-x-5">
-                        <div>Students raised: {ticket.studentDetails.length}</div>
+                        <div>
+                          Students raised: {ticket.studentDetails.length}
+                        </div>
                         <button
                           className="p-1 bg-gray-300 rounded-md hover:bg-gray-200"
                           onClick={(e) => toggleDropdown(e, ticket.ticketId)}

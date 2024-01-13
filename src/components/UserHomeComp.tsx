@@ -8,6 +8,8 @@ import studentData from "./../data/StudentDetails.json";
 import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import app, { auth } from "@/app/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { motion } from "framer-motion";
+import "./../app/globals.css";
 
 interface StudentDetails {
   name: string;
@@ -25,8 +27,6 @@ interface StudentDetails {
   guardian: string;
   grdphn: number;
 }
-
-
 
 const UserHomeComp: React.FC = () => {
   const [formData, setFormData] = useState<StudentDetails>({
@@ -50,7 +50,9 @@ const UserHomeComp: React.FC = () => {
   const [image, setImage] = useState<string | null>(null);
   const [isModalOpen, setModalOpen] = useState(false);
   const [showEditToast, setShowEditToast] = useState(false);
-  const [studentDetails,setStudentDetails] = useState<StudentDetails | null>(null);
+  const [studentDetails, setStudentDetails] = useState<StudentDetails | null>(
+    null
+  );
   const [isBlurry, setBlurry] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [user] = useAuthState(auth);
@@ -80,39 +82,36 @@ const UserHomeComp: React.FC = () => {
     stdId: string
   ): Promise<StudentDetails | null> => {
     try {
-
       const db = getFirestore(app);
-      const studentRef = doc(db,`student/${stdId}`);
+      const studentRef = doc(db, `student/${stdId}`);
       const studentsSnaphot = await getDoc(studentRef);
 
-      
-      if(studentsSnaphot.exists()) {
+      if (studentsSnaphot.exists()) {
         const fetchStudentData = studentsSnaphot.data() as StudentDetails;
-        return fetchStudentData;  
-       } else {
+        return fetchStudentData;
+      } else {
         console.log("Post not found");
         return null;
-       } 
+      }
     } catch (error) {
-      console.error("Error fetching post data:",error);
+      console.error("Error fetching post data:", error);
 
       return null;
     }
   };
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (stdId === undefined) {
-          console.error("Srudent doesnt exist", stdId);
+          console.error("Student doesnt exist", stdId);
           return;
         }
-  
+
         const fetchedStudentData = await fetchStudDataFromFirestore(
           stdId as string
         );
-  
+
         if (fetchedStudentData) {
           // Set the initial form data with the existing student details
           setFormData({
@@ -123,15 +122,15 @@ const UserHomeComp: React.FC = () => {
             semester: fetchedStudentData.semester,
             roomno: fetchedStudentData.roomno,
             imageUrl: fetchedStudentData.imageUrl,
-            photo: null, // You may need to handle the photo separately if needed
+            photo: null,
             feespaid: fetchedStudentData.feespaid,
             role: fetchedStudentData.role,
             stdphn: fetchedStudentData.stdphn,
             address: fetchedStudentData.address,
-            guardian:fetchedStudentData.guardian,
-            grdphn:fetchedStudentData.grdphn
+            guardian: fetchedStudentData.guardian,
+            grdphn: fetchedStudentData.grdphn,
           });
-  
+
           setIsChecked(fetchedStudentData.feespaid);
 
           // Handle the image separately if available
@@ -147,10 +146,9 @@ const UserHomeComp: React.FC = () => {
         console.error("Error fetching student details", error);
       }
     };
-  
+
     fetchData();
   }, [stdId]);
-
 
   const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
     setIsChecked(e.target.checked);
@@ -160,8 +158,6 @@ const UserHomeComp: React.FC = () => {
     }));
   };
 
-
-   
   useEffect(() => {
     if (isModalOpen) {
       setBlurry(true);
@@ -171,113 +167,136 @@ const UserHomeComp: React.FC = () => {
   }, [isModalOpen]);
 
   if (stdId === undefined || studentDetails === null) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen flex-col w-screen">
+        <motion.div
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 30,
+            backgroundColor: "#8e24aa",
+          }}
+          animate={{ rotate: 360 }}
+          transition={{ ease: "linear", duration: 2, repeat: Infinity }}
+        />
+        <div className="p-8 font-semibold">Loading</div>
+      </div>
+    );
   }
 
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    const { name, email, password, roomno, stdclass, semester, feespaid, role, photo,stdphn,address,guardian,grdphn } = formData;
-    e.preventDefault ();
+    const {
+      name,
+      email,
+      password,
+      roomno,
+      stdclass,
+      semester,
+      feespaid,
+      role,
+      photo,
+      stdphn,
+      address,
+      guardian,
+      grdphn,
+    } = formData;
+    e.preventDefault();
     try {
       const db = getFirestore(app);
 
-      const studentDocRef = doc(db,"student",stdId);
+      const studentDocRef = doc(db, "student", stdId);
 
       const studentData = {
         stdphn: stdphn,
         address: address,
-        guardian:guardian,
-        grdphn:grdphn
+        guardian: guardian,
+        grdphn: grdphn,
       };
 
-      await updateDoc(studentDocRef,studentData);
-     
+      await updateDoc(studentDocRef, studentData);
+
       console.log("Student details updated successfully");
       window.location.reload();
-      
-    } catch(error:any) {
-      console.error("Error updating student details", error.code, error.message);
+    } catch (error: any) {
+      console.error(
+        "Error updating student details",
+        error.code,
+        error.message
+      );
     }
-  }
-
+  };
 
   return (
     <div className="w-full flex justify-center ">
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg md:w-1/3 w-full mx-4">
+          <div className="bg-white p-8 rounded-md shadow-lg md:w-1/3 w-full mx-4">
             <div className="flex justify-between">
               <h2 className="text-xl font-semibold ">Edit Details</h2>
               <button onClick={() => setModalOpen(false)}>
                 <IoClose size={26} className="hover:bg-red-300 rounded-md" />
               </button>
             </div>
-            <form onSubmit = {handleSubmit}>
-            <div className="flex justify-center flex-col p-5  space-y-3 mt-2">
-              
-              <div className="flex flex-row text-lg">
-                {" "}
-                <p className="font-semibold ">Students Phone : </p>
-                <p className="ml-4">
+            <form onSubmit={handleSubmit}>
+              <div className="flex justify-center flex-col p-5  space-y-3 mt-2">
+                <div className="flex flex-row text-lg">
                   {" "}
-                  <input
-                   type="number"  // Change type to "number"
-                   name="grdphn"
-                   onChange={handleChange}
-                   value={formData?.grdphn?.toString() || ""}
-                    
-                  />
-                  {/*ignore the error above,the thingy works fine...until it doesnt but anyways,...build error here*/}
-                </p>
+                  <p className="font-semibold ">Students Phone : </p>
+                  <p className="ml-4">
+                    {" "}
+                    <input
+                      type="number" // Change type to "number"
+                      name="grdphn"
+                      onChange={handleChange}
+                      value={formData?.grdphn?.toString() || ""}
+                    />
+                    {/*ignore the error above,the thingy works fine...until it doesnt but anyways,...build error here*/}
+                  </p>
+                </div>
+                <div className="flex flex-row text-lg">
+                  {" "}
+                  <p className="font-semibold ">Address : </p>
+                  <p className="ml-4">
+                    <input
+                      type="text"
+                      name="address"
+                      onChange={handleChange}
+                      value={formData?.address || ""}
+                    />
+                  </p>
+                </div>
+                <div className="flex flex-row text-lg">
+                  {" "}
+                  <p className=" font-semibold">Local Guardian : </p>
+                  <p className="ml-4">
+                    <input
+                      type="text"
+                      name="guardian"
+                      onChange={handleChange}
+                      value={formData.guardian || ""}
+                    />
+                  </p>
+                </div>
+                <div className="flex flex-row text-lg">
+                  {" "}
+                  <p className=" font-semibold">Phone : </p>
+                  <p className="ml-4">
+                    <input
+                      type="number" // Change type to "number"
+                      name="stdphn"
+                      onChange={handleChange}
+                      value={formData?.stdphn?.toString() || ""}
+                    />
+                  </p>
+                </div>
               </div>
-              <div className="flex flex-row text-lg">
-                {" "}
-                <p className="font-semibold ">Address : </p>
-                <p className="ml-4">
-                  <input
-                    type="text"
-                    name ="address"
-                    onChange={handleChange}
-                    value={formData?.address || ''}
-                   
-                  />
-                </p>
-              </div>
-              <div className="flex flex-row text-lg">
-                {" "}
-                <p className=" font-semibold">Local Guardian : </p>
-                <p className="ml-4">
-                  <input
-                    type="text"
-                    name="guardian"
-                    onChange={handleChange}
-                    value={formData.guardian || ''}
-                    
-                  />
-                </p>
-              </div>
-              <div className="flex flex-row text-lg">
-                {" "}
-                <p className=" font-semibold">Phone : </p>
-                <p className="ml-4">
-                  <input
-                     type="number"  // Change type to "number"
-                     name="stdphn"
-                     onChange={handleChange}
-                     value={formData?.stdphn?.toString() || ""}
-                   
-                  />
-                </p>
-              </div>
-            </div>
-           
-            <button
-              type="submit"
-             
-              className="bg-blue-500 text-white px-4 py-2 rounded mt-2 hover:bg-blue-400"
-            >
-              Save
-            </button>
+
+              <button
+                type="submit"
+                className="bg-blue-500 text-white px-4 py-2 rounded mt-2 hover:bg-blue-400"
+              >
+                Save
+              </button>
             </form>
           </div>
         </div>
@@ -292,15 +311,15 @@ const UserHomeComp: React.FC = () => {
         </>
       )}
       <div
-        className={`flex flex-col justify-center space-y-10 md:p-10 p-5 w-full  ${
+        className={`flex flex-col  space-y-10 md:p-10 p-5 w-full  ${
           isBlurry ? "blur" : ""
         }`}
       >
-        <div className="font-semibold text-3xl">
+        <div className="font-semibold text-3xl p-5">
           Welcome&nbsp;back&nbsp;{formData.name}!
         </div>
         <div className="flex md:flex-row flex-col md:justify-around w-full  md:space-x-10 space-y-10 md:space-y-0 ">
-          <div className="w-full md:w-1/2 h-64 md:h-64 shadow-lg bg-gradient-to-b from-blue-600 to-slate-300  rounded-3xl transition-transform duration-300 hover:scale-105">
+          <div className="w-full md:w-1/2 h-64 md:h-64 shadow-lg bg-gradient-to-b from-blue-600 to-slate-300  rounded-lg transition-transform duration-300 hover:scale-105">
             <div className="flex justify-between h-full m-2  ">
               <div className="w-1/2  h-full rounded-md flex justify-center items-center  ">
                 <img
@@ -315,7 +334,7 @@ const UserHomeComp: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-1/2 h-64 md:h-64 shadow-lg bg-gradient-to-b from-blue-600 to-slate-300 rounded-3xl relative pb-4 pl-4 transition-transform duration-300 hover:scale-105">
+          <div className="w-full md:w-1/2 h-64 md:h-64 shadow-lg bg-gradient-to-b from-blue-600 to-slate-300 rounded-lg relative pb-4 pl-4 transition-transform duration-300 hover:scale-105">
             <div className="absolute top-5 right-5">
               <button
                 onClick={() => setModalOpen(true)}
@@ -351,7 +370,7 @@ const UserHomeComp: React.FC = () => {
         </div>
         <div className="flex flex-row flex-wrap justify-around w-full space-y-10 md:space-y-0 bg-white rounded-3xl shadow-lg">
           <div className="w-full sm:w-1/2 md:w-1/3 p-4 ">
-            <div className="bg-gradient-to-b from-blue-500 to-slate-300  rounded-3xl shadow-lg transition-transform duration-300 hover:scale-105 p-6">
+            <div className="bg-gradient-to-b from-blue-500 to-slate-300  rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 p-6">
               <div className="flex justify-center items-center text-center">
                 <div className="flex flex-col space-y-2 justify-center items-center">
                   <p className="text-6xl flex justify-center items-center">
@@ -365,7 +384,7 @@ const UserHomeComp: React.FC = () => {
             </div>
           </div>
           <div className="w-full sm:w-1/2 md:w-1/3 p-4">
-            <div className="bg-gradient-to-b from-blue-500 to-slate-300  rounded-3xl shadow-lg transition-transform duration-300 hover:scale-105 p-6">
+            <div className="bg-gradient-to-b from-blue-500 to-slate-300  rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 p-6">
               <div className="flex justify-center items-center text-center">
                 <div className="flex flex-col space-y-2 justify-center items-center">
                   <p className="text-6xl flex justify-center items-center">
@@ -377,7 +396,7 @@ const UserHomeComp: React.FC = () => {
             </div>
           </div>
           <div className="w-full sm:w-1/2 md:w-1/3 p-4">
-            <div className="bg-gradient-to-b from-blue-500 to-slate-300  rounded-3xl shadow-lg transition-transform duration-300 hover:scale-105 p-6">
+            <div className="bg-gradient-to-b from-blue-500 to-slate-300  rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 p-6">
               <div className="flex justify-center items-center text-center">
                 <div className="flex flex-col space-y-2 justify-center items-center">
                   <div className="flex flex-col space-y-2 justify-center items-center">
