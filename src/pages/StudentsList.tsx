@@ -134,11 +134,11 @@ const StudentsList: React.FC = () => {
                   }`}
                 >
                   <h1
-                    className={`mt-6 font-semibold text-3xl flex-1 ${
+                    className={`mt-6 font-semibold text-4xl flex-1 ${
                       isModalOpen ? "blur" : ""
                     }`}
                   >
-                    Students List
+                    Users List
                   </h1>
                   <Link
                     href="/CreateStudent"

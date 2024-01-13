@@ -16,22 +16,19 @@ import { FaPeopleGroup } from "react-icons/fa6";
 
 import { auth } from "@/app/firebase";
 
-
-
 interface SidebarProps {
   isOpen: boolean;
 }
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
-
   const handleLogout = async () => {
     try {
-      console.log("logged out")
+      console.log("logged out");
       await auth.signOut();
-      window.location.href ="/Landing"
-    } catch (error : any) {
-      console.log("Error creating user",error.code,error.message);
+      window.location.href = "/Landing";
+    } catch (error: any) {
+      console.log("Error creating user", error.code, error.message);
     }
-  }
+  };
 
   return (
     <div className="p-4 text-black h-screen   flex flex-col justify-between">
@@ -52,7 +49,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
           <div className="w-1/3 flex justify-center">
             <PiStudentFill size={28} />
           </div>
-          <h1 className="flex">Students</h1>
+          <h1 className="flex">Users</h1>
         </Link>
         <Link
           href="/AdminNotifications"
@@ -89,18 +86,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
             <FaPeopleGroup size={28} />
           </div>
 
-          <h1 className="flex">Add&nbsp;Students</h1>
+          <h1 className="flex">Add&nbsp;Users</h1>
         </Link>
       </h1>
       <div className="sticky bottom-4 text-center flex justify-center items-center">
         <Link
           href="/Landing"
-
           onClick={handleLogout}
           className="hover:bg-gray-200 p-3 text-red-700 w-full rounded-lg flex"
-
-        
-
         >
           <div className="w-1/3 flex justify-center ">
             <TbLogout2 size={26} />

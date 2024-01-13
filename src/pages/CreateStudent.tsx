@@ -306,7 +306,7 @@ const CreateStudent: React.FC = () => {
             </div>
             <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full ">
               <div className="flex justify-center text-center">
-                <h1 className=" mt-6 font-semibold text-3xl">Add Students</h1>
+                <h1 className=" mt-6 font-semibold text-3xl">Add Users</h1>
               </div>
               <div className="flex bg-slate-2 00">
                 <div className="m-auto">
