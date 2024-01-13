@@ -143,6 +143,7 @@ const AdminRooms: React.FC = () => {
               <RoomDetails />
 
               <div className="mt-5 flex justify-center">
+
               <form>
               <div className="flex justify-center items-center w-1/6">
                 <input
@@ -158,6 +159,7 @@ const AdminRooms: React.FC = () => {
                 </button>
             </form>
               
+
               </div>
             </div>
           </div>
