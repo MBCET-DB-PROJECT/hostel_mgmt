@@ -32,7 +32,7 @@ const SignUpComp = () => {
     }));
   };
 
-  const handleAdminLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
+  const handleAdminLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     console.log("handlelogin function called");
@@ -61,7 +61,9 @@ const SignUpComp = () => {
               <h1 className="text-5xl font-bold text-indigo-600">
                 Welcome Back!
               </h1>
-              <form className="mt-12" action="" method="POST">
+              <form
+              onSubmit={handleAdminLogin}
+              className="mt-12" action="" method="POST">
                 <div className="relative">
                   <input
                     id="signin-email"

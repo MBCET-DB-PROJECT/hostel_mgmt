@@ -78,35 +78,38 @@ export default function AdminHomeComp() {
     ["calc(0% - 0px)", "calc(100% - 40px)"]
   );
 
-  const fetchAdminData = async (userId: string) => {
-    try {
-      const db = getFirestore(app);
-      const adminsRef = collection(db, "admin");
-      const adminsSnapshot = await getDocs(adminsRef);
+  // Inside the fetchAdminData function
+  // Inside the fetchAdminData function
+  const fetchAdminData = async (adminId: string) => {
+    const db = getFirestore(app);
+    const adminRef = doc(db, `admin/${adminId}`);
+    const adminSnapshot = await getDoc(adminRef);
 
-      for (const adminDoc of adminsSnapshot.docs) {
-        const adminData = adminDoc.data() as Admin;
-
-        if (adminData.role === userId) {
-          console.log("Admin data loaded:", adminData);
-          setAdminData(adminData);
-          return; // Exit the loop once admin is found
-        }
-      }
-
-      console.log("Admin details not found for user:", userId);
+    if (adminSnapshot.exists()) {
+      const fetchedAdminData = adminSnapshot.data() as Admin;
+      setAdminData(fetchedAdminData);
+    } else {
+      console.log("Admin details not found");
       setAdminData(null);
-    } catch (error) {
-      console.error("Error fetching admin details", error);
     }
   };
 
+  // Inside the useEffect that fetches admin data
   useEffect(() => {
     if (user) {
       console.log("Fetching admin data for user:", user.uid);
       fetchAdminData(user.uid);
     }
   }, [user]);
+
+  // Inside the return statement
+  console.log("Admin data:", adminData);
+
+  // After setting the adminData state
+  console.log(
+    "Admin data after setting state:",
+    adminData?.name || "No admin data"
+  );
 
   const fetchNotifications = async () => {
     try {
@@ -213,8 +216,9 @@ export default function AdminHomeComp() {
       <div className="min-h-screen md:w-1/2 w-full">
         <div className="md:p-10 p-5 min-h-screen flex flex-col space-y-10">
           <p className="text-5xl text-black font-semibold md:p-0 p-2">
-            Welcome {adminData?.name || "Admin"} !
+            Welcome {adminData?.name ? adminData.name.split(" ")[0] : "Admin"}!
           </p>
+
           <div className="flex justify-center items-center flex-col pt-30">
             <h1 className="p-4 text-lg font-semibold text-gray-400">
               Latest Notifications
@@ -318,7 +322,7 @@ export default function AdminHomeComp() {
           </div>
 
           <div className="w-48 h-48 bg-gradient-to-r from-purple-600  to-blue-600 rounded-full flex text-white justify-center items-center text-center flex-col space-y-2">
-            <div className="text-6xl">30</div>{" "}
+            <div className="text-6xl">50 </div>{" "}
             <div className="uppercase font-semibold text-sm">Rooms</div>
           </div>
         </div>

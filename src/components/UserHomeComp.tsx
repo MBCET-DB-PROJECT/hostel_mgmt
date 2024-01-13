@@ -297,7 +297,7 @@ const UserHomeComp: React.FC = () => {
         }`}
       >
         <div className="font-semibold text-3xl">
-          Welcome&nbsp;Back&nbsp;{formData.name}!
+          Welcome&nbsp;back&nbsp;{formData.name}!
         </div>
         <div className="flex md:flex-row flex-col md:justify-around w-full  md:space-x-10 space-y-10 md:space-y-0 ">
           <div className="w-full md:w-1/2 h-64 md:h-64 shadow-lg bg-gradient-to-b from-blue-600 to-slate-300  rounded-3xl transition-transform duration-300 hover:scale-105">
