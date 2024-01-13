@@ -16,6 +16,7 @@ interface Room {
   id: number;
   number: number;
   status: string;
+  count?: number;
 }
 
 interface RoomDetailsProps {}
@@ -51,6 +52,7 @@ const RoomDetails: React.FC<RoomDetailsProps> = ({}) => {
         id: parseInt(roomno),
         number: parseInt(roomno),
         status: count > 0 ? "occupied" : "unoccupied",
+        count: count, // Added count property to Room object
       }));
 
       setRoomDetails(uniqueRoomDetails);
@@ -60,7 +62,6 @@ const RoomDetails: React.FC<RoomDetailsProps> = ({}) => {
       setLoadingData(false);
     }
   };
-
   React.useEffect(() => {
     fetchRoomDetails();
   }, []);
@@ -97,7 +98,7 @@ const RoomDetails: React.FC<RoomDetailsProps> = ({}) => {
           key={room.id}
           className="mt-2 flex items-center justify-center border-b p-3 border-black"
         >
-          Room {room.number}
+          Room {room.number} (Occupied: {room.count})
         </div>
       ))}
     </div>
