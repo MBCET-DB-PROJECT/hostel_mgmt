@@ -12,7 +12,6 @@ import Blob from "../components/Blob";
 import Head from "next/head";
 import { FaCircle } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
-//import { LoginPage } from "../components";
 import { FaStarOfLife } from "react-icons/fa";
 import MyIcosahedronGeometry from "../components/Blob/MyIcosahedronGeometry";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -31,7 +30,11 @@ import {
 } from "framer-motion";
 
 import { useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import app, { auth } from "@/app/firebase";
 import { FirebaseError } from "firebase/app";
 
@@ -41,12 +44,11 @@ import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 interface AdminSignup {
-  name : string;
-  role : string;
+  name: string;
+  role: string;
   email: string;
-  password : string;
+  password: string;
 }
-
 
 export default function Home() {
   const controls = useAnimation();
@@ -137,12 +139,11 @@ export default function Home() {
     }
   };
 
-
   const handleAdminSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     const auth = getAuth(app);
-  
+
     const { name, email, password } = formData;
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -151,37 +152,91 @@ export default function Home() {
         password
       );
       const admin = userCredential.user;
-  
+
       console.log("Admin user ID:", admin.uid); // Log the admin user ID
-  
+
       const db = getFirestore(app);
       const adminDocRef = doc(db, "admin", admin.uid);
       const adminData = {
         name,
-        roles: admin.uid
+        roles: admin.uid,
       };
-  
+
       await setDoc(adminDocRef, adminData);
-  
+
       console.log("User created and stored");
       window.location.href = "/AdminHome";
     } catch (error: any) {
       console.error("Error creating user", error.code, error.message);
     }
   };
-  
+  //popuppppppppp
+  const [popupAbhishek, setPopupAbhishek] = useState<boolean>(false);
+  const [popupGayathri, setPopupGayathri] = useState<boolean>(false);
+  const [popupAdlu, setPopupAdlu] = useState<boolean>(false);
+  const [popupDiya, setPopupDiya] = useState<boolean>(false);
 
+  const handleButtonClick = (
+    member: string,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    event.preventDefault();
 
+    switch (member) {
+      case "Abhishek":
+        setPopupAbhishek(!popupAbhishek);
+        break;
+      case "Gayathri":
+        setPopupGayathri(!popupGayathri);
+        break;
+      case "Adlu":
+        setPopupAdlu(!popupAdlu);
+        break;
+      case "Diya":
+        setPopupDiya(!popupDiya);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const renderPopup = (member: string, showPopup: boolean) => {
+    let popupContent = "";
+
+    // Set different content for each member
+    switch (member) {
+      case "Abhishek":
+        popupContent = "Whens GTA VI coming out again?";
+        break;
+      case "Gayathri":
+        popupContent = "On the search for my daily dose of caffeine :)";
+        break;
+      case "Adlu":
+        popupContent = "I breathe,eat and live Spotify.";
+        break;
+      case "Diya":
+        popupContent = "Whos gonna put content for me?";
+        break;
+      default:
+        break;
+    }
+
+    if (showPopup) {
+      return (
+        <div
+          id={`popup-${member}`}
+          className="bg-white border text-sm border-gray-200 rounded-lg shadow p-2 flex flex-col items-center"
+        >
+          <p className="text-sm">{popupContent}</p>
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <div className="overflow-x-hidden">
-      <div
-
-      /*style={{
-          backgroundImage:
-            "url(https://hostel-gentileza.hoteis-em-goias.com/data/Images/OriginalPhoto/12056/1205674/1205674189/image-alto-paraiso-de-goias-hostel-gentileza-13.JPEG)",
-        }}*/
-      >
+      <div>
         <motion.div
           style={{ opacity: 0 }}
           initial={{ opacity: 0 }}
@@ -260,9 +315,6 @@ export default function Home() {
         >
           <div className="flex justify-center   ">
             <div className="flex flex-col  mt-20">
-              {/*<span className=" text-xl  text-black">
-                Your home away from home!
-              </span>*/}
               <span className="text-9xl font-extrabold text-black ">
                 RightHere
               </span>
@@ -397,11 +449,6 @@ export default function Home() {
                   className=" aspect-w-1 aspect-h-1 object-cover rounded-lg  "
                 />
               </motion.div>
-              {/*<span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white opacity-0 transition-opacity duration-300 hover:opacity-100">
-                <div className="font-semibold text-blue-500 ">
-                  Abc hostel, Kenya
-                </div>
-              </span>*/}
               <motion.div
                 variants={{
                   hidden: { opacity: 0, y: 70 },
@@ -579,16 +626,17 @@ export default function Home() {
 
         <LoginComponent />
       </div>
-      <div className="bg-gray-100 h-screen">
+      <div className="bg-gray-100 ">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <div className="w-full bg-white rounded-lg  md:mt-0 sm:max-w-md xl:p-0 shadow-lg">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                 Get Started (with) RightHere!
               </h1>
-              <form 
-              onSubmit={handleAdminSignup}
-              className="space-y-4 md:space-y-6">
+              <form
+                onSubmit={handleAdminSignup}
+                className="space-y-4 md:space-y-6"
+              >
                 <div>
                   <label
                     htmlFor="name"
@@ -612,12 +660,10 @@ export default function Home() {
                   </label>
                   <input
                     type="email"
-
                     name="email"
                     id="email"
                     onChange={handleChange}
                     value={formData.email}
-
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                     placeholder="name@company.com"
                   />
@@ -628,12 +674,10 @@ export default function Home() {
                   </label>
                   <input
                     type="password"
-
                     name="password"
                     id="password"
                     onChange={handleChange}
                     value={formData.password}
-
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                   />
@@ -658,6 +702,10 @@ export default function Home() {
               </form>
             </div>
           </div>
+          <h1 className="text-sm mt-4 text-gray-500">
+            *Creating an account raises a ticket and we will be in touch with
+            you soon!
+          </h1>
         </div>
       </div>
 
@@ -668,20 +716,23 @@ export default function Home() {
               <FaStarOfLife className="mt-1 mr-2 " /> Meet the Team
             </div>
             <div className="mt-10 flex justify-between px-10">
-              <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow flex justify-center h-1/2">
-                <a href="#">
+              <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow flex justify-center h-1/2 ">
+                <div>
                   <img
                     className="rounded-full p-2"
                     src="/Abhishek.png"
                     alt=""
                   />
-                </a>
+                </div>
                 <div className="p-5">
-                  <a href="#">
-                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                  <div>
+                    <button
+                      onClick={(event) => handleButtonClick("Abhishek", event)}
+                      className="mb-2 text-2xl font-bold tracking-tight text-gray-900 "
+                    >
                       Abhishek Raman
-                    </h5>
-                  </a>
+                    </button>
+                  </div>
                   <p className="mb-3 font-normal text-gray-700 flex flex-row  justify-around ">
                     <a
                       href="https://github.com/ice-weasel"
@@ -698,6 +749,7 @@ export default function Home() {
                       <FaLinkedin size={26} />
                     </a>
                   </p>
+                  {renderPopup("Abhishek", popupAbhishek)}
                 </div>
               </div>
 
@@ -710,11 +762,14 @@ export default function Home() {
                   />
                 </a>
                 <div className="p-5">
-                  <a href="#">
-                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                  <div>
+                    <button
+                      onClick={(event) => handleButtonClick("Gayathri", event)}
+                      className="mb-2 text-2xl font-bold tracking-tight text-gray-900 "
+                    >
                       Gayathri S
-                    </h5>
-                  </a>
+                    </button>
+                  </div>
                   <p className="mb-3 font-normal text-gray-700 flex flex-row  justify-around ">
                     <a
                       href="https://github.com/gaxatri"
@@ -732,19 +787,22 @@ export default function Home() {
                       <FaLinkedin size={26} />
                     </a>
                   </p>
+                  {renderPopup("Gayathri", popupGayathri)}
                 </div>
               </div>
-
               <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow flex justify-center h-1/2">
                 <a href="#">
                   <img className="rounded-full  p-2" src="/Adlu.png" alt="" />
                 </a>
                 <div className="p-5">
-                  <a href="#">
-                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                  <div>
+                    <button
+                      onClick={(event) => handleButtonClick("Adlu", event)}
+                      className="mb-2 text-2xl font-bold tracking-tight text-gray-900 "
+                    >
                       Adlu Rahman
-                    </h5>
-                  </a>
+                    </button>
+                  </div>
                   <p className="mb-3 font-normal text-gray-700 flex flex-row  justify-around ">
                     <a
                       href="https://github.com/fRidge69"
@@ -761,6 +819,7 @@ export default function Home() {
                       <FaLinkedin size={26} />
                     </a>
                   </p>
+                  {renderPopup("Adlu", popupAdlu)}
                 </div>
               </div>
               <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow flex justify-center h-1/2">
@@ -768,11 +827,14 @@ export default function Home() {
                   <img className="rounded-full  p-2" src="/Diya.png" alt="" />
                 </a>
                 <div className="p-5">
-                  <a href="#">
-                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                  <div>
+                    <button
+                      onClick={(event) => handleButtonClick("Diya", event)}
+                      className="mb-2 text-2xl font-bold tracking-tight text-gray-900 "
+                    >
                       Diya Sundeep
-                    </h5>
-                  </a>
+                    </button>
+                  </div>
                   <p className="mb-3 font-normal text-gray-700 flex flex-row  justify-around ">
                     <a
                       href="https://github.com/dxyaa"
@@ -790,6 +852,7 @@ export default function Home() {
                       <FaLinkedin size={26} />
                     </a>
                   </p>
+                  {renderPopup("Diya", popupDiya)}
                 </div>
               </div>
             </div>
