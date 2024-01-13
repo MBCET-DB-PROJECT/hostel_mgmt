@@ -20,6 +20,7 @@ import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { useRef } from "react";
+import Diya from "./../../public/Diya.png";
 import {
   motion,
   useAnimation,
@@ -662,16 +663,16 @@ export default function Home() {
 
       <div className="flex justify-center items-center h-screen bg-gray-100">
         <div id="team" className="bg-gray-100 ">
-          <div className="flex flex-col  w-full justify-center items-center">
-            <div className="p-2 border-black border-2 rounded-full w-1/4 text-center flex justify-center font-semibold text-xl">
-              <FaStarOfLife className="mt-1 mr-2" /> Meet the Team
+          <div className="flex flex-col  w-full justify-center items-center ">
+            <div className="p-2 mb-16 border-black border-2 rounded-full w-1/4 text-center flex justify-center font-semibold text-xl">
+              <FaStarOfLife className="mt-1 mr-2 " /> Meet the Team
             </div>
             <div className="mt-10 flex justify-between px-10">
-              <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow ">
+              <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow flex justify-center h-1/2">
                 <a href="#">
                   <img
-                    className="rounded-t-lg"
-                    src="https://subzfresh.com/wp-content/uploads/2022/04/apple_158989157.jpg"
+                    className="rounded-full p-2"
+                    src="/Abhishek.png"
                     alt=""
                   />
                 </a>
@@ -700,11 +701,11 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow ">
+              <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow flex justify-center h-1/2">
                 <a href="#">
                   <img
-                    className="rounded-t-lg"
-                    src="https://subzfresh.com/wp-content/uploads/2022/04/apple_158989157.jpg"
+                    className="rounded-full  p-2"
+                    src="/Gayathri.png"
                     alt=""
                   />
                 </a>
@@ -734,13 +735,9 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow ">
+              <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow flex justify-center h-1/2">
                 <a href="#">
-                  <img
-                    className="rounded-t-lg"
-                    src="https://subzfresh.com/wp-content/uploads/2022/04/apple_158989157.jpg"
-                    alt=""
-                  />
+                  <img className="rounded-full  p-2" src="/Adlu.png" alt="" />
                 </a>
                 <div className="p-5">
                   <a href="#">
@@ -766,13 +763,9 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow ">
+              <div className="max-w-sm w-1/5 bg-white border border-gray-200 rounded-lg shadow flex justify-center h-1/2">
                 <a href="#">
-                  <img
-                    className="rounded-t-lg"
-                    src="https://subzfresh.com/wp-content/uploads/2022/04/apple_158989157.jpg"
-                    alt=""
-                  />
+                  <img className="rounded-full  p-2" src="/Diya.png" alt="" />
                 </a>
                 <div className="p-5">
                   <a href="#">

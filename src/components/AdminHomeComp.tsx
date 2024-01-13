@@ -5,7 +5,8 @@ import {
   useTransform,
   useCycle,
 } from "framer-motion";
-
+import TimeComponent from "./Time";
+import DateComponent from "./Date";
 import "./../app/globals.css";
 
 import { useEffect, useState } from "react";
@@ -70,7 +71,7 @@ export default function AdminHomeComp() {
   const [selectedTicket, setSelectedTicket] = useState<string | null>(null);
   const [loadingData, setLoadingData] = useState(true);
   const [user, loading] = useAuthState(auth);
-
+  const serverTimestamp = "01/12/2024, 10:48:55 PM";
   const width = useTransform(
     scrollY,
     [0, -getHeight(items) + size],
@@ -198,7 +199,15 @@ export default function AdminHomeComp() {
   useEffect(() => {
     fetchStudentDetails();
   }, []);
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentDateTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
   return (
     <div className="flex jusify-between w-full md:flex-row flex-col">
       <div className="min-h-screen md:w-1/2 w-full">
@@ -301,8 +310,8 @@ export default function AdminHomeComp() {
         </div>
       </div>
 
-      <div className="md:w-1/2 w-full bg-slate-200 md:pb-0 pb-4">
-        <div className="flex justify-center md:space-x-20 md:flex-row flex-col items-center md:pt-10 space-y-10 md:space-y-0">
+      <div className="md:w-1/2 w-full bg-slate-200 md:pb-0 pb-4 space-y-40">
+        <div className="flex justify-center md:space-x-20 md:flex-row flex-col items-center md:mt-28 space-y-10 md:space-y-0">
           <div className="w-48 h-48 bg-gradient-to-r from-purple-600  to-blue-600 rounded-full flex text-white justify-center items-center text-center flex-col space-y-2">
             <div className="text-6xl">{studentDetails.length}</div>{" "}
             <div className="uppercase font-semibold text-sm">Students</div>
@@ -313,7 +322,16 @@ export default function AdminHomeComp() {
             <div className="uppercase font-semibold text-sm">Rooms</div>
           </div>
         </div>
-        <div className="flex justify-center">{/*smth here*/}</div>
+        <div className="flex justify-center flex-col items-center text-right">
+          <div className="text-7xl font-semibold">
+            {" "}
+            <TimeComponent />
+          </div>
+
+          <div className="flex p-5 text-2xl">
+            <DateComponent />
+          </div>
+        </div>
       </div>
     </div>
   );
