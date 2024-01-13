@@ -17,15 +17,18 @@ interface Room {
   id: number;
   number: number;
   status: string;
+  count?: number;
 }
 
-interface RoomDetailsProps {}
+interface RoomDetailsProps {
+ 
+}
 
-const RoomDetails: React.FC<RoomDetailsProps> = ({}) => {
-  const totalRooms = 50;
-
+const RoomDetails: React.FC<RoomDetailsProps> = ({ }) => {
   const [roomDetails, setRoomDetails] = React.useState<Room[]>([]);
   const [loadingData, setLoadingData] = React.useState(true);
+  
+  const totalRooms=30;
 
   const fetchRoomDetails = async () => {
     const db = getFirestore(app);
@@ -53,9 +56,9 @@ const RoomDetails: React.FC<RoomDetailsProps> = ({}) => {
           id: parseInt(roomno),
           number: parseInt(roomno),
           status: count > 0 ? "occupied" : "unoccupied",
+          count: count, // Add count property to Room object
         })
       );
-
       setRoomDetails(uniqueRoomDetails);
     } catch (error: any) {
       console.log("Error fetching room details:", error.code, error.message);
@@ -91,15 +94,21 @@ const RoomDetails: React.FC<RoomDetailsProps> = ({}) => {
   );
   const occupiedRoomNumbers = occupiedRooms.map((room) => room.number);
 
-  const unoccupiedRooms: Room[] = Array.from({ length: totalRooms })
-    .map((_, index) => ({
-      id: index + 1,
-      number: index + 1,
-      status: occupiedRoomNumbers.includes(index + 1)
-        ? "occupied"
-        : "unoccupied",
-    }))
-    .filter((room) => room.status === "unoccupied");
+  const allRoomNumbers = Array.from(
+    { length: totalRooms ?? 0 },
+    (_, index) => index + 1
+  );
+  const unoccupiedRooms: Room[] = allRoomNumbers
+    .filter((roomNumber) => !occupiedRoomNumbers.includes(roomNumber))
+    .map((roomNumber) => ({
+      id: roomNumber,
+      number: roomNumber,
+      status: "unoccupied",
+    }));
+
+  console.log("totalRooms:", totalRooms);
+  console.log("occupiedRoomNumbers:", occupiedRoomNumbers);
+  console.log("unoccupiedRooms:", unoccupiedRooms);
 
   return (
     <div className="flex justify-around mx-5 mt-5 space-x-5 h-5/6">
@@ -113,7 +122,7 @@ const RoomDetails: React.FC<RoomDetailsProps> = ({}) => {
             key={room.id}
             className="mt-2 flex items-center justify-center border-b p-3 border-black"
           >
-            Room {room.number}
+            Room {room.number} (Occupied: {room.count})
           </div>
         ))}
       </div>

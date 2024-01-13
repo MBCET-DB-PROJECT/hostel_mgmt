@@ -12,9 +12,14 @@ import { MdEditNotifications } from "react-icons/md";
 import NotifData from "../data/Notifications.json";
 import { MdDelete } from "react-icons/md";
 import CreateNotifications from "./../pages/CreateNotifications";
+
+
+
+
 import "./../app/globals.css";
 import { motion } from "framer-motion";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore } from "firebase/firestore";
+
 import app from "@/app/firebase";
 
 interface SidebarProps {
@@ -109,6 +114,25 @@ const AdminNotifComp: React.FC = () => {
     setSelectedStudent(student);
     setModalOpen(true);
   };
+
+  const handleDeleteNotif = async (notifId: string) => {
+    const db = getFirestore(app);
+  
+    try {
+      const notifsRef = collection(db, "Notification");
+      const notifDoc = doc(notifsRef, notifId);
+      await deleteDoc(notifDoc);
+  
+      console.log(`Notification with ID ${notifId} deleted successfully.`);
+      
+      setModalOpen(false);
+      window.location.reload(); // Invoke the function with parentheses
+    } catch (error) {
+      console.error("Error deleting notification:", error);
+    }
+  }
+  
+
   const handleNotifClick = (notif: any) => {
     setSelectedNotif(notif);
     setModalOpen(true);
@@ -134,6 +158,12 @@ const AdminNotifComp: React.FC = () => {
               </div>
 
               <p className="mt-4">{selectedNotif.content}</p>
+              <button
+                  className="mt-4 hover:bg-red-300 p-2 rounded-md"
+                  onClick={() => handleDeleteNotif(selectedNotif.notifId)}
+                >
+                  <MdDelete size={20} />
+                </button>
             </div>
           </div>
         </div>

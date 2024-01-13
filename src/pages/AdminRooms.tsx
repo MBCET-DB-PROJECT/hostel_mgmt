@@ -1,6 +1,6 @@
 import Sidebar from "@/components/SideBar";
 import TopBar from "@/components/TopBar";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "tailwindcss/tailwind.css";
 import { FaPlus } from "react-icons/fa";
 import { useEffect } from "react";
@@ -32,6 +32,24 @@ const AdminRooms: React.FC = () => {
   const [user, loading] = useAuthState(auth);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setLoading] = useState(true);
+  const [totalRooms, setTotalRooms] = useState<number | undefined>(undefined);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+
+  const handleAddRooms = (event: React.FormEvent) => {
+    event.preventDefault();
+  
+    // Assuming you have a ref to the input element
+    const numberOfRooms = Number(inputRef.current?.value);
+  
+    if (!isNaN(numberOfRooms)) {
+      setTotalRooms(numberOfRooms);
+  
+      // Perform any additional logic for adding rooms to your Firestore collection
+      // You can use the `numberOfRooms` variable to update the Firestore data
+    }
+  };
+  
 
   const checkAdminStatus = async (uid: string) => {
     const db = getFirestore(app);
@@ -127,7 +145,7 @@ const AdminRooms: React.FC = () => {
           <p>Access denied for non-admin users.</p>
         </div>
       )}
-      {isAdmin && (
+      {isAdmin &&  (
         <>
           <TopBar onSidebarToggle={handleSidebarToggle} />
           <div className="flex">
@@ -140,12 +158,13 @@ const AdminRooms: React.FC = () => {
             </div>
 
             <div className="md:block md:w-5/6 bg-slate-200 h-screen w-full flex justify-center items-center flex-col">
-              <RoomDetails />
+              <RoomDetails  />
 
               <div className="mt-5 flex justify-center">
-                <button className="px-4 py-2 rounded-md bg-black text-white flex hover:bg-gray-800 mt-5 mb-5 ">
-                  <FaPlus size={18} className="mt-1 mr-2" /> Add Rooms
-                </button>
+
+             
+              
+
               </div>
             </div>
           </div>
