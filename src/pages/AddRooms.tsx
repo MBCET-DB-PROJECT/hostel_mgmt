@@ -9,15 +9,17 @@ interface SidebarProps {
 
 interface RoomDetails {
   roomno: string;
-  isOccupied:boolean;
+  isOccupied: boolean;
 }
+
+let calculatedTotalRooms: number | undefined;
 
 const AddRooms: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [minRoom, setMinRoom] = useState<number | undefined>(undefined);
   const [maxRoom, setMaxRoom] = useState<number | undefined>(undefined);
   const [maxStudents, setMaxStudents] = useState<number | undefined>(undefined);
-
+  const [totalRooms, setTotalRooms] = useState<number | undefined>(undefined);
 
   // Function to handle user button click
   const handleSidebarToggle = () => {
@@ -28,7 +30,11 @@ const AddRooms: React.FC = () => {
     event.preventDefault();
 
     // Validation for positive values and maxRoom > minRoom
-    if (minRoom === undefined || maxRoom === undefined || maxStudents === undefined) {
+    if (
+      minRoom === undefined ||
+      maxRoom === undefined ||
+      maxStudents === undefined
+    ) {
       alert("Please fill in all the fields correctly");
       return;
     }
@@ -43,13 +49,9 @@ const AddRooms: React.FC = () => {
       return;
     }
 
-    if (maxStudents > 10) {
-      console.error("Max students in a room should not be greater than 10");
-      return;
-    }
-
-    const totalRooms = 30;
-
+    
+    calculatedTotalRooms = maxRoom - minRoom + 1;
+    setTotalRooms(calculatedTotalRooms);
 
     // Continue with the submission logic
     console.log("submitted");
@@ -75,7 +77,7 @@ const AddRooms: React.FC = () => {
               <div className="flex gap-5 flex-col md:w-1/2">
                 <label className="text-2xl">Enter minimum room no </label>
                 <input
-                  type="number"
+                  type="text"
                   inputMode="numeric"
                   value={minRoom !== undefined ? minRoom : ""}
                   pattern="\d*"
@@ -86,7 +88,7 @@ const AddRooms: React.FC = () => {
               <div className="flex gap-5 flex-col md:w-1/2">
                 <label className="text-2xl">Enter maximum room no </label>
                 <input
-                  type="number"
+                  type="text"
                   pattern="\d*"
                   value={maxRoom !== undefined ? maxRoom : ""}
                   inputMode="numeric"
@@ -95,19 +97,8 @@ const AddRooms: React.FC = () => {
                 />
               </div>
             </div>
-            <div className="w-full flex flex-col">
-              <label className="">
-                Enter maximum number of students per room (Up to 10)
-              </label>
-              <input
-                type="number"
-                inputMode="numeric"
-                pattern="\d*"
-                value={maxStudents !== undefined ? maxStudents : ""}
-                className="  text-center border rounded-md px-3"
-                onChange={(e) => setMaxStudents(parseInt(e.target.value, 10))}
-              />
-            </div>
+            <div className="mt-4">Total Rooms: {totalRooms}</div>
+
             <button type="submit">Submit</button>
           </div>
         </form>
@@ -117,3 +108,5 @@ const AddRooms: React.FC = () => {
 };
 
 export default AddRooms;
+
+export { calculatedTotalRooms as totalRooms };
