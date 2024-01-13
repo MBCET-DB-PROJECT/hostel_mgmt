@@ -322,7 +322,7 @@ export default function AdminHomeComp() {
           </div>
 
           <div className="w-48 h-48 bg-gradient-to-r from-purple-600  to-blue-600 rounded-full flex text-white justify-center items-center text-center flex-col space-y-2">
-            <div className="text-6xl">50 </div>{" "}
+            <div className="text-6xl">30 </div>{" "}
             <div className="uppercase font-semibold text-sm">Rooms</div>
           </div>
         </div>
