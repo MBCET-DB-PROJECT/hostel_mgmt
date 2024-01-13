@@ -594,19 +594,19 @@ export default function Home() {
                 >
                   <SwiperSlide className="flex w-full h-full justify-center items-center  ">
                     <img
-                      src="https://img.freepik.com/premium-photo/detail-residential-house-turned-into-hostel_1048944-26070141.jpg?size=626&ext=jpg&ga=GA1.1.1161610126.1702110340&semt=sph"
+                      src="/adminhome.png"
                       className="w-[600px] h-[600px] flex justify-center items-center  m-auto rounded-2xl"
                     />
                   </SwiperSlide>
                   <SwiperSlide className="flex w-full h-full justify-center items-center">
                     <img
-                      src="https://cdn.pixabay.com/photo/2013/06/30/19/07/bed-142516_1280.jpg"
+                      src="/userhome.png"
                       className="w-[600px] h-[600px] flex justify-center items-center m-auto rounded-2xl"
                     />
                   </SwiperSlide>
                   <SwiperSlide className="flex w-full h-full justify-center items-center">
                     <img
-                      src="https://img.freepik.com/free-photo/sleeping-mattress-bright-hostel-background_1253-665.jpg?size=626&ext=jpg&ga=GA1.1.1161610126.1702110340&semt=sph"
+                      src="/createstudent.png"
                       className="w-[600px] h-[600px] flex justify-center items-center mx-auto my-auto rounded-2xl"
                     />
                   </SwiperSlide>
